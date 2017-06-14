@@ -15,12 +15,12 @@ import psd.ParamProvider;
 import psd.framework.PsdReflectUtil;
 
 /**
- * PSD 鐨勫浘鐗囧璞�
+ * PSD 的图片对象
  * 
  * @author roy
  */
 public class PsdImage extends Image implements ParamProvider {
-	// 鍥剧墖婧�
+	// 图片源
 	protected final psd.Pic psdPic;
 
 	public PsdImage(psd.Pic pic) {
@@ -61,7 +61,7 @@ public class PsdImage extends Image implements ParamProvider {
 		return null;
 	}
 
-	// 璇诲彇鍥剧墖
+	// 读取图片
 	protected static final TextureRegion getTexture(psd.PsdFile psdFile, psd.Pic pic,
 			AssetManager assetManager) {
 		if (assetManager == null) {

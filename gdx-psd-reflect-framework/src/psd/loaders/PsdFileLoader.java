@@ -73,7 +73,7 @@ public class PsdFileLoader extends AsynchronousAssetLoader<PsdFile, PsdFileParam
 	}
 
 	static public class PsdFileParameter extends AssetLoaderParameters<PsdFile> {
-		// 鏄惁鍔犺浇璧勬簮鏂囦欢
+		// 是否加载资源文件
 		public boolean loadResource;
 
 		public PsdFileParameter() {

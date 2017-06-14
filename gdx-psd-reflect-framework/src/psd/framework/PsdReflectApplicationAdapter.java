@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import psd.reflect.PsdStage;
 
 /***
- * 鑸炲彴缁�
+ * 舞台组
  */
 public abstract class PsdReflectApplicationAdapter extends ApplicationAdapter {
 	private static PsdReflectStageGroup stageGroup = new PsdReflectStageGroup();
@@ -22,29 +22,29 @@ public abstract class PsdReflectApplicationAdapter extends ApplicationAdapter {
 		onCreate();
 	}
 
-	// 鍒濆鍖栬皟鐢�
+	// 初始化调用
 	protected abstract void onCreate();
 
 	@Override
 	public void render() {
-		// 娓呴櫎灞忓箷棰滆壊
+		// 清除屏幕颜色
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		// 鏀寔棰滆壊娣峰悎
+		// 支持颜色混合
 		Gdx.gl20.glEnable(GL20.GL_BLEND);
-		// 鏀寔閫忔槑閫氶亾
+		// 支持透明通道
 		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		// 鎵ц鍔ㄧ敾
+		// 执行动画
 		stageGroup.act();
-		// 鎵ц缁樺埗
+		// 执行绘制
 		stageGroup.draw();
 	}
 
-	// 鑾峰彇鍒板璞�
+	// 获取到对象
 	public static PsdReflectStageGroup getStageGroup() {
 		return stageGroup;
 	}
 
-	/** 璁剧疆褰撳墠椤甸潰 */
+	/** 设置当前页面 */
 	public static final void set(Object object) {
 		Stage stage = toStage(object);
 		if (stage != null) {
@@ -55,7 +55,7 @@ public abstract class PsdReflectApplicationAdapter extends ApplicationAdapter {
 		}
 	}
 
-	/** 鍘嬫爤 , 鏄剧ず鏂伴〉闈� */
+	/** 压栈 , 显示新页面 */
 	public static final void push(Object object) {
 		Stage stage = toStage(object);
 		if (stage != null) {

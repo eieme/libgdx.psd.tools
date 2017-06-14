@@ -23,14 +23,14 @@ import psd.utils.Filter;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class FileManage {
-	// 榛樿鐨勮祫婧愬姞杞藉櫒缁�
+	// 默认的资源加载器组
 	private static final Array<AssetManagerProxy> assets = new Array<AssetManagerProxy>();
-	// 榛樿鐨� 鏂囦欢澶勭悊鍙ユ焺
+	// 默认的 文件处理句柄
 	private static FileHandleResolver fileHandleResolver;
-	// 榛樿鐨勮祫婧愬姞杞藉櫒
+	// 默认的资源加载器
 	private static AssetManagerProxy assetManager;
 
-	/** 鍔犺浇鏂囦欢璧勬簮 **/
+	/** 加载文件资源 **/
 	public static final FileHandle file(String fileName) {
 		if (fileHandleResolver != null) {
 			return fileHandleResolver.resolve(fileName);
@@ -38,7 +38,7 @@ public class FileManage {
 		return Gdx.files.internal(fileName);
 	}
 
-	/** 璁剧疆璧勬簮鍔犺浇鐨勬枃妗ｉ�傞厤鍣� , 鐢ㄤ簬鏁版嵁鐨勮В瀵嗘搷浣� **/
+	/** 设置资源加载的文档适配器 , 用于数据的解密操作 **/
 	public static final void setHandleResolver(FileHandleResolver resolver) {
 		fileHandleResolver = resolver;
 		assetManager = new AssetManagerProxy(resolver);
@@ -46,7 +46,7 @@ public class FileManage {
 		assets.add(assetManager);
 	}
 
-	/** 鑾峰彇璧勬簮鍔犺浇鍣� **/
+	/** 获取资源加载器 **/
 	public static final AssetManagerProxy getAssetManager() {
 		if (assetManager == null) {
 			assetManager = new AssetManagerProxy();
@@ -56,7 +56,7 @@ public class FileManage {
 		return assetManager;
 	}
 
-	/** 鑾峰彇 assetManage缁� **/
+	/** 获取 assetManage组 **/
 	public static final AssetManagerProxy getAssetManager(String key) {
 		if (key == null) {
 			for (AssetManagerProxy proxy : assets) {
@@ -74,7 +74,7 @@ public class FileManage {
 		return null;
 	}
 
-	/** 鎻掑叆鏂扮殑 assetManage缁� **/
+	/** 插入新的 assetManage组 **/
 	public static final AssetManagerProxy setAssetManager(String key) {
 		AssetManagerProxy proxy = getAssetManager(key);
 		if (proxy != null) {
@@ -92,7 +92,7 @@ public class FileManage {
 		return assetManager;
 	}
 
-	/** 鍒犻櫎 assetManage缁� **/
+	/** 删除 assetManage组 **/
 	public static final AssetManagerProxy removeAssetManager(String key) {
 		AssetManagerProxy proxy = getAssetManager(key);
 		if (proxy != null) {
@@ -108,27 +108,27 @@ public class FileManage {
 		return null;
 	}
 
-	/** 鏍囪璧勬簮 */
+	/** 标记资源 */
 	public static final void mark(String tag) {
 		getAssetManager().mark(tag);
 	}
 
-	/** 鑾峰彇鏍囪璧勬簮 */
+	/** 获取标记资源 */
 	public static Mark getCurrentMark() {
 		return getAssetManager().getCurrentMark();
 	}
 
-	/** 閲婃斁璧勬簮 */
+	/** 释放资源 */
 	public static void unload(List<AssetDescriptor> descriptors) {
 		getAssetManager().unload(descriptors);
 	}
 
-	/** 閲婃斁璧勬簮 */
+	/** 释放资源 */
 	public static void unloadMark(String tag) {
 		getAssetManager().unloadMark(tag);
 	}
 
-	/** 绔嬪嵆鑾峰彇璧勬簮 */
+	/** 立即获取资源 */
 	public static final <T> T get(String fileName, Class<T> clazz) {
 		AssetManagerProxy assetManager = getAssetManager();
 		if (assetManager.isLoaded(fileName, clazz) == false) {
@@ -139,7 +139,7 @@ public class FileManage {
 	}
 
 	/**
-	 * 鍔犺浇 PsdGroup 闇�瑕佷娇鐢ㄧ殑璧勬簮
+	 * 加载 PsdGroup 需要使用的资源
 	 * 
 	 * @param fileName
 	 */
@@ -151,7 +151,7 @@ public class FileManage {
 	}
 
 	/**
-	 * 鍔犺浇杩涘害
+	 * 加载进度
 	 * 
 	 * @param runnable
 	 */
@@ -160,27 +160,27 @@ public class FileManage {
 		assetManager.load(runnable);
 	}
 
-	/** 鍔犺浇璧勬簮 */
+	/** 加载资源 */
 	public static void load(String fileName, Class<?> clazz) {
 		getAssetManager().load(fileName, clazz);
 	}
 
-	/** 鍔犺浇璧勬簮 */
+	/** 加载资源 */
 	public static void load(List<AssetDescriptor> descriptors) {
 		getAssetManager().load(descriptors);
 	}
 
-	/** 鏌ヨ鏄惁鍔犺浇浜嗚祫婧� */
+	/** 查询是否加载了资源 */
 	public static boolean isLoad(String fileName, Class<?> clazz) {
 		return getAssetManager().isLoaded(fileName, clazz);
 	}
 
-	/** 閲嶆柊鍔犺浇鍥剧墖 , 鐢ㄤ簬瑙ｅ喅杩斿洖鏃� 鍥剧墖涓㈠け鐨勯棶棰� */
+	/** 重新加载图片 , 用于解决返回时 图片丢失的问题 */
 	public static void reload(List<String> textures) {
 		getAssetManager().reload(textures);
 	}
 
-	/** 閲嶆柊鍔犺浇鍥剧墖 , 鐢ㄤ簬瑙ｅ喅杩斿洖鏃� 鍥剧墖涓㈠け鐨勯棶棰� */
+	/** 重新加载图片 , 用于解决返回时 图片丢失的问题 */
 	public static void reload(Mark mark) {
 		if (mark != null) {
 			List<AssetDescriptor> descriptors = mark.filter(Texture.class);
@@ -188,21 +188,21 @@ public class FileManage {
 		}
 	}
 
-	/** 閲嶆柊鍔犺浇鍥剧墖 , 鐢ㄤ簬瑙ｅ喅杩斿洖鏃� 鍥剧墖涓㈠け鐨勯棶棰� */
+	/** 重新加载图片 , 用于解决返回时 图片丢失的问题 */
 	public static void reload() {
 		reload(getCurrentMark());
 	}
 
-	/** 璁剧疆鏂囦欢鍔犺浇鍣� */
+	/** 设置文件加载器 */
 	public static void setLoader(Class type, AssetLoader loader) {
 		getAssetManager().setLoader(type, loader);
 	}
 
 	/**
-	 * 璧勬簮鍔犺浇鍣ㄧ殑浠ｇ悊,鐢ㄤ簬鐩戝惉鏁版嵁鍔犺浇鐘跺喌 <br>
-	 * 鍔熻兘 1 , 璁板綍褰撳墠鍔犺浇鐘舵��<br>
-	 * 鍔熻兘 2 , 璁剧疆璧勬簮鍔犺浇璁板綍鐐�<br>
-	 * 鍔熻兘 3 , 鎵归噺鎭㈠鍔犺浇璧勬簮
+	 * 资源加载器的代理,用于监听数据加载状况 <br>
+	 * 功能 1 , 记录当前加载状态<br>
+	 * 功能 2 , 设置资源加载记录点<br>
+	 * 功能 3 , 批量恢复加载资源
 	 */
 	public static class AssetManagerProxy extends AssetManager {
 		private Stack<Mark> markTags = new Stack<Mark>();
@@ -221,13 +221,13 @@ public class FileManage {
 		}
 
 		private final void initLoader() {
-			// 鎶楅敮榻� 鐨勫浘鐗囧姞杞藉櫒
+			// 抗锯齿 的图片加载器
 			setLoader(Texture.class, new LinearTextureLoader(resolver));
-			// PsdFile 鍔犺浇鍣�
+			// PsdFile 加载器
 			setLoader(PsdFile.class, new PsdFileLoader(resolver));
-			// TextureAtlas 鐨勬簮 , 涓嶇煡閬撲负浠�涔� , 浣跨敤榛樿鐨勪笉琛�
+			// TextureAtlas 的源 , 不知道为什么 , 使用默认的不行
 			setLoader(TextureAtlas.class, new PsdTextureAtlasLoader(resolver));
-			// 鐢ㄤ簬鍔犺浇杩涘害鏉�
+			// 用于加载进度条
 			setLoader(Runnable.class, new RunnableAssetLoader(resolver));
 
 		}
@@ -257,7 +257,7 @@ public class FileManage {
 
 		public final synchronized <T> void load(String fileName, Class<T> type,
 				AssetLoaderParameters<T> parameter) {
-			// 妫�鏌� Loader鏄惁瀛樺湪 , 榛樿涓� JSON 瑙ｆ瀽
+			// 检查 Loader是否存在 , 默认为 JSON 解析
 			if (getLoader(type) == null) {
 				setLoader(type, new JsonDataAssetLoader<T>(resolver, type));
 			}
@@ -279,7 +279,7 @@ public class FileManage {
 					}
 					unload(assetDescriptor.fileName);
 				}
-				// 鍒犻櫎寮曠敤
+				// 删除引用
 				markTags.remove(mark);
 			}
 		}
@@ -304,16 +304,16 @@ public class FileManage {
 	}
 
 	public static class Mark {
-		// 璧勬簮
+		// 资源
 		private Array<AssetDescriptor> elements = new Array<AssetDescriptor>(50);
-		// 鏍囩鍚嶇О
+		// 标签名称
 		private final String tag;
 
 		public Mark(String tag) {
 			this.tag = tag;
 		}
 
-		// 璁板綍
+		// 记录
 		private final void record(String fileName, Class<?> type, AssetLoaderParameters<?> parameter) {
 			for (AssetDescriptor assetDescriptor : elements) {
 				if (assetDescriptor.fileName.equals(fileName) && assetDescriptor.type.equals(type)) {
@@ -323,7 +323,7 @@ public class FileManage {
 			elements.add(new AssetDescriptor(fileName, type, parameter));
 		}
 
-		/** 杩囨护鏍囪璧勬簮 */
+		/** 过滤标记资源 */
 		public final List<AssetDescriptor> filter(Filter<AssetDescriptor> filter) {
 			List<AssetDescriptor> list = new ArrayList<AssetDescriptor>();
 			for (AssetDescriptor assetDescriptor : elements) {
@@ -334,7 +334,7 @@ public class FileManage {
 			return list;
 		}
 
-		/** 杩囨护鏍囪璧勬簮 */
+		/** 过滤标记资源 */
 		public final List<AssetDescriptor> filter(Filter<String> filter, Class<?> clazz) {
 			List<AssetDescriptor> list = new ArrayList<AssetDescriptor>();
 			for (AssetDescriptor assetDescriptor : elements) {
@@ -346,17 +346,17 @@ public class FileManage {
 			return list;
 		}
 
-		/** 杩囨护鏍囪璧勬簮 */
+		/** 过滤标记资源 */
 		public final List<AssetDescriptor> filter(Class<?> clazz) {
 			return filter(null, clazz);
 		}
 
-		// 鑾峰彇鏍囩鍚嶇О
+		// 获取标签名称
 		public final String getTag() {
 			return tag;
 		}
 
-		// 鑾峰彇璁板綍鐨勮祫婧愬垪琛�
+		// 获取记录的资源列表
 		public final Array<AssetDescriptor> getElements() {
 			return elements;
 		}

@@ -31,11 +31,11 @@ import psd.reflect.PsdImage;
 import psd.utils.Filter;
 
 /**
- * 锟�?鍗曠殑 鍙嶅皠鎿嶄綔瀵硅薄
+ * �?单的 反射操作对象
  */
 public abstract class PsdAdapter extends PsdReflectAdapter {
 	public static boolean debug = true;
-	// 瀵硅瘽锟�?
+	// 对话�?
 	private Array<DialogAdapter> dialogs = new Array<DialogAdapter>(2);
 
 	@Override
@@ -43,19 +43,19 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 
 	}
 
-	// 鏇挎崲鎸囧畾鐨勫锟�?
+	// 替换指定的对�?
 	protected final DialogAdapter showDialog(DialogAdapter dialogAdapter) {
-		// 姣忎釜dialog瀵硅薄 閮藉簲璇ュ叿鏈夊敮锟�?锟�?
+		// 每个dialog对象 都应该具有唯�?�?
 		for (DialogAdapter dialog : dialogs) {
 			if (dialog.getClass().equals(dialogAdapter.getClass())) {
 				return dialogAdapter;
 			}
 		}
-		// 鍒涘缓鑿滃崟瀵硅薄
+		// 创建菜单对象
 		PsdGroup.reflect(dialogAdapter);
 		dialogAdapter.setParent(this);
 		dialogs.add(dialogAdapter);
-		// 娣诲姞鍒版樉绀哄锟�?
+		// 添加到显示对�?
 		float duration = dialogAdapter.show(getSource());
 		getSource().addAction(Actions.delay(duration, new Action() {
 			@Override
@@ -68,11 +68,11 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 
 	}
 
-	// 鍏抽棴瀵硅瘽锟�?
+	// 关闭对话�?
 	protected final DialogAdapter hideDialog() {
 		if (dialogs.size > 0) {
 			DialogAdapter dialogAdapter = dialogs.pop();
-			// 杩欓噷鏄剧ず鍏抽棴鍔ㄧ敾
+			// 这里显示关闭动画
 			dialogAdapter.close();
 			onDialogChange(dialogs.size);
 			return dialogAdapter;
@@ -85,11 +85,11 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		onDialogChange(dialogs.size);
 	}
 
-	// 瀵硅瘽妗嗚涓烘敼锟�?
+	// 对话框行为改�?
 	protected void onDialogChange(int dialogSize) {
 	}
 
-	// 鏇挎崲鎸囧畾鐨勫锟�?
+	// 替换指定的对�?
 	protected final static void replace(Actor target, Actor insteadOf, int align) {
 		insteadOf.setPosition(target.getX(align), target.getY(align), align);
 		insteadOf.setName(target.getName());
@@ -97,7 +97,7 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		target.remove();
 	}
 
-	// 鏇挎崲鎸囧畾鐨勫锟�?
+	// 替换指定的对�?
 	protected final static void replace(Actor target, Actor insteadOf) {
 		insteadOf.setBounds(target.getX(), target.getY(), target.getWidth(), target.getHeight());
 		insteadOf.setName(target.getName());
@@ -105,17 +105,17 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		target.remove();
 	}
 
-	// 鏇挎崲鎸囧畾鐨勮矾锟�?
+	// 替换指定的路�?
 	protected final Actor replace(String path, Actor insteadOf) {
 		return replace(path, insteadOf, 0, Align.bottomLeft);
 	}
 
-	// 鏇挎崲鎸囧畾鐨勮矾锟�?
+	// 替换指定的路�?
 	protected final Actor replace(String path, Actor insteadOf, int index) {
 		return replace(path, insteadOf, index, Align.bottomLeft);
 	}
 
-	// 鏇挎崲鎸囧畾鐨勮矾锟�?
+	// 替换指定的路�?
 	protected final Actor replace(String path, Actor insteadOf, int index, int align) {
 		Actor actor = getSource().findActor(path, index);
 		if (actor != null) {
@@ -126,17 +126,17 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		}
 	}
 
-	// 鏌ユ壘瀵硅薄
+	// 查找对象
 	public final <T extends Actor> T findActor(String name) {
 		return getSource().findActor(name);
 	}
 
-	// 鏌ユ壘瀵硅薄
+	// 查找对象
 	public final <T extends Actor> T findActor(String name, int index) {
 		return getSource().findActor(name, index);
 	}
 
-	// 鏌ユ壘瀵硅薄
+	// 查找对象
 	public final Array<Actor> findActor(String... paths) {
 		Array<Actor> array = new Array<Actor>(paths.length);
 		for (int i = 0; i < paths.length; i++) {
@@ -145,17 +145,17 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		return array;
 	}
 
-	// 涓績瀵归綈
+	// 中心对齐
 	protected final void center(Actor actor, String path) {
 		center(actor, findActor(path));
 	}
 
-	// 涓績瀵归綈
+	// 中心对齐
 	protected final void center(Actor actor, Actor anchor) {
 		anchor(actor, anchor, Align.center);
 	}
 
-	// 瀵归綈鐩爣
+	// 对齐目标
 	protected final void anchor(Actor actor, Actor anchor, int align) {
 		actor.setPosition(anchor.getX(align), anchor.getY(align), align);
 	}
@@ -166,14 +166,14 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		return frameAnimationWidget;
 	}
 
-	// 杞崲鎸囧畾浣嶇疆 涓鸿繘搴︽潯妯″紡
+	// 转换指定位置 为进度条模式
 	protected final ProgressBarWidget translateToProgressBarWidget(String actorPath) {
 		ProgressBarWidget progressBarWidget = new ProgressBarWidget((PsdImage) findActor(actorPath));
 		replace(findActor(actorPath), progressBarWidget);
 		return progressBarWidget;
 	}
 
-	// 澧炲姞鎸夐挳鏁堟灉
+	// 增加按钮效果
 	protected final List<Actor> initButtonStyle(Filter<Actor> filter) {
 		List<Actor> array = getSource().filter(filter);
 		for (Actor actor : array) {
@@ -186,7 +186,7 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		return array;
 	}
 
-	// 澧炲姞鎸夐挳鏁堟灉
+	// 增加按钮效果
 	protected final Array<Actor> initButtonStyle(String... paths) {
 		Array<Actor> array = new Array<Actor>();
 		for (String path : paths) {
@@ -202,14 +202,14 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		return array;
 	}
 
-	// 澧炲姞鎸夐挳鏁堟灉
+	// 增加按钮效果
 	protected static final void initButtonStyle(Actor... actors) {
 		for (Actor actor : actors) {
 			initButtonStyle(actor);
 		}
 	}
 
-	// 澧炲姞鎸夐挳鏁堟灉
+	// 增加按钮效果
 	protected static final Actor initButtonStyle(final Actor actor) {
 		actor.setOrigin(actor.getWidth() / 2, actor.getHeight() / 2);
 		actor.addListener(new ClickListener() {
@@ -237,7 +237,7 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		return actor;
 	}
 
-	// 闅愯棌 鍏冪礌
+	// 隐藏 元素
 	protected final void hide(String... paths) {
 		for (String path : paths) {
 			if (path.endsWith("/")) {
@@ -252,7 +252,7 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		}
 	}
 
-	// 鏄剧ず 鍏冪礌
+	// 显示 元素
 	protected final void display(String... paths) {
 		for (String path : paths) {
 			if (path.endsWith("/")) {
@@ -271,18 +271,18 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		}
 	}
 
-	// 鐢熸垚鏄犲皠瀵硅薄
+	// 生成映射对象
 	public final PsdGroup reflect() {
 		return PsdGroup.reflect(this);
 	}
 
-	// 鐢熸垚鏄犲皠瀵硅薄
+	// 生成映射对象
 	public static final PsdGroup reflect(Object object) {
 		return PsdGroup.reflect(object);
 	}
 
 	@SuppressWarnings("unchecked")
-	// 鑾峰彇鎸囧畾锟�? Action 瀵硅薄
+	// 获取指定�? Action 对象
 	public static final <T extends Action> T getAction(Actor actor, Class<T> clazz) {
 		for (Action action : actor.getActions()) {
 			if (action.getClass().equals(clazz)) {
@@ -293,7 +293,7 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 	}
 
 	@SuppressWarnings("unchecked")
-	// 鑾峰彇鎸囧畾锟�? Actor 瀵硅薄
+	// 获取指定�? Actor 对象
 	public static final <T extends Actor> T getActor(Group group, Class<T> clazz) {
 		for (Actor actor : group.getChildren()) {
 			if (actor.getClass().equals(clazz)) {
@@ -303,7 +303,7 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		return null;
 	}
 
-	// 缂撳瓨鎸囧畾鐨勭晫锟�?
+	// 缓存指定的界�?
 	public static final void loadPsdResource(Class<? extends PsdAdapter> clazz) {
 		String jsonPath = getJsonPath(clazz);
 		if (jsonPath != null) {
@@ -311,11 +311,11 @@ public abstract class PsdAdapter extends PsdReflectAdapter {
 		}
 	}
 
-	// 鑾峰彇Json鐨勫姞杞借矾锟�?
+	// 获取Json的加载路�?
 	private static final String getJsonPath(Object object) {
-		// 鏄犲皠鐨凱SD璺緞
+		// 映射的PSD路径
 		String psdPath = null;
-		if (psdPath == null) { // 娌℃湁鑾峰彇鍒癙SD 璺緞 , 灏濊瘯瑙ｆ瀽 @PsdAn
+		if (psdPath == null) { // 没有获取到PSD 路径 , 尝试解析 @PsdAn
 			Class<?> reflectClass = (object instanceof Class<?>) ? (Class<?>) object : object.getClass();
 			PsdAn an = reflectClass.getAnnotation(PsdAn.class);
 			if (an != null) {

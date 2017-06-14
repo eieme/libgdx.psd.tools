@@ -10,12 +10,12 @@ import com.badlogic.gdx.utils.Array;
 import psd.reflect.PsdStage;
 
 /***
- * 鑸炲彴缁�
+ * 舞台组
  */
 public class PsdReflectStageGroup implements InputProcessor {
-	// 鍘嗗彶璁板綍
+	// 历史记录
 	private Stack<Array<Stage>> histories = new Stack<Array<Stage>>();
-	// 褰撳墠缁樺埗鏁扮粍
+	// 当前绘制数组
 	private Array<Stage> stageArray = new Array<Stage>(2);
 
 	public PsdReflectStageGroup() {
@@ -25,25 +25,25 @@ public class PsdReflectStageGroup implements InputProcessor {
 		stageArray.add(stage);
 	}
 
-	/** 娣诲姞涓�涓唬鐞嗙晫闈� */
+	/** 添加一个代理界面 */
 	public final PsdReflectStageGroup add(Stage stage) {
 		stageArray.add(stage);
 		return this;
 	}
 
-	/** 鍒犻櫎涓�涓唬鐞嗙晫闈� */
+	/** 删除一个代理界面 */
 	public final PsdReflectStageGroup remove(Stage stage) {
 		stageArray.removeValue(stage, false);
 		return this;
 	}
 
-	/** 娓呯┖浠ｇ悊鐣岄潰 */
+	/** 清空代理界面 */
 	public final PsdReflectStageGroup clean() {
 		stageArray.clear();
 		return this;
 	}
 
-	/** 鍘嬫爤 */
+	/** 压栈 */
 	public final synchronized void push(Stage stage) {
 		for (Stage cStage : stageArray) {
 			if (cStage instanceof PsdStage) {
@@ -57,7 +57,7 @@ public class PsdReflectStageGroup implements InputProcessor {
 		stageArray.add(stage);
 	}
 
-	/** 鎺ㄦ爤 */
+	/** 推栈 */
 	public final synchronized boolean pop() {
 		if (histories.size() > 0) {
 			Array<Stage> array = histories.remove(histories.size() - 1);

@@ -9,9 +9,9 @@ import psd.loaders.FileManage;
 import psd.reflect.PsdGroup;
 import psd.reflect.PsdReflectListener;
 
-/** 绠�鏄撶殑鍙嶅皠瀵硅薄 */
+/** 简易的反射对象 */
 public abstract class PsdReflectAdapter extends FileManage implements PsdReflectListener {
-	// 鏁版嵁婧�
+	// 数据源
 	private PsdGroup source;
 
 	@Override
@@ -20,47 +20,47 @@ public abstract class PsdReflectAdapter extends FileManage implements PsdReflect
 		onCreate(psdGroup);
 	}
 
-	// 鍙嶅皠鍑芥暟
+	// 反射函数
 	protected abstract void onCreate(PsdGroup psdGroup);
 
-	// 璁剧疆浜嗘柊瑙嗗浘
+	// 设置了新视图
 	protected void onViewportChange(Viewport viewport) {
 	}
 
-	/** 鏆傚仠鏄剧ず */
+	/** 暂停显示 */
 	protected void onHide() {
 	}
 
-	/** 杩斿洖鏄剧ず */
+	/** 返回显示 */
 	protected void onShow() {
 	}
 
-	/** 鏄剧ず瀵硅薄 */
+	/** 显示对象 */
 	protected final void show(Object object) {
 		PsdReflectApplicationAdapter.set(object);
 	}
 
-	/** 鍘嬫爤鏄剧ず涓嬩竴涓璞� */
+	/** 压栈显示下一个对象 */
 	protected final void push(Object object) {
 		PsdReflectApplicationAdapter.push(object);
 	}
 
-	/** 鏄剧ず涓婁竴涓帇鏍堝璞� */
+	/** 显示上一个压栈对象 */
 	protected final boolean back() {
 		return PsdReflectApplicationAdapter.pop();
 	}
 
-	/** 鑾峰彇婧� */
+	/** 获取源 */
 	protected PsdGroup getSource() {
 		return source;
 	}
 
-	/** 鑾峰彇Psd瀵煎嚭Json鐨勮矾寰� */
+	/** 获取Psd导出Json的路径 */
 	protected String getPsdJsonPath() {
 		return null;
 	}
 
-	/** 鍙嶅皠瀵硅薄瀹屾垚 */
+	/** 反射对象完成 */
 	@Override
 	public Actor onReflectElement(PsdGroup parent, Element element, AssetManager assetManager)
 			throws Exception {

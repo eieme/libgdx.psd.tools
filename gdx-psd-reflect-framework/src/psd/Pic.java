@@ -1,12 +1,12 @@
 package psd;
 
 /***
- * PSD 鐨勫浘鐗�
+ * PSD 的图片
  * 
  * @author roy
  */
 public class Pic extends Element {
-	// 鍥剧墖鍚嶇О
+	// 图片名称
 	public String textureName;
 
 	@Override

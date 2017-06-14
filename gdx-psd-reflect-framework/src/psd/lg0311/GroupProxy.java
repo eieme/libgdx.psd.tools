@@ -66,12 +66,12 @@ public class GroupProxy {
 		}
 	}
 
-	// 璁剧疆瀵硅薄鍒颁笅涓�
+	// 设置对象到下中
 	protected final void bottom(Actor actor) {
 		actor.setPosition(group.getWidth() / 2, 0, Align.bottom);
 	}
 
-	// 璁剧疆杈圭晫
+	// 设置边界
 	protected final void copyBorder(Actor from, Actor to) {
 		to.setBounds(from.getX(), from.getY(), from.getWidth(), from.getHeight());
 	}

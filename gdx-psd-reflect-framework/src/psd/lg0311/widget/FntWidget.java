@@ -31,7 +31,7 @@ public class FntWidget extends Actor {
 
 	public FntWidget(String fntPath) {
 		this.bitmapFont = createBitmapFont(fntPath);
-		this.bitmapFont.getData().setScale(1);
+		this.bitmapFont.getData().setScale(1, 1);
 		this.fntHeight = bitmapFont.getLineHeight();
 		this.textSize = fntHeight;
 	}
@@ -53,7 +53,7 @@ public class FntWidget extends Actor {
 		if (size > 0) {
 			this.textSize = size;
 			scale = textSize / fntHeight;
-			bitmapFont.getData().setScale(scale);
+			bitmapFont.getData().setScale(scale, scale);
 		}
 		return this;
 	}
@@ -72,7 +72,7 @@ public class FntWidget extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		if (text != null) {
-			bitmapFont.getData().setScale(scale);
+			bitmapFont.getData().setScale(scale, scale);
 			bitmapFont.setColor(getColor());
 			if (wrapped) {
 				drawWrappedText(batch, bitmapFont, text, this, 0, align);
@@ -150,7 +150,11 @@ public class FntWidget extends Actor {
 				regions.add(new TextureRegion(texture));
 			}
 			fontData.getImagePaths();
-			bitmapFont = new BitmapFont(fontData, regions, false);
+			if (regions.size == 1) {
+				bitmapFont = new BitmapFont(fontData, regions.get(0), false);
+			} else {
+				bitmapFont = new BitmapFont(fontData, regions, false);
+			}
 			MAP.put(fntPath, bitmapFont);
 		}
 		return bitmapFont;

@@ -9,11 +9,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.keyroy.util.json.Json;
 
-//JSON 鏁版嵁鍔犺浇鍣�
+//JSON 数据加载器
 public class JsonDataAssetLoader<T> extends AsynchronousAssetLoader<T, AssetLoaderParameters<T>> {
-	// 鐩爣绫�
+	// 目标类
 	protected final Class<T> clazz;
-	// 瀵硅薄
+	// 对象
 	protected Json json;
 
 	//
@@ -23,7 +23,7 @@ public class JsonDataAssetLoader<T> extends AsynchronousAssetLoader<T, AssetLoad
 	}
 
 	@Override
-	// 鍚屾鍔犺浇
+	// 同步加载
 	public T loadSync(AssetManager manager, String fileName, FileHandle file,
 			AssetLoaderParameters<T> parameter) {
 		T t = null;

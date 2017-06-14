@@ -15,12 +15,12 @@ import psd.framework.PsdReflectUtil;
 import psd.loaders.FileManage;
 
 /**
- * PSD 鐨勬枃浠跺す
+ * PSD 的文件夹
  * 
  * @author roy
  */
 public class PsdGroup extends WidgetGroup implements ParamProvider {
-	// 鏂囦欢澶圭殑婧�
+	// 文件夹的源
 	private final psd.Folder psdFolder;
 
 	public PsdGroup(PsdFile psdFile) {
@@ -82,7 +82,7 @@ public class PsdGroup extends WidgetGroup implements ParamProvider {
 		}
 	}
 
-	// 鏍规嵁璺緞鏌ユ壘瀵硅薄
+	// 根据路径查找对象
 	public final Actor getActorByPath(String path, int index) {
 		if (path != null) {
 			return getActorByPath(path.split("/"), index);
@@ -90,7 +90,7 @@ public class PsdGroup extends WidgetGroup implements ParamProvider {
 		return null;
 	}
 
-	// 鏍规嵁璺緞鏌ユ壘瀵硅薄
+	// 根据路径查找对象
 	private final Actor getActorByPath(String[] paths, int index) {
 		Group group = this;
 		Actor rt = null;
@@ -115,7 +115,7 @@ public class PsdGroup extends WidgetGroup implements ParamProvider {
 		return rt;
 	}
 
-	// 鏍规嵁鍚嶇О鏌ユ壘瀛愬璞�
+	// 根据名称查找子对象
 	private static final Actor getChild(Group group, String name, int index) {
 		int counter = 0;
 		for (Actor actor : group.getChildren()) {
@@ -130,14 +130,14 @@ public class PsdGroup extends WidgetGroup implements ParamProvider {
 		return null;
 	}
 
-	// 杩囨护鍏冪礌
+	// 过滤元素
 	public final List<Actor> filter(psd.utils.Filter<Actor> filter) {
 		List<Actor> actors = new ArrayList<Actor>();
 		filter(this, filter, actors);
 		return actors;
 	}
 
-	// 杩囨护鍏冪礌
+	// 过滤元素
 	private final void filter(Actor actor, psd.utils.Filter<Actor> filter, List<Actor> out) {
 		if (filter.accept(actor)) {
 			out.add(actor);

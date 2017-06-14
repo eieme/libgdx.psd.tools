@@ -12,7 +12,7 @@ import psd.lg0311.widget.ColorWidget;
 import psd.reflect.PsdGroup;
 
 public abstract class DialogAdapter extends PsdAdapter {
-	// 鏄惁鑷姩鍏抽棴
+	// 是否自动关闭
 	private boolean isAutoClose = true;
 	//
 	private PsdAdapter parent;
@@ -20,22 +20,22 @@ public abstract class DialogAdapter extends PsdAdapter {
 	//
 	@Override
 	protected final void onCreate(PsdGroup psdGroup) {
-		// 璁剧疆鑳屾櫙鑹�
+		// 设置背景色
 		setBackgroundColor(0x00000077);
-		// 鍥炶皟
+		// 回调
 		doCreate(psdGroup);
 	}
 
-	// 鏄剧ず DIALOG
+	// 显示 DIALOG
 	protected final float show(PsdGroup parent) {
 		PsdGroup group = getSource();
 		parent.addActor(group);
 		return onShow(group);
 	}
 
-	// 鏄剧ず
+	// 显示
 	protected float onShow(PsdGroup group) {
-		// 鍔ㄧ敾鎾斁鏃堕棿
+		// 动画播放时间
 		float duration = 0.25f;
 		group.setColor(1, 1, 1, 0);
 		group.setOrigin(group.getWidth() / 2, group.getHeight() / 2);
@@ -45,7 +45,7 @@ public abstract class DialogAdapter extends PsdAdapter {
 		return duration;
 	}
 
-	// 鍏抽棴 DIALOG
+	// 关闭 DIALOG
 	protected final void close() {
 		PsdGroup group = getSource();
 		onClose(group);
@@ -53,7 +53,7 @@ public abstract class DialogAdapter extends PsdAdapter {
 	}
 
 	protected void onClose(PsdGroup group) {
-		// 鍔ㄧ敾鎾斁鏃堕棿
+		// 动画播放时间
 		float duration = 0.25f;
 		group.addAction(Actions.alpha(0, duration, Interpolation.sineOut));
 		group.addAction(Actions.scaleTo(0, 0, duration, Interpolation.sineOut));
@@ -70,7 +70,7 @@ public abstract class DialogAdapter extends PsdAdapter {
 		this.parent = parent;
 	}
 
-	// 璁剧疆鍏抽棴鎸夐挳
+	// 设置关闭按钮
 	protected final void setCloseButton(String layerName) {
 		Actor actor = getSource().findActor(layerName);
 		initButtonStyle(actor);
@@ -82,7 +82,7 @@ public abstract class DialogAdapter extends PsdAdapter {
 		});
 	}
 
-	// 璁剧疆鑳屾櫙鑹�
+	// 设置背景色
 	protected final void setBackgroundColor(int rgba) {
 		ColorWidget colorPainter = new ColorWidget(rgba);
 		colorPainter.setSize(getSource().getWidth(), getSource().getHeight());
@@ -92,7 +92,7 @@ public abstract class DialogAdapter extends PsdAdapter {
 		colorPainter.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// 鏄惁鑷姩鍏抽棴
+				// 是否自动关闭
 				if (isAutoClose) {
 					close();
 				}
@@ -100,13 +100,13 @@ public abstract class DialogAdapter extends PsdAdapter {
 		});
 	}
 
-	// 寤惰繜鏄剧ず鎸夐挳
+	// 延迟显示按钮
 	protected final void showDelayPop(Array<Actor> array) {
 		array.reverse();
 		showDelayPop(array, 0.6f, 0.4f);
 	}
 
-	// 寤惰繜鏄剧ず鎸夐挳
+	// 延迟显示按钮
 	protected final void showDelayPop(Array<Actor> array, float delay, float duration) {
 		for (int i = 0; i < array.size; i++) {
 			Actor actor = array.get(i);
@@ -123,6 +123,6 @@ public abstract class DialogAdapter extends PsdAdapter {
 		this.isAutoClose = isAutoClose;
 	}
 
-	// 鏋勯�犲嚱鏁�
+	// 构造函数
 	protected abstract void doCreate(PsdGroup psdGroup);
 }
