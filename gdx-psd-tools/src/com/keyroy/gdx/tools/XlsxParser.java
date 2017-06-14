@@ -73,15 +73,15 @@ public class XlsxParser {
 		return arrays;
 	}
 
-	// 数据结构
+	// 鏁版嵁缁撴瀯
 	private static class ColumnData {
-		// 变量�?
+		// 鍙橀噺鍚?
 		String fieldName;
-		// 对象类型
+		// 瀵硅薄绫诲瀷
 		boolean isObject;
-		// 数组类型
+		// 鏁扮粍绫诲瀷
 		boolean isArray;
-		// 对象数组类型
+		// 瀵硅薄鏁扮粍绫诲瀷
 		boolean isObjectArray;
 
 		public ColumnData(String columnSource) {

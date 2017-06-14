@@ -42,7 +42,7 @@ public class ClassElementComponent extends JPanel {
 		});
 
 		JPopupMenu popup = new JPopupMenu();
-		{ // 修改ID
+		{ // 淇敼ID
 			JMenuItem reset = new JMenuItem(L.get("menu.reset_element"));
 			popup.add(reset);
 			reset.addActionListener(new ActionListener() {
@@ -50,7 +50,7 @@ public class ClassElementComponent extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					String id = (String) JOptionPane.showInputDialog(ClassElementComponent.this,
-							L.get("text.input_element_id") + " ：\n", L.get("dialog.reset_element"),
+							L.get("text.input_element_id") + " 锛歕n", L.get("dialog.reset_element"),
 							JOptionPane.PLAIN_MESSAGE, Icons.CLASS_FILE, null, "" + (classElement.getObjId()));
 					if (id != null) {
 						ClassPath classPath = classElement.getParent();
@@ -66,7 +66,7 @@ public class ClassElementComponent extends JPanel {
 			});
 		}
 
-		{ // 删除这个信息
+		{ // 鍒犻櫎杩欎釜淇℃伅
 			JMenuItem del = new JMenuItem(L.get("menu.del_element"));
 			popup.add(del);
 			del.addActionListener(new ActionListener() {

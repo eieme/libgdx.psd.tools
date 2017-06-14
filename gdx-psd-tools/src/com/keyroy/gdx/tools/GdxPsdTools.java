@@ -176,7 +176,7 @@ public class GdxPsdTools {
 			@Override
 			public void onDropIn(final List<File> files) {
 				//
-				// ´ò°ü
+				// æ‰“åŒ…
 				final DialogProgress dialogProgress = new DialogProgress();
 				SwingUtil.center(frmGdxpsdtools, dialogProgress);
 				new Thread(new Runnable() {
@@ -188,10 +188,10 @@ public class GdxPsdTools {
 						for (File file : files) {
 							try {
 
-								if (Config.cleanFolder) {// Çå¿ÕÎÄ¼ş¼Ğ
+								if (Config.cleanFolder) {// æ¸…ç©ºæ–‡ä»¶å¤¹
 									FileUtil.delete(folder);
 								}
-								if (folder.exists() == false) { // ´´½¨ÎÄ¼ş¼Ğ
+								if (folder.exists() == false) { // åˆ›å»ºæ–‡ä»¶å¤¹
 									folder.mkdirs();
 								}
 								if (onDropIn(folder, file)) {
@@ -211,7 +211,7 @@ public class GdxPsdTools {
 			}
 
 			public boolean onDropIn(File folder, File file) throws Exception {
-				if (file.getName().endsWith(".psd")) { // ´ò°ü PSD
+				if (file.getName().endsWith(".psd")) { // æ‰“åŒ… PSD
 					export(folder, new Psd(file));
 					return true;
 				} else if (file.getName().endsWith(".xlsx")) {
@@ -223,7 +223,7 @@ public class GdxPsdTools {
 		});
 	}
 
-	// µ¼³öÍ¼Æ¬¼¯
+	// å¯¼å‡ºå›¾ç‰‡é›†
 	public static final void exportAtlsafile(File folder, final List<File> files) {
 		final Settings settings = new Settings();
 		settings.maxWidth = 2048;
@@ -273,11 +273,11 @@ public class GdxPsdTools {
 	public static final void export(File folder, Psd psd) throws Exception {
 		PSDUtil.updateLayerParent(psd);
 		//
-		if (Config.saveImage) { // ±£´æÍ¼Æ¬
-			// ÊÕ¼¯Í¼Æ¬Í¼²ã
+		if (Config.saveImage) { // ä¿å­˜å›¾ç‰‡
+			// æ”¶é›†å›¾ç‰‡å›¾å±‚
 			List<Layer> layers = new ArrayList<Layer>();
 			filterImage(psd, layers);
-			if (Config.saveAtlas) { // ±£´æÎªÍ¼Æ¬¼¯
+			if (Config.saveAtlas) { // ä¿å­˜ä¸ºå›¾ç‰‡é›†
 				final Settings settings = new Settings();
 				settings.pot = false;
 				settings.rotation = Config.rotateImage;
@@ -296,7 +296,7 @@ public class GdxPsdTools {
 				}
 			}
 		}
-		// ±£´æ PSD Êı¾İ
+		// ä¿å­˜ PSD æ•°æ®
 		PsdFile psdFile = translate(psd);
 		FileUtil.save(new File(folder, psd.getName().replace(".psd", ".json")), new Json(psdFile).toString());
 	}
@@ -314,7 +314,7 @@ public class GdxPsdTools {
 
 	private static final String getImageName(Layer layer) {
 		String name = layer.getName();
-		// ÕâÀïĞèÒªÈ¥µôÍ¼Æ¬ÖĞµÄ²ÎÊı
+		// è¿™é‡Œéœ€è¦å»æ‰å›¾ç‰‡ä¸­çš„å‚æ•°
 		if (name.indexOf("@") != -1) {
 			String[] sp = name.split("@", 2);
 			name = sp[0];
@@ -337,7 +337,7 @@ public class GdxPsdTools {
 		if (Config.saveAtlas) {
 			psdFile.atlas = psd.getName().replace(".psd", ".atlas");
 		}
-		// ²ÎÊı
+		// å‚æ•°
 		addChild(psd, psd, psdFile);
 		return psdFile;
 	}
@@ -347,9 +347,9 @@ public class GdxPsdTools {
 		for (int i = 0; i < container.getLayersCount(); i++) {
 			Layer layer = container.getLayer(i);
 			Element actor = null;
-			if (layer.isFolder()) { // ÕâÊÇÒ»¸öÎÄ¼ş¼Ğ
+			if (layer.isFolder()) { // è¿™æ˜¯ä¸€ä¸ªæ–‡ä»¶å¤¹
 				actor = new Folder();
-			} else if (layer.isTextLayer()) { // ÕâÊÇÒ»¸öÎÄ±¾¶ÔÏó
+			} else if (layer.isTextLayer()) { // è¿™æ˜¯ä¸€ä¸ªæ–‡æœ¬å¯¹è±¡
 				Text text = new Text();
 				PsdText psdText = layer.getPsdText();
 				text.text = psdText.value;
@@ -359,12 +359,12 @@ public class GdxPsdTools {
 				text.b = psdText.b;
 				text.fontSize = psdText.fontSize;
 				actor = text;
-			} else if (layer.getImage() != null) { // ÕâÊÇÒ»¸öÍ¼Æ¬
+			} else if (layer.getImage() != null) { // è¿™æ˜¯ä¸€ä¸ªå›¾ç‰‡
 				actor = new Pic();
 				((Pic) actor).textureName = getImageName(layer);
 			}
 
-			if (actor != null) { // ×ø±ê
+			if (actor != null) { // åæ ‡
 				actor.layerName = layer.getName();
 				actor.isVisible = layer.isVisible();
 				if (actor instanceof PsdFile) {
@@ -381,7 +381,7 @@ public class GdxPsdTools {
 						actor.width = layer.getWidth();
 						actor.height = layer.getHeight();
 					}
-					// libgdx ×ø±êÏµ , Y Ïà·´
+					// libgdx åæ ‡ç³» , Y ç›¸å
 					actor.y = folder.height - actor.y - actor.height;
 				}
 				folder.childs.add(actor);

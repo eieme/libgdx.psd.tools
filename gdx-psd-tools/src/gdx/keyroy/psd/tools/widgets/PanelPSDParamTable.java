@@ -61,24 +61,24 @@ public class PanelPSDParamTable extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		//
 		addPopup(table);
-		// ×¢²áÊÂ¼ş
+		// æ³¨å†Œäº‹ä»¶
 		initMessageListener();
 	}
 
 	private final void initMessageListener() {
 
-		// µã»÷µ½ PSD ÎÄ¼ş
+		// ç‚¹å‡»åˆ° PSD æ–‡ä»¶
 		Messager.register(PSDData.class, new MessageListener<PSDData>() {
 			@Override
-			public void onMessage(PSDData t, Object[] params) {// psd ÎÄ¼ş±ä»¯
+			public void onMessage(PSDData t, Object[] params) {// psd æ–‡ä»¶å˜åŒ–
 				model.show(t, null);
 			}
 		});
 
-		// µã»÷µ½Í¼²ã
+		// ç‚¹å‡»åˆ°å›¾å±‚
 		Messager.register(Layer.class, new MessageListener<Layer>() {
 			@Override
-			public void onMessage(Layer t, Object[] params) { // Í¼²ã±ä»¯
+			public void onMessage(Layer t, Object[] params) { // å›¾å±‚å˜åŒ–
 				PSDData psdData = get(PSDData.class, params);
 				if (psdData != null) {
 					model.show(psdData, t);
@@ -86,7 +86,7 @@ public class PanelPSDParamTable extends JPanel {
 			}
 		});
 
-		// Çå³ı
+		// æ¸…é™¤
 		Messager.register(MessageKey.class, new MessageListener<MessageKey>() {
 
 			@Override
@@ -117,7 +117,7 @@ public class PanelPSDParamTable extends JPanel {
 				final int[] indexes = table.getSelectedRows();
 				if (indexes != null && indexes.length > 0) {
 					JPopupMenu popup = new JPopupMenu();
-					if (indexes.length == 1) { // Ö»Ñ¡ÔñÁËÒ»¸ö
+					if (indexes.length == 1) { // åªé€‰æ‹©äº†ä¸€ä¸ª
 						JMenuItem menuItem_jump = new JMenuItem(L.get("Menu.jump_param"));
 						menuItem_jump.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
@@ -135,7 +135,7 @@ public class PanelPSDParamTable extends JPanel {
 
 					JMenuItem menuItem_delete = new JMenuItem(L.get("Menu.delete_layer_param"));
 					menuItem_delete.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) { // É¾³ı
+						public void actionPerformed(ActionEvent e) { // åˆ é™¤
 
 							if (indexes != null) {
 								int n = JOptionPane.showConfirmDialog(table,

@@ -2,117 +2,117 @@ package gdx.keyroy.psd.tools.util;
 
 public class ZN {
 	public static class Message {
-		public static final String data_save = "Êı¾İĞÅÏ¢ÒÑ±£´æ";
-		public static final String config_save = "²ÎÊıĞÅÏ¢ÒÑ±£´æ";
+		public static final String data_save = "æ•°æ®ä¿¡æ¯å·²ä¿å­˜";
+		public static final String config_save = "å‚æ•°ä¿¡æ¯å·²ä¿å­˜";
 	}
 
 	public static class Window {
-		public static final String title = "Psd Í¼²ãĞÅÏ¢¹¤¾ß";
-		public static final String data_manage = "Êı¾İ±à¼­¹¤¾ß";
+		public static final String title = "Psd å›¾å±‚ä¿¡æ¯å·¥å…·";
+		public static final String data_manage = "æ•°æ®ç¼–è¾‘å·¥å…·";
 	}
 
 	public static class Menu {
-		public static final String system = "ÏµÍ³";
-		public static final String open_psd = "´ò¿ª PSD ÎÄ¼ş";
-		public static final String open_param = "´ò¿ª INI ÎÄ¼ş¼Ğ";
-		public static final String open_folder = "´ò¿ª ÎÄ¼ş¼Ğ";
-		public static final String exit = "ÍË³ö";
-		public static final String delete_psd_file = "É¾³ı PSD ÎÄ¼ş";
-		public static final String delete_param_file = "É¾³ı ²ÎÊı ÎÄ¼ş ";
-		public static final String delete_layer_param = "É¾³ıÍ¼²ã²ÎÊı";
+		public static final String system = "ç³»ç»Ÿ";
+		public static final String open_psd = "æ‰“å¼€ PSD æ–‡ä»¶";
+		public static final String open_param = "æ‰“å¼€ INI æ–‡ä»¶å¤¹";
+		public static final String open_folder = "æ‰“å¼€ æ–‡ä»¶å¤¹";
+		public static final String exit = "é€€å‡º";
+		public static final String delete_psd_file = "åˆ é™¤ PSD æ–‡ä»¶";
+		public static final String delete_param_file = "åˆ é™¤ å‚æ•° æ–‡ä»¶ ";
+		public static final String delete_layer_param = "åˆ é™¤å›¾å±‚å‚æ•°";
 		//
-		public static final String refresh = "Ë¢ĞÂ ";
-		public static final String update_param_file = "Ë¢ĞÂ²ÎÊıĞÅÏ¢ ";
-		public static final String open_param_file = "´ò¿ª²ÎÊıÎÄ¼ş";
+		public static final String refresh = "åˆ·æ–° ";
+		public static final String update_param_file = "åˆ·æ–°å‚æ•°ä¿¡æ¯ ";
+		public static final String open_param_file = "æ‰“å¼€å‚æ•°æ–‡ä»¶";
 		//
-		public static final String add_param = "Ìí¼ÓÊÂ¼ş";
-		public static final String jump_param = "Ë÷Òıµ½ÊÂ¼şÍ¼²ã";
-		public static final String del_param = "É¾³ıÊÂ¼ş";
+		public static final String add_param = "æ·»åŠ äº‹ä»¶";
+		public static final String jump_param = "ç´¢å¼•åˆ°äº‹ä»¶å›¾å±‚";
+		public static final String del_param = "åˆ é™¤äº‹ä»¶";
 		//
-		public static final String export = "µ¼³ö";
-		public static final String pack = "´ò°ü";
-		public static final String pack_config = "´ò°ü²ÎÊıÉè¶¨";
-		public static final String about = "¹ØÓÚ";
-		public static final String help = "°ïÖú";
-		public static final String source_code = "Ô´´úÂëµØÖ·";
+		public static final String export = "å¯¼å‡º";
+		public static final String pack = "æ‰“åŒ…";
+		public static final String pack_config = "æ‰“åŒ…å‚æ•°è®¾å®š";
+		public static final String about = "å…³äº";
+		public static final String help = "å¸®åŠ©";
+		public static final String source_code = "æºä»£ç åœ°å€";
 		//
-		public static final String new_element = "ĞÂÔªËØ";
-		public static final String new_element_list = "ÅúÁ¿Éú³ÉĞÂÔªËØ";
+		public static final String new_element = "æ–°å…ƒç´ ";
+		public static final String new_element_list = "æ‰¹é‡ç”Ÿæˆæ–°å…ƒç´ ";
 
-		public static final String close_all = "¹Ø±Õ È«²¿ Ò³Ãæ";
-		public static final String close_others = "¹Ø±Õ ÆäËû Ò³Ãæ";
-		public static final String close_this = "¹Ø±ÕÒ³Ãæ";
+		public static final String close_all = "å…³é—­ å…¨éƒ¨ é¡µé¢";
+		public static final String close_others = "å…³é—­ å…¶ä»– é¡µé¢";
+		public static final String close_this = "å…³é—­é¡µé¢";
 		//
-		public static final String reset_element = "ÉèÖÃÔªËØID";
-		public static final String del_element = "É¾³ıÔªËØ";
+		public static final String reset_element = "è®¾ç½®å…ƒç´ ID";
+		public static final String del_element = "åˆ é™¤å…ƒç´ ";
 
 	}
 
 	public static class Label {
-		public static final String psd_file_tree = "PSD ÎÄ¼şÁĞ±í";
-		public static final String param_file_tree = "INI ÎÄ¼şÁĞ±í";
-		public static final String param_file_count = "ÎÄ¼şÊıÁ¿";
-		public static final String psd_layer_tree = "Êı¾İÍ¼²ã½á¹¹";
-		public static final String layer_param_table = "Êı¾İ²ÎÊıÁĞ±í";
+		public static final String psd_file_tree = "PSD æ–‡ä»¶åˆ—è¡¨";
+		public static final String param_file_tree = "INI æ–‡ä»¶åˆ—è¡¨";
+		public static final String param_file_count = "æ–‡ä»¶æ•°é‡";
+		public static final String psd_layer_tree = "æ•°æ®å›¾å±‚ç»“æ„";
+		public static final String layer_param_table = "æ•°æ®å‚æ•°åˆ—è¡¨";
 		//
-		public static final String element_tree = "Êı¾İÁĞ±íÃæ°å";
-		public static final String element_collections = "×ÊÔ´";
-		public static final String element_class = "Àà¶ÔÏó";
-		public static final String element_resource = "×ÊÔ´¶ÔÏó";
-		public static final String field_tree = "²ÎÊıÃæ°å";
+		public static final String element_tree = "æ•°æ®åˆ—è¡¨é¢æ¿";
+		public static final String element_collections = "èµ„æº";
+		public static final String element_class = "ç±»å¯¹è±¡";
+		public static final String element_resource = "èµ„æºå¯¹è±¡";
+		public static final String field_tree = "å‚æ•°é¢æ¿";
 
-		public static final String class_name = "ÀàÃû";
-		public static final String field_value = "²ÎÊıÖµ";
+		public static final String class_name = "ç±»å";
+		public static final String field_value = "å‚æ•°å€¼";
 		//
-		public static final String notice = "×¢Òâ : É¾³ıÔªËØ²»ÄÜ»Ö¸´";
+		public static final String notice = "æ³¨æ„ : åˆ é™¤å…ƒç´ ä¸èƒ½æ¢å¤";
 	}
 
 	public static class Dialog {
-		public static final String yes = "ÊÇ";
-		public static final String no = "·ñ";
-		public static final String delete_psd_file = "È·¶¨ÒªÉ¾³ıÎÄ¼ş , Êı¾İÎÄ¼ş²»ÄÜ»Ö¸´";
-		public static final String delete_param_file = "É¾³ıÑ¡ÖĞµÄ ²ÎÊıÉè¶¨ ÎÄ¼ş?";
-		public static final String delete_layer_param = "È·¶¨ÒªÉ¾³ı Ñ¡ÖĞµÄÍ¼²ã²ÎÊı?";
+		public static final String yes = "æ˜¯";
+		public static final String no = "å¦";
+		public static final String delete_psd_file = "ç¡®å®šè¦åˆ é™¤æ–‡ä»¶ , æ•°æ®æ–‡ä»¶ä¸èƒ½æ¢å¤";
+		public static final String delete_param_file = "åˆ é™¤é€‰ä¸­çš„ å‚æ•°è®¾å®š æ–‡ä»¶?";
+		public static final String delete_layer_param = "ç¡®å®šè¦åˆ é™¤ é€‰ä¸­çš„å›¾å±‚å‚æ•°?";
 		//
-		public static final String frame_config = "²ÎÊıÉè¶¨Ãæ°å";
+		public static final String frame_config = "å‚æ•°è®¾å®šé¢æ¿";
 		//
-		public static final String reset_element = "ÉèÖÃÔªËØID";
-		public static final String del_class_element = "É¾³ıÔªËØ";
+		public static final String reset_element = "è®¾ç½®å…ƒç´ ID";
+		public static final String del_class_element = "åˆ é™¤å…ƒç´ ";
 	}
 
 	public static class Error {
-		public static final String parse_psd_file_failed = "½âÎö PSD ÎÄ¼şÊ§°Ü";
-		public static final String parse_ini_file_failed = "½âÎö ini ÎÄ¼şÊ§°Ü";
-		public static final String init_data_failed = "³õÊ¼»¯Êı¾İÊ§°Ü";
+		public static final String parse_psd_file_failed = "è§£æ PSD æ–‡ä»¶å¤±è´¥";
+		public static final String parse_ini_file_failed = "è§£æ ini æ–‡ä»¶å¤±è´¥";
+		public static final String init_data_failed = "åˆå§‹åŒ–æ•°æ®å¤±è´¥";
 	}
 
 	public static class Text {
-		public static final String layer_id = "Í¼²ãID";
-		public static final String param_key = "¼ü";
-		public static final String param_val = "Öµ";
-		public static final String layer_name = "Í¼²ãÃû³Æ";
+		public static final String layer_id = "å›¾å±‚ID";
+		public static final String param_key = "é”®";
+		public static final String param_val = "å€¼";
+		public static final String layer_name = "å›¾å±‚åç§°";
 		//
-		public static final String add_param = "Ìí¼ÓÊÂ¼ş";
-		public static final String input_param_value = "ÊäÈëÊÂ¼şµÄÖµ";
+		public static final String add_param = "æ·»åŠ äº‹ä»¶";
+		public static final String input_param_value = "è¾“å…¥äº‹ä»¶çš„å€¼";
 		//
-		public static final String used_clean_folder = "Çå³ıÄ¿Â¼»º´æ";
-		public static final String pack_folder = "µ¼³öÄ¿Â¼";
-		public static final String select_folder = "Ñ¡ÔñÄ¿Â¼";
-		public static final String used_libgdx_coordinate = "Ê¹ÓÃ libgdx µÄ×ø±êÏµ";
-		public static final String used_texture_packer = "Ê¹ÓÃ TexturePacker ´ò°üÍ¼Æ¬";
-		public static final String used_android_assets_name = "Ê¹ÓÃ Android Assets Ãû³Æ¹æ·¶";
-		public static final String copy_to_clipboard = "¿½±´µ½¼ôÇĞ°å";
+		public static final String used_clean_folder = "æ¸…é™¤ç›®å½•ç¼“å­˜";
+		public static final String pack_folder = "å¯¼å‡ºç›®å½•";
+		public static final String select_folder = "é€‰æ‹©ç›®å½•";
+		public static final String used_libgdx_coordinate = "ä½¿ç”¨ libgdx çš„åæ ‡ç³»";
+		public static final String used_texture_packer = "ä½¿ç”¨ TexturePacker æ‰“åŒ…å›¾ç‰‡";
+		public static final String used_android_assets_name = "ä½¿ç”¨ Android Assets åç§°è§„èŒƒ";
+		public static final String copy_to_clipboard = "æ‹·è´åˆ°å‰ªåˆ‡æ¿";
 		//
-		public static final String help = "Ê¹ÓÃ°ïÖú" + "\nµ¼ÈëPSDÎÄ¼şµÄ·½·¨ " + "\nÍÏ×§PSDÎÄ¼ş »òÕß ÎÄ¼ş¼Ğ , µ½  [PSDÎÄ¼şÁĞ±í] (×óÉÏ)Ãæ°å"
-				+ "\nµ¼ÈëINIÎÄ¼şµÄ·½·¨ \nÍÏ×§INIÎÄ¼ş »òÕß ÎÄ¼ş¼Ğ , µ½  [INIÎÄ¼şÁĞ±í] (×óÏÂ)Ãæ°å" + "\n\nINI µÄ²ÎÊıÉè¶¨·½Ê½ ÓĞÁ½ÖÖ"
-				+ "\nA : key=val  (±íÏÖÎª  ÎÄ±¾±à¼­·½Ê½ , ÊäÈë×Ö·û´®)"
-				+ "\nB : key=[v1,v2,v3] (±íÏÖÎª   Ê¹ÓÃÑ¡Ôñ·½Ê½ , Ñ¡ÔñÊıÖµ , Õâ¸öÊıÖµ²»ÄÜ×Ô¶¨Òå»òÕßĞŞ¸Ä)" + "\n\nINI ²ÎÊı Ö»¿ÉÒÔÉè¶¨µ½ Í¼²ãÉÏ "
-				+ "\nÌí¼Ó·½Ê½ : ÔÚ[Êı¾İÍ¼²ã½á¹¹] (ÓÒÉÏ) Ãæ°å  , µ¥Ñ¡½Úµã , ÓÒ¼ü->Ìí¼ÓÊÂ¼ş->Ñ¡ÔñÊôĞÔ->±à¼­ÊôĞÔÊıÖµ"
-				+ "\nÉ¾³ı·½Ê½ : ÔÚ[Êı¾İ²ÎÊıÁĞ±í] (ÓÒÏÂ) Ãæ°å , µ¥Ñ¡, »òÕß¶àÑ¡ , ÓÒ¼ü ->É¾³ıÍ¼²ã²ÎÊı"
-				+ "\nĞŞ¸Ä·½Ê½ : ÔÚ[Êı¾İ²ÎÊıÁĞ±í] (ÓÒÏÂ) Ãæ°å , Ë«»÷ 'Öµ' ÁĞ , ĞŞ¸Ä²ÎÊı" + "\n\nµ¼³öÊı¾İ" + "\n²Ëµ¥ µ¼³ö -> ´ò°ü";
+		public static final String help = "ä½¿ç”¨å¸®åŠ©" + "\nå¯¼å…¥PSDæ–‡ä»¶çš„æ–¹æ³• " + "\næ‹–æ‹½PSDæ–‡ä»¶ æˆ–è€… æ–‡ä»¶å¤¹ , åˆ°  [PSDæ–‡ä»¶åˆ—è¡¨] (å·¦ä¸Š)é¢æ¿"
+				+ "\nå¯¼å…¥INIæ–‡ä»¶çš„æ–¹æ³• \næ‹–æ‹½INIæ–‡ä»¶ æˆ–è€… æ–‡ä»¶å¤¹ , åˆ°  [INIæ–‡ä»¶åˆ—è¡¨] (å·¦ä¸‹)é¢æ¿" + "\n\nINI çš„å‚æ•°è®¾å®šæ–¹å¼ æœ‰ä¸¤ç§"
+				+ "\nA : key=val  (è¡¨ç°ä¸º  æ–‡æœ¬ç¼–è¾‘æ–¹å¼ , è¾“å…¥å­—ç¬¦ä¸²)"
+				+ "\nB : key=[v1,v2,v3] (è¡¨ç°ä¸º   ä½¿ç”¨é€‰æ‹©æ–¹å¼ , é€‰æ‹©æ•°å€¼ , è¿™ä¸ªæ•°å€¼ä¸èƒ½è‡ªå®šä¹‰æˆ–è€…ä¿®æ”¹)" + "\n\nINI å‚æ•° åªå¯ä»¥è®¾å®šåˆ° å›¾å±‚ä¸Š "
+				+ "\næ·»åŠ æ–¹å¼ : åœ¨[æ•°æ®å›¾å±‚ç»“æ„] (å³ä¸Š) é¢æ¿  , å•é€‰èŠ‚ç‚¹ , å³é”®->æ·»åŠ äº‹ä»¶->é€‰æ‹©å±æ€§->ç¼–è¾‘å±æ€§æ•°å€¼"
+				+ "\nåˆ é™¤æ–¹å¼ : åœ¨[æ•°æ®å‚æ•°åˆ—è¡¨] (å³ä¸‹) é¢æ¿ , å•é€‰, æˆ–è€…å¤šé€‰ , å³é”® ->åˆ é™¤å›¾å±‚å‚æ•°"
+				+ "\nä¿®æ”¹æ–¹å¼ : åœ¨[æ•°æ®å‚æ•°åˆ—è¡¨] (å³ä¸‹) é¢æ¿ , åŒå‡» 'å€¼' åˆ— , ä¿®æ”¹å‚æ•°" + "\n\nå¯¼å‡ºæ•°æ®" + "\nèœå• å¯¼å‡º -> æ‰“åŒ…";
 
 		//
-		public static final String input_element_id = "ÊäÈëĞÂµÄÔªËØID";
+		public static final String input_element_id = "è¾“å…¥æ–°çš„å…ƒç´ ID";
 	}
 
 	public static void main(String[] args) {

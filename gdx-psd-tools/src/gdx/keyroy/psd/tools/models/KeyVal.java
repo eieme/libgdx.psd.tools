@@ -15,7 +15,7 @@ public class KeyVal {
 		return paramData.getFileName() + "." + key;
 	}
 
-	// 是否为选项模式
+	// 鏄惁涓洪�夐」妯″紡
 	public final String[] getSelection() {
 		try {
 			if (val != null && val.startsWith("[") && val.endsWith("]")) {

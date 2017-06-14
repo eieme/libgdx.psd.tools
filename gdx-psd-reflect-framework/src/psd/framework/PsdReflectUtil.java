@@ -21,7 +21,7 @@ import psd.reflect.PsdReflectListener;
 
 public class PsdReflectUtil {
 
-	// 设置大小
+	// 璁剧疆澶у皬
 	public static final void setBounds(psd.Element element, Actor actor) {
 		if (element != null && actor != null) {
 			actor.setBounds(element.x, element.y, element.width, element.height);
@@ -29,7 +29,7 @@ public class PsdReflectUtil {
 		}
 	}
 
-	// 准备项目
+	// 鍑嗗椤圭洰
 	public static synchronized final <T> T load(AssetManager assetManager, String fileName, Class<T> clazz) {
 		if (assetManager.isLoaded(fileName, clazz)) {
 		} else {
@@ -39,15 +39,15 @@ public class PsdReflectUtil {
 		return assetManager.get(fileName, clazz);
 	}
 
-	// 获取Json的加载路径
+	// 鑾峰彇Json鐨勫姞杞借矾寰�
 	private static final String getJsonPath(Object object) {
-		// 映射的PSD路径
+		// 鏄犲皠鐨凱SD璺緞
 		String psdPath = null;
-		if (object instanceof PsdReflectAdapter) { // 独立的获取JSON路径函数
+		if (object instanceof PsdReflectAdapter) { // 鐙珛鐨勮幏鍙朖SON璺緞鍑芥暟
 			psdPath = ((PsdReflectAdapter) object).getPsdJsonPath();
 		}
 
-		if (psdPath == null) { // 没有获取到PSD 路径 , 尝试解析 @PsdAn
+		if (psdPath == null) { // 娌℃湁鑾峰彇鍒癙SD 璺緞 , 灏濊瘯瑙ｆ瀽 @PsdAn
 			Class<?> reflectClass = (object instanceof Class<?>) ? (Class<?>) object : object.getClass();
 			PsdAn an = reflectClass.getAnnotation(PsdAn.class);
 			if (an != null) {
@@ -64,9 +64,9 @@ public class PsdReflectUtil {
 	public static final PsdGroup reflect(Object object) {
 		PsdReflectListener listener = (object instanceof PsdReflectListener) ? (PsdReflectListener) object
 				: null;
-		// 映射的PSD路径
+		// 鏄犲皠鐨凱SD璺緞
 		String psdPath = getJsonPath(object);
-		if (psdPath == null) { // 没有获取到映射使用的 PSD 路径
+		if (psdPath == null) { // 娌℃湁鑾峰彇鍒版槧灏勪娇鐢ㄧ殑 PSD 璺緞
 			throw new IllegalArgumentException("can not reflect a PsdGroup by : "
 					+ object.getClass().getName() + "  , try add annotation @PsdAn");
 		} else {
@@ -77,23 +77,23 @@ public class PsdReflectUtil {
 					psdGroup = (PsdGroup) object;
 					psdFile = (PsdFile) psdGroup.getPsdFolder();
 				} else {
-					// 加载对象
+					// 鍔犺浇瀵硅薄
 					psdFile = FileManage.get(psdPath, PsdFile.class);
-					// 生成结构
+					// 鐢熸垚缁撴瀯
 					psdGroup = new PsdGroup(psdFile, PsdGroup.getAssetManager(), listener);
 				}
 
 				Class<?> reflectClass = (object instanceof Class<?>) ? (Class<?>) object : object.getClass();
-				// 修正组位置
+				// 淇缁勪綅缃�
 				PsdReflectUtil.setBounds(psdFile, psdGroup);
-				// 映射 参数
+				// 鏄犲皠 鍙傛暟
 				Field[] fields = reflectClass.getDeclaredFields();
 				for (Field field : fields) {
 					PsdAn an = field.getAnnotation(PsdAn.class);
 					if (an != null && (Actor.class.isAssignableFrom(field.getType())
 							|| Element.class.isAssignableFrom(field.getType()))) {
 						Actor actor = null;
-						if (an.value().length > 0) {// 尝试直接获取指定对象
+						if (an.value().length > 0) {// 灏濊瘯鐩存帴鑾峰彇鎸囧畾瀵硅薄
 							actor = psdGroup.findActor(an.value()[0], an.index());
 						} else {
 							actor = psdGroup.findActor(field.getName(), 0);
@@ -107,12 +107,12 @@ public class PsdReflectUtil {
 						}
 					}
 				}
-				// 映射 函数
+				// 鏄犲皠 鍑芥暟
 				Method[] methods = reflectClass.getDeclaredMethods();
 				for (Method method : methods) {
 					PsdAn an = method.getAnnotation(PsdAn.class);
 					if (an != null) {
-						// 尝试直接获取指定对象
+						// 灏濊瘯鐩存帴鑾峰彇鎸囧畾瀵硅薄
 						List<Actor> actors = new ArrayList<Actor>(2);
 						for (String actorName : an.value()) {
 							Actor actor = psdGroup.findActor(actorName, an.index());
@@ -125,7 +125,7 @@ public class PsdReflectUtil {
 						}
 					}
 				}
-				// 激活监听
+				// 婵�娲荤洃鍚�
 				if (listener != null) {
 					listener.onReflectSuccess(psdGroup);
 				}
@@ -140,7 +140,7 @@ public class PsdReflectUtil {
 		return null;
 	}
 
-	// 将 JSON 对象 , 转换成 Actor 对象
+	// 灏� JSON 瀵硅薄 , 杞崲鎴� Actor 瀵硅薄
 	public static final Actor toGdxActor(psd.Element element, AssetManager assetManager,
 			PsdReflectListener listener) throws Exception {
 		Actor actor = null;

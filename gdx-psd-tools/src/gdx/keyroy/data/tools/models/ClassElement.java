@@ -2,12 +2,12 @@ package gdx.keyroy.data.tools.models;
 
 import com.keyroy.util.json.JsonAn;
 
-//Àà ÔªËØ
+//ç±» å…ƒç´ 
 public class ClassElement {
 	// ID
 	@FieldAn(lock = true)
 	protected String objId;
-	// ¶ÔÏó
+	// å¯¹è±¡
 	protected Object object;
 
 	@JsonAn(skip = true)

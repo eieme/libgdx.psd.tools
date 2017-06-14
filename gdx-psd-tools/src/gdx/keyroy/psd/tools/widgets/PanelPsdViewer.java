@@ -51,7 +51,7 @@ public class PanelPsdViewer extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(panel);
 		add(scrollPane);
 
-		// µã»÷µ½ PSD ÎÄ¼þ
+		// ç‚¹å‡»åˆ° PSD æ–‡ä»¶
 		Messager.register(PSDData.class, new MessageListener<PSDData>() {
 			@Override
 			public void onMessage(PSDData t, Object[] params) {
@@ -63,7 +63,7 @@ public class PanelPsdViewer extends JPanel {
 			}
 		});
 
-		// µã»÷µ½Í¼²ã
+		// ç‚¹å‡»åˆ°å›¾å±‚
 		Messager.register(Layer.class, new MessageListener<Layer>() {
 			@Override
 			public void onMessage(Layer t, Object[] params) {
@@ -71,7 +71,7 @@ public class PanelPsdViewer extends JPanel {
 			}
 		});
 
-		// Çå³ý
+		// æ¸…é™¤
 		Messager.register(MessageKey.class, new MessageListener<MessageKey>() {
 
 			@Override

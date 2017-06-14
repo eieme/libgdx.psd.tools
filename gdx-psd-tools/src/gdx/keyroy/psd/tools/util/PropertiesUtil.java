@@ -25,9 +25,9 @@ public class PropertiesUtil {
 	public static final void save(Class<?> clazz, File file) throws Exception {
 		Properties properties = PropertiesUtil.toProperties(clazz);
 		FileOutputStream outputStream = new FileOutputStream(file);
-		// ²»ÅÅĞò
+		// ä¸æ’åº
 		// properties.store(outputStream, null);
-		// ÅÅĞò±£´æ
+		// æ’åºä¿å­˜
 		store(properties, outputStream, null);
 		outputStream.close();
 	}

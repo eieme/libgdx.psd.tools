@@ -7,36 +7,36 @@ import com.badlogic.gdx.utils.Array;
 import com.keyroy.util.json.JsonAn;
 
 /**
- * PSD 元素
+ * PSD 鍏冪礌
  * 
  * @author roy
  */
 public class Element {
-	// 图层名称
+	// 鍥惧眰鍚嶇О
 	public String layerName;
-	// 坐标 , 大小
+	// 鍧愭爣 , 澶у皬
 	public int x, y, width, height;
-	// // 去掉参数以后 , 剩余的名称
+	// // 鍘绘帀鍙傛暟浠ュ悗 , 鍓╀綑鐨勫悕绉�
 	// public String name;
-	// 绑定参数
+	// 缁戝畾鍙傛暟
 	public List<Param> params;
-	// 是否显示
+	// 鏄惁鏄剧ず
 	public boolean isVisible;
-	// 父类对象
+	// 鐖剁被瀵硅薄
 	@JsonAn(skip = true)
 	protected Folder parent;
-	// 文件对象
+	// 鏂囦欢瀵硅薄
 	@JsonAn(skip = true)
 	protected PsdFile psdFile;
 
-	// 自定义对象
+	// 鑷畾涔夊璞�
 	@JsonAn(skip = true)
 	protected Object userObject;
-	// 自定义对象
+	// 鑷畾涔夊璞�
 	// @JsonAn(skip = true)
 	// protected Actor actor;
 
-	// 更新参数
+	// 鏇存柊鍙傛暟
 	protected void updateParam() {
 		if (layerName != null) {
 			int idx = layerName.indexOf("@");
@@ -60,17 +60,17 @@ public class Element {
 		params.add(new Param(paramString));
 	}
 
-	// 设置 文件夹
+	// 璁剧疆 鏂囦欢澶�
 	protected void updateParent(Folder parent) {
 		this.parent = parent;
 	}
 
-	// 设置 文件夹
+	// 璁剧疆 鏂囦欢澶�
 	protected void updatePsdFile(PsdFile psdFile) {
 		this.psdFile = psdFile;
 	}
 
-	// 设置用户自定义的缓存数据
+	// 璁剧疆鐢ㄦ埛鑷畾涔夌殑缂撳瓨鏁版嵁
 	public final void setUserObject(Object userObject) {
 		this.userObject = userObject;
 	}
@@ -85,7 +85,7 @@ public class Element {
 		return psdFile;
 	}
 
-	// 获取 父文件夹
+	// 鑾峰彇 鐖舵枃浠跺す
 	public final Folder getParent() {
 		return parent;
 	}
@@ -94,7 +94,7 @@ public class Element {
 		return params;
 	}
 
-	// 获取当前的路径
+	// 鑾峰彇褰撳墠鐨勮矾寰�
 	public final String getPath() {
 		Array<String> paths = new Array<String>();
 		paths.add(layerName);

@@ -80,7 +80,7 @@ public class PanelPSDLayerTree extends JPanel {
 		});
 		scrollPane.setViewportView(layersTree);
 
-		// µã»÷µ½Í¼²ã
+		// ç‚¹å‡»åˆ°å›¾å±‚
 		Messager.register(PSDData.class, new MessageListener<PSDData>() {
 			@Override
 			public void onMessage(PSDData t, Object[] params) {
@@ -94,7 +94,7 @@ public class PanelPSDLayerTree extends JPanel {
 			}
 		});
 
-		// µã»÷µ½Í¼²ã
+		// ç‚¹å‡»åˆ°å›¾å±‚
 		Messager.register(Layer.class, new MessageListener<Layer>() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -130,7 +130,7 @@ public class PanelPSDLayerTree extends JPanel {
 			}
 		});
 
-		// Çå³ý
+		// æ¸…é™¤
 		Messager.register(MessageKey.class, new MessageListener<MessageKey>() {
 			@Override
 			public void onMessage(MessageKey t, Object[] params) {
@@ -175,7 +175,7 @@ public class PanelPSDLayerTree extends JPanel {
 						.getLastPathComponent();
 				if (treeNode != null) {
 					JPopupMenu popup = new JPopupMenu();
-					{// Ìí¼ÓÊÂ¼þ
+					{// æ·»åŠ äº‹ä»¶
 						final Layer layer = (Layer) treeNode.getLayer();
 						JMenu menu_add_param = new JMenu(L.get("menu.add_param"));
 						popup.add(menu_add_param);
@@ -204,7 +204,7 @@ public class PanelPSDLayerTree extends JPanel {
 
 			}
 
-			// ÏÔÊ¾±à¼­Æ÷
+			// æ˜¾ç¤ºç¼–è¾‘å™¨
 			protected final void showEditor(Layer layer, ParamData paramData, KeyVal keyVal) {
 				String[] selection = keyVal.getSelection();
 				Object val = null;

@@ -15,16 +15,16 @@ import javax.swing.JOptionPane;
 import com.keyroy.util.json.Json;
 import com.keyroy.util.json.JsonAn;
 
-//±à¼­Æ÷µÄÊı¾İ
+//ç¼–è¾‘å™¨çš„æ•°æ®
 public class EditorData {
 	@JsonAn(skip = true)
 	private static int hashCode;
-	// µ±Ç°µÄÊı¾İÏî
+	// å½“å‰çš„æ•°æ®é¡¹
 	private static List<PSDData> psdDatas = new ArrayList<PSDData>();
-	// µ±Ç°µÄÊı¾İÏî
+	// å½“å‰çš„æ•°æ®é¡¹
 	private static List<ParamData> paramDatas = new ArrayList<ParamData>();
 
-	// »ñÈ¡µ±Ç° PSD ÎÄ¼şÁĞ±í
+	// è·å–å½“å‰ PSD æ–‡ä»¶åˆ—è¡¨
 	public static List<PSDData> getPsdDatas() {
 		return psdDatas;
 	}
@@ -48,7 +48,7 @@ public class EditorData {
 		verify(psdFile, true);
 	}
 
-	// Ğ£Ñé ºÍ Ìí¼Ó PSD »òÕß Param ÎÄ¼ş
+	// æ ¡éªŒ å’Œ æ·»åŠ  PSD æˆ–è€… Param æ–‡ä»¶
 	public static final void verify(File psdFile, boolean autoSave) {
 		if (psdFile != null && psdFile.exists()) {
 			addFile(psdFile);
@@ -58,7 +58,7 @@ public class EditorData {
 		}
 	}
 
-	// Ìí¼ÓÎÄ¼ş
+	// æ·»åŠ æ–‡ä»¶
 	private static final void addFile(File file) {
 		if (file.isDirectory()) {
 			File[] files = file.listFiles();

@@ -14,7 +14,7 @@ import psd.framework.PsdReflectUtil;
 import psd.loaders.FileManage;
 
 /**
- * PSD 的舞台
+ * PSD 鐨勮垶鍙�
  */
 public class PsdStage extends Stage {
 	private final Object reflectObject;
@@ -43,19 +43,19 @@ public class PsdStage extends Stage {
 	public PsdStage(Object reflectObject, PsdGroup psdGroup, Viewport viewport) {
 		super(viewport);
 		this.reflectObject = reflectObject;
-		// 默认添加到屏幕中心
+		// 榛樿娣诲姞鍒板睆骞曚腑蹇�
 		psdGroup.setPosition(getWidth() / 2, getHeight() / 2, Align.center);
 		addActor(psdGroup);
-		// 尝试 反射 onViewPortChange 函数
+		// 灏濊瘯 鍙嶅皠 onViewPortChange 鍑芥暟
 		doMethod("onViewportChange", getViewport());
 	}
 
-	/** 标记这个舞台是否失去了控制权 */
+	/** 鏍囪杩欎釜鑸炲彴鏄惁澶卞幓浜嗘帶鍒舵潈 */
 	public final void onControlChange(boolean isControl) {
 
 	}
 
-	// 执行函数
+	// 鎵ц鍑芥暟
 	protected final void doMethod(String methodName, Object... args) {
 		if (reflectObject == null) {
 

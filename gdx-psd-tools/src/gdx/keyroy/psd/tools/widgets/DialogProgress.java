@@ -51,7 +51,7 @@ public class DialogProgress extends JDialog {
 		contentPanel.setLayout(null);
 
 		h1 = new JLabel("Title");
-		h1.setFont(new Font("ËÎÌå", Font.PLAIN, 22));
+		h1.setFont(new Font("å®‹ä½“", Font.PLAIN, 22));
 		h1.setBounds(10, 10, 460, 15);
 		contentPanel.add(h1);
 

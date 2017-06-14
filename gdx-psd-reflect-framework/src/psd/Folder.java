@@ -7,16 +7,16 @@ import psd.utils.ElementFilter;
 import psd.utils.ElementNameFilter;
 
 /**
- * PSD 的文件夹图层
+ * PSD 鐨勬枃浠跺す鍥惧眰
  * 
  * @author roy
  */
 public class Folder extends Element {
 
-	// 子对象
+	// 瀛愬璞�
 	public List<Element> childs = new ArrayList<Element>();
 
-	// 更新参数对象
+	// 鏇存柊鍙傛暟瀵硅薄
 	@Override
 	protected void updateParam() {
 		super.updateParam();
@@ -25,7 +25,7 @@ public class Folder extends Element {
 		}
 	}
 
-	// 更新父类对象
+	// 鏇存柊鐖剁被瀵硅薄
 	@Override
 	protected void updateParent(Folder parent) {
 		super.updateParent(parent);
@@ -34,7 +34,7 @@ public class Folder extends Element {
 		}
 	}
 
-	// 设置 文件夹
+	// 璁剧疆 鏂囦欢澶�
 	protected void updatePsdFile(PsdFile psdFile) {
 		super.updatePsdFile(psdFile);
 		for (Element element : childs) {
@@ -42,7 +42,7 @@ public class Folder extends Element {
 		}
 	}
 
-	// 过滤元素
+	// 杩囨护鍏冪礌
 	public final List<Element> filter(ElementFilter filter) {
 		List<Element> list = new ArrayList<Element>(3);
 		filter(this, filter, list);
@@ -62,12 +62,12 @@ public class Folder extends Element {
 
 	}
 
-	// 获取一个
+	// 鑾峰彇涓�涓�
 	public final Element get(ElementFilter filter) {
 		return filterOne(this, filter);
 	}
 
-	// 过滤 函数
+	// 杩囨护 鍑芥暟
 	private static final void filter(Element element, ElementFilter filter, List<Element> out) {
 		if (filter.accept(element)) {
 			out.add(element);
@@ -98,12 +98,12 @@ public class Folder extends Element {
 		return null;
 	}
 
-	// 根据路径查找对象
+	// 鏍规嵁璺緞鏌ユ壘瀵硅薄
 	public final Element getElementByPath(String path) {
 		return getElementByPath(path, 0);
 	}
 
-	// 根据路径查找对象
+	// 鏍规嵁璺緞鏌ユ壘瀵硅薄
 	public final Element getElementByPath(String path, int index) {
 		if (path != null) {
 			return getElementByPath(path.split("/"), index);
@@ -111,7 +111,7 @@ public class Folder extends Element {
 		return null;
 	}
 
-	// 根据路径查找对象
+	// 鏍规嵁璺緞鏌ユ壘瀵硅薄
 	private final Element getElementByPath(String[] paths, int index) {
 		Folder folder = this;
 		Element rt = null;
@@ -136,7 +136,7 @@ public class Folder extends Element {
 		return rt;
 	}
 
-	// 根据名称查找子对象
+	// 鏍规嵁鍚嶇О鏌ユ壘瀛愬璞�
 	private static final Element getChild(Folder folder, String name, int index) {
 		int counter = 0;
 		for (Element child : folder.childs) {

@@ -79,7 +79,7 @@ public class ClassElementFieldTree extends JPanel {
 			}
 		});
 
-		// Õ¹¿ªÊ÷½á¹¹
+		// å±•å¼€æ ‘ç»“æ„
 		TreePath treePath = new TreePath(treeModel);
 		this.tree.expandPath(treePath);
 		treePath = treePath.pathByAddingChild(treeModel.getChildAt(1));
@@ -90,7 +90,7 @@ public class ClassElementFieldTree extends JPanel {
 		initEditPanel();
 	}
 
-	// ¸üĞÂ±à¼­Ãæ°åÔªËØ
+	// æ›´æ–°ç¼–è¾‘é¢æ¿å…ƒç´ 
 	protected final void updateEditPanel(FieldTreeModel treeNode) {
 		textField_field.setText(null);
 		textField_field.setEditable(false);
@@ -119,7 +119,7 @@ public class ClassElementFieldTree extends JPanel {
 		revalidate();
 	}
 
-	// ³õÊ¼»¯±à¼­Ãæ°å
+	// åˆå§‹åŒ–ç¼–è¾‘é¢æ¿
 	protected final void initEditPanel() {
 		//
 		JPanel panel = new JPanel();
@@ -158,7 +158,7 @@ public class ClassElementFieldTree extends JPanel {
 			@Override
 			public void onInitPopmenu(JPopupMenu popupMenu) {
 				if (textField_field.isEditable()) {
-					// ÎÄ¼şÀàĞÍ»º´æ
+					// æ–‡ä»¶ç±»å‹ç¼“å­˜
 					folders.clear();
 					List<JMenu> menus = new ArrayList<JMenu>();
 					for (ResoucePath resoucePath : DataManage.getResourcePaths()) {
@@ -172,7 +172,7 @@ public class ClassElementFieldTree extends JPanel {
 							folders.put(fileType, menu);
 						}
 					}
-					// ÅÅĞò , Ìí¼Ó
+					// æ’åº , æ·»åŠ 
 					menus.sort(new Comparator<JMenu>() {
 						@Override
 						public int compare(JMenu o1, JMenu o2) {
@@ -274,7 +274,7 @@ public class ClassElementFieldTree extends JPanel {
 		return false;
 	}
 
-	// ÉèÖÃÎÄ×Ö¼àÌı
+	// è®¾ç½®æ–‡å­—ç›‘å¬
 	protected final void setTextListener(FieldFocusListener fieldFocusListener) {
 		FocusListener[] focusListeners = textField_field.getFocusListeners();
 		if (focusListeners != null) {
@@ -337,7 +337,7 @@ public class ClassElementFieldTree extends JPanel {
 			//
 			List<Field> fields = ReflectTools.getFields(source.getClass());
 			for (Field field : fields) {
-				if (ReflectTools.isStatic(field)) { // ¾²Ì¬Êı¾İ²»ÄÜ±à¼­
+				if (ReflectTools.isStatic(field)) { // é™æ€æ•°æ®ä¸èƒ½ç¼–è¾‘
 
 				} else {
 					add(new FieldTreeModel(source, field));
@@ -350,7 +350,7 @@ public class ClassElementFieldTree extends JPanel {
 				this.source = source;
 				this.field = field;
 				field.setAccessible(true);
-				// Í¼±ê
+				// å›¾æ ‡
 
 				Class<?> type = field.getType();
 				FieldAn an = field.getAnnotation(FieldAn.class);
@@ -380,9 +380,9 @@ public class ClassElementFieldTree extends JPanel {
 			try {
 				Class<?> type = field.getType();
 				String label = field.getName();
-				// ÊıÖµ
+				// æ•°å€¼
 				Object val = field.get(source);
-				if (val == null) { // ¿ÕÖµ
+				if (val == null) { // ç©ºå€¼
 				} else {
 					type = val.getClass();
 					if (ReflectTools.isBaseType(type)) {
@@ -404,7 +404,7 @@ public class ClassElementFieldTree extends JPanel {
 						setAllowsChildren(true);
 						List<Field> fields = ReflectTools.getFields(type);
 						for (Field cField : fields) {
-							if (ReflectTools.isStatic(cField)) { // ¾²Ì¬Êı¾İ²»ÄÜ±à¼­
+							if (ReflectTools.isStatic(cField)) { // é™æ€æ•°æ®ä¸èƒ½ç¼–è¾‘
 
 							} else {
 								add(new FieldTreeModel(val, cField));

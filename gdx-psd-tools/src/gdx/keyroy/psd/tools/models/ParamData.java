@@ -7,9 +7,9 @@ import java.util.List;
 
 import com.keyroy.util.json.JsonAn;
 
-//²ÎÊı ÎÄ¼şµÄÃèÊö
+//å‚æ•° æ–‡ä»¶çš„æè¿°
 public class ParamData {
-	// ÎÄ¼şµÄµØÖ·
+	// æ–‡ä»¶çš„åœ°å€
 	protected String filePath;
 
 	@JsonAn(skip = true)
@@ -24,12 +24,12 @@ public class ParamData {
 
 	}
 
-	// ÎÄ¼şµÄµØÖ·
+	// æ–‡ä»¶çš„åœ°å€
 	public String getFilePath() {
 		return filePath;
 	}
 
-	// ÎÄ¼şµÄµØÖ·
+	// æ–‡ä»¶çš„åœ°å€
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}

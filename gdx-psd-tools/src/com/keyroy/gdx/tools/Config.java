@@ -8,15 +8,15 @@ import com.keyroy.util.json.Json;
 import gdx.keyroy.psd.tools.util.FileUtil;
 
 public class Config {
-	// ´ò°üÇ° Çå¿ÕÎÄ¼ş¼Ğ
+	// æ‰“åŒ…å‰ æ¸…ç©ºæ–‡ä»¶å¤¹
 	public static boolean cleanFolder;
-	// ±£´æÍ¼Æ¬
+	// ä¿å­˜å›¾ç‰‡
 	public static boolean saveImage;
-	// Ê¹ÓÃ TexturePacker ´ò°üÍ¼Æ¬
+	// ä½¿ç”¨ TexturePacker æ‰“åŒ…å›¾ç‰‡
 	public static boolean saveAtlas;
-	// Ö§³ÖĞı×ªÍ¼Æ¬
+	// æ”¯æŒæ—‹è½¬å›¾ç‰‡
 	public static boolean rotateImage;
-	// ¸ñÊ½»¯Í¼²ãÃû³Æ
+	// æ ¼å¼åŒ–å›¾å±‚åç§°
 	public static boolean formatLayerName;
 
 	public static final void load() {

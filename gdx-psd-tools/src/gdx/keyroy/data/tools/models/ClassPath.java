@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.keyroy.util.json.JsonAn;
 
-//Àà ÎÄ¼şµÄÃèÊö
+//ç±» æ–‡ä»¶çš„æè¿°
 public class ClassPath {
-	// class µÄÃû³Æ
+	// class çš„åç§°
 	protected String className;
 
-	// ÔªËØ
+	// å…ƒç´ 
 	@JsonAn(skip = true)
 	protected List<ClassElement> elements;
 
@@ -25,7 +25,7 @@ public class ClassPath {
 		this.className = clazz.getName();
 	}
 
-	// ÀàÃû
+	// ç±»å
 	public String getClassName() {
 		return className;
 	}
@@ -70,7 +70,7 @@ public class ClassPath {
 
 	public void setElements(List<ClassElement> elements) {
 		this.elements = elements;
-		// ¼ì²é¸¸ÀàÊÇ·ñ±»ÉèÖÃ
+		// æ£€æŸ¥çˆ¶ç±»æ˜¯å¦è¢«è®¾ç½®
 		for (ClassElement element : this.elements) {
 			if (element.parent == null) {
 				element.parent = this;
@@ -82,7 +82,7 @@ public class ClassPath {
 		if (elements == null) {
 			elements = new ArrayList<ClassElement>();
 		}
-		// ¼ì²é¸¸ÀàÊÇ·ñ±»ÉèÖÃ
+		// æ£€æŸ¥çˆ¶ç±»æ˜¯å¦è¢«è®¾ç½®
 		for (ClassElement element : elements) {
 			if (element.parent == null) {
 				element.parent = this;

@@ -50,14 +50,14 @@ public class GdxPsdTools {
 		send("Exporting", MessageKey.H1);
 		File packFolder = new File(EditorConfig.export_path);
 		send("cleaning", MessageKey.H2);
-		// Çå¿ÕÎÄ¼ş¼ĞÄ¿Â¼
+		// æ¸…ç©ºæ–‡ä»¶å¤¹ç›®å½•
 		FileUtil.delete(packFolder);
 		packFolder.mkdirs();
 
 		send("cleaning ok", MessageKey.H2);
-		// ±£´æÊı¾İÎÄ¼ş
+		// ä¿å­˜æ•°æ®æ–‡ä»¶
 		List<PSDData> psdDatas = EditorData.getPsdDatas();
-		// ½âÎö´íÎóµÄÀà
+		// è§£æé”™è¯¯çš„ç±»
 		Set<PSDData> errors = new HashSet<PSDData>();
 		for (PSDData psdData : psdDatas) {
 			try {
@@ -78,9 +78,9 @@ public class GdxPsdTools {
 			}
 		}
 
-		// ´ò°üÍ¼Æ¬
+		// æ‰“åŒ…å›¾ç‰‡
 		for (PSDData psdData : psdDatas) {
-			try {// ¹ıÂËµô½âÎö´íÎóµÄÀà
+			try {// è¿‡æ»¤æ‰è§£æé”™è¯¯çš„ç±»
 				if (errors.contains(psdData) == false) {
 					send("saving image on : " + psdData.getFileName(), MessageKey.H2);
 					packageImage(packFolder, psdData);
@@ -101,7 +101,7 @@ public class GdxPsdTools {
 		List<Layer> layers = new ArrayList<Layer>();
 		filterImage(psd, layers);
 		//
-		if (EditorConfig.used_texture_packer) { // Ê¹ÓÃ TexturePacker ´ò°üÍ¼Æ¬
+		if (EditorConfig.used_texture_packer) { // ä½¿ç”¨ TexturePacker æ‰“åŒ…å›¾ç‰‡
 			final Settings settings = new Settings();
 			settings.pot = false;
 			settings.maxWidth = 2048;
@@ -141,7 +141,7 @@ public class GdxPsdTools {
 		}
 	}
 
-	// ¶ÔÏó×ª»»
+	// å¯¹è±¡è½¬æ¢
 	public static final PsdFile translate(PSDData psdData) {
 		Psd psd = psdData.getCache();
 		PSDUtil.updatePsdLayerPosition(psd);
@@ -152,7 +152,7 @@ public class GdxPsdTools {
 		psdFile.maxWidth = rect.width;
 		psdFile.maxHeight = rect.height;
 		psdFile.psdName = psdData.getFileName();
-		// ²ÎÊı
+		// å‚æ•°
 		List<LayerParam> layerParams = psdData.getLayerParams(null);
 		if (layerParams != null && layerParams.size() > 0) {
 			psdFile.params = new ArrayList<Param>(layerParams.size());
@@ -169,9 +169,9 @@ public class GdxPsdTools {
 		for (int i = 0; i < container.getLayersCount(); i++) {
 			Layer layer = container.getLayer(i);
 			Element actor = null;
-			if (layer.isFolder()) { // ÕâÊÇÒ»¸öÎÄ¼ş¼Ğ
+			if (layer.isFolder()) { // è¿™æ˜¯ä¸€ä¸ªæ–‡ä»¶å¤¹
 				actor = new Folder();
-			} else if (layer.isTextLayer()) { // ÕâÊÇÒ»¸öÎÄ±¾¶ÔÏó
+			} else if (layer.isTextLayer()) { // è¿™æ˜¯ä¸€ä¸ªæ–‡æœ¬å¯¹è±¡
 				Text text = new Text();
 				PsdText psdText = layer.getPsdText();
 				text.text = psdText.value;
@@ -181,7 +181,7 @@ public class GdxPsdTools {
 				text.b = psdText.b;
 				text.fontSize = psdText.fontSize;
 				actor = text;
-			} else if (layer.getImage() != null) { // ÕâÊÇÒ»¸öÍ¼Æ¬
+			} else if (layer.getImage() != null) { // è¿™æ˜¯ä¸€ä¸ªå›¾ç‰‡
 				actor = new Pic();
 				if (EditorConfig.used_texture_packer) {
 					((Pic) actor).textureName = layer.getName();
@@ -190,7 +190,7 @@ public class GdxPsdTools {
 				}
 			}
 
-			if (actor != null) { // ×ø±ê
+			if (actor != null) { // åæ ‡
 				actor.layerName = layer.getName();
 				actor.isVisible = layer.isVisible();
 				if (actor instanceof PsdFile) {
@@ -207,12 +207,12 @@ public class GdxPsdTools {
 						actor.width = layer.getWidth();
 						actor.height = layer.getHeight();
 					}
-					if (EditorConfig.used_libgdx_coordinate) { // Ê¹ÓÃ libgdx µÄ×ø±êÏµ
+					if (EditorConfig.used_libgdx_coordinate) { // ä½¿ç”¨ libgdx çš„åæ ‡ç³»
 						actor.y = folder.height - actor.y - actor.height;
 					}
 				}
 				folder.childs.add(actor);
-				// ÊÂ¼ş , ÕâÀïĞèÒªÈ¥µôÊÂ¼şµÄÓ³Éä id
+				// äº‹ä»¶ , è¿™é‡Œéœ€è¦å»æ‰äº‹ä»¶çš„æ˜ å°„ id
 				List<LayerParam> layerParams = psdData.getLayerParams(layer);
 				if (layerParams != null && layerParams.size() > 0) {
 					actor.params = new ArrayList<Param>(layerParams.size());

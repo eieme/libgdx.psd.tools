@@ -1,7 +1,7 @@
 package a.test;
 
 public class Monster {
-	// Ãû³Æ
+	// åç§°
 	protected String name;
 	// id
 	protected int id;

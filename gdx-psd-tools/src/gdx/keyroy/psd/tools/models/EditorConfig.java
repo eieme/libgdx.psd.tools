@@ -14,16 +14,16 @@ import com.badlogic.gdx.files.FileHandle;
 import com.keyroy.util.json.Json;
 
 public class EditorConfig {
-	// 导出路径
+	// 瀵煎嚭璺緞
 	public static String export_path;
-	// 使用 LIBGDX 的坐标系
+	// 浣跨敤 LIBGDX 鐨勫潗鏍囩郴
 	public static boolean used_libgdx_coordinate;
-	// 使用 TexturePacker 打包图片
+	// 浣跨敤 TexturePacker 鎵撳寘鍥剧墖
 	public static boolean used_texture_packer;
-	// 使用 Android Assets 名称规范
+	// 浣跨敤 Android Assets 鍚嶇О瑙勮寖
 	public static boolean used_android_assets_name;
 
-	// 桌面项目加载方式
+	// 妗岄潰椤圭洰鍔犺浇鏂瑰紡
 	public static final void load() {
 		try {
 			File file = getFile();
@@ -43,7 +43,7 @@ public class EditorConfig {
 		}
 	}
 
-	// GDX 项目加载方式
+	// GDX 椤圭洰鍔犺浇鏂瑰紡
 	public static final void loadOnGdx() {
 		try {
 			FileHandle handle = Gdx.files.internal("EditorConfig");

@@ -52,7 +52,7 @@ public class FileUtil {
 			String text = null;
 			while ((text = reader.readLine()) != null) {
 				try {
-					if (text.startsWith("#")) { // ×¢ÊÍ
+					if (text.startsWith("#")) { // æ³¨é‡Š
 						continue;
 					} else if (text.trim().length() > 0) {
 						KeyVal keyVal = new KeyVal();

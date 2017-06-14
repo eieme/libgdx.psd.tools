@@ -6,14 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import psd.Element;
 
 /**
- * 映射的监听
+ * 鏄犲皠鐨勭洃鍚�
  * 
  */
 public interface PsdReflectListener {
-	/** 反射对象完成 */
+	/** 鍙嶅皠瀵硅薄瀹屾垚 */
 	public void onReflectSuccess(PsdGroup psdGroup);
 
-	/** 反射对象完成 */
+	/** 鍙嶅皠瀵硅薄瀹屾垚 */
 	public Actor onReflectElement(PsdGroup parent, Element element, AssetManager assetManager)
 			throws Exception;
 }

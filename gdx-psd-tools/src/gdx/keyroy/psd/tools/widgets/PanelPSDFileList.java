@@ -97,7 +97,7 @@ public class PanelPSDFileList extends JPanel {
 
 		menuItem_delete = new JMenuItem(L.get("Menu.delete_psd_file"));
 		menuItem_delete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // É¾³ý
+			public void actionPerformed(ActionEvent e) { // åˆ é™¤
 				if (list.getSelectedIndices() != null) {
 					int n = JOptionPane.showConfirmDialog(null, L.get("Dialog.delete_psd_file"),
 							L.get("Menu.delete_psd_file"), JOptionPane.YES_NO_OPTION);

@@ -12,7 +12,7 @@ import gdx.keyroy.psd.tools.util.Messager;
 import gdx.keyroy.psd.tools.util.PsdCache;
 import gdx.keyroy.psd.tools.widgets.PanelPSDLayerTree;
 
-// 类管理的面板
+// 绫荤鐞嗙殑闈㈡澘
 @SuppressWarnings("serial")
 public class PanelFieldsTree extends JPanel {
 	private JScrollPane scrollPane;

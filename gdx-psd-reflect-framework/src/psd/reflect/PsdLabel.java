@@ -10,12 +10,12 @@ import psd.Param;
 import psd.ParamProvider;
 
 /**
- * PSD 的文本对象
+ * PSD 鐨勬枃鏈璞�
  * 
  * @author roy
  */
 public class PsdLabel extends Label implements ParamProvider {
-	// 文本源
+	// 鏂囨湰婧�
 	protected final psd.Text psdText;
 
 	public PsdLabel(psd.Text psdText) {

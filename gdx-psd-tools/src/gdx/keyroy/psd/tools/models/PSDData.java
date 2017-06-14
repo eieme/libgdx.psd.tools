@@ -15,14 +15,14 @@ import library.psd.Psd;
 
 import com.keyroy.util.json.JsonAn;
 
-// PSD ÎÄ¼şµÄÃèÊö
+// PSD æ–‡ä»¶çš„æè¿°
 public class PSDData {
-	// PSD ÎÄ¼şµÄµØÖ·
+	// PSD æ–‡ä»¶çš„åœ°å€
 	protected String filePath;
-	// ²ÎÊı
+	// å‚æ•°
 	protected List<LayerParam> params;
 
-	// PSD µÄ»º´æÎÄ¼ş
+	// PSD çš„ç¼“å­˜æ–‡ä»¶
 	@JsonAn(skip = true)
 	protected Psd cache;
 	@JsonAn(skip = true)
@@ -36,7 +36,7 @@ public class PSDData {
 		this.filePath = file.getPath();
 	}
 
-	// Ìí¼ÓÒ»¸ö²ÎÊı
+	// æ·»åŠ ä¸€ä¸ªå‚æ•°
 	public final void addParam(LayerParam layerParam) {
 		if (params == null) {
 			params = new ArrayList<LayerParam>();
@@ -45,7 +45,7 @@ public class PSDData {
 		updateParamCache();
 	}
 
-	// É¾³ıÒ»¸ö²ÎÊı
+	// åˆ é™¤ä¸€ä¸ªå‚æ•°
 	public final boolean removeParam(LayerParam layerParam) {
 		if (params != null) {
 			params.remove(layerParam);

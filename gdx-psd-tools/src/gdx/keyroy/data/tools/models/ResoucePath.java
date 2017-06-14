@@ -8,11 +8,11 @@ import com.keyroy.util.json.JsonAn;
 
 import gdx.keyroy.psd.tools.util.TextureUnpacker;
 
-//Àà ÎÄ¼şµÄÃèÊö
+//ç±» æ–‡ä»¶çš„æè¿°
 public class ResoucePath {
-	// ×ÊÔ´ÎÄ¼şÃû³Æ
+	// èµ„æºæ–‡ä»¶åç§°
 	protected String name;
-	// ×ÊÔ´ÎÄ¼ş ÎÄ¼ş¼Ğ
+	// èµ„æºæ–‡ä»¶ æ–‡ä»¶å¤¹
 	protected String folder;
 
 	@JsonAn(skip = true)
@@ -78,7 +78,7 @@ public class ResoucePath {
 		}
 	}
 
-	// ÎÄ¼şµÄµØÖ·
+	// æ–‡ä»¶çš„åœ°å€
 	public String getFilePath() {
 		return getFile().getAbsolutePath();
 	}

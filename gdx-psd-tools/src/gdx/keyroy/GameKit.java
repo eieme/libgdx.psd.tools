@@ -59,12 +59,12 @@ public class GameKit {
 	private static final void init() throws Exception {
 		// LOOK AND FEEL
 		SwingUtil.initWindowsLookAndFeel();
-		// ¼ÓÔØÓïÑÔ
+		// åŠ è½½è¯­è¨€
 		L.load("/zn");
-		// ¼ÓÔØ±à¼­Æ÷ Êı¾İ
+		// åŠ è½½ç¼–è¾‘å™¨ æ•°æ®
 		// DataManage.addClass(Monster.class, false);
 		DataManage.load();
-		// ¼ÓÔØÅäÖÃĞÅÏ¢
+		// åŠ è½½é…ç½®ä¿¡æ¯
 		EditorConfig.load();
 		scale = 1;
 	}
@@ -157,7 +157,7 @@ public class GameKit {
 		JMenuItem mntmNewMenuItem = new JMenuItem(L.get("menu.export"));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ´ò°ü
+				// æ‰“åŒ…
 				final DialogProgress dialogProgress = new DialogProgress();
 				SwingUtil.center(frame, dialogProgress);
 				dialogProgress.setVisible(true);

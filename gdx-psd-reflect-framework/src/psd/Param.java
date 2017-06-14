@@ -5,9 +5,9 @@ import org.json.m.JSONObject;
 import com.keyroy.util.json.Json;
 
 public class Param {
-	// 参数ID
+	// 鍙傛暟ID
 	protected String id;
-	// 参数内容
+	// 鍙傛暟鍐呭
 	protected JSONObject json;
 
 	public Param() {
@@ -24,7 +24,7 @@ public class Param {
 			String jsonStr = text.substring(st, ed + 1);
 			try {
 				this.json = new JSONObject(jsonStr);
-			} catch (Exception e) {// 错误的字符串尝试新的解析方式
+			} catch (Exception e) {// 閿欒鐨勫瓧绗︿覆灏濊瘯鏂扮殑瑙ｆ瀽鏂瑰紡
 				jsonStr = jsonStr.replace("{", "").replace("}", "");
 				this.json = new JSONObject();
 				try {
@@ -42,12 +42,12 @@ public class Param {
 		}
 	}
 
-	// 获取参数的 ID
+	// 鑾峰彇鍙傛暟鐨� ID
 	public final String getId() {
 		return id;
 	}
 
-	// 获取 JSON 参数对象
+	// 鑾峰彇 JSON 鍙傛暟瀵硅薄
 	public final JSONObject getJson() {
 		return json;
 	}

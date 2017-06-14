@@ -1,9 +1,9 @@
 package psd.lg0311.params;
 
 public class Particle {
-	// 文件名称 , 这个不是全名 , 比如 aaa.fnt , 写作 aaa
+	// 鏂囦欢鍚嶇О , 杩欎釜涓嶆槸鍏ㄥ悕 , 姣斿 aaa.fnt , 鍐欎綔 aaa
 	public String na;
-	// 文件全路径
+	// 鏂囦欢鍏ㄨ矾寰�
 	public String path;
 
 	public final String getPath() {

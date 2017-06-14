@@ -16,7 +16,7 @@ import java.io.File;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-//ÔªËØÃæ°å
+//å…ƒç´ é¢æ¿
 @SuppressWarnings("serial")
 public class TabClassPathPanel extends JPanel implements ContainerListener {
 	protected ClassPath classPath;

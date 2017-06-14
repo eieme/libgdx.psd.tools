@@ -70,7 +70,7 @@ public class ResourceTree extends JPanel {
 			@Override
 			public void onInitPopmenu(JPopupMenu popupMenu) {
 				if (tree.getSelectionPaths() != null) {
-					// É¾³ýÀà
+					// åˆ é™¤ç±»
 					SwingUtil.addPopup(popupMenu, "menu.del_element", new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -87,7 +87,7 @@ public class ResourceTree extends JPanel {
 						}
 					});
 				}
-				// Ë¢ÐÂ
+				// åˆ·æ–°
 				SwingUtil.addPopup(popupMenu, "menu.refresh", new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -133,18 +133,18 @@ public class ResourceTree extends JPanel {
 	}
 
 	class ResourceTreeModel extends DefaultTreeNode {
-		// Í¼Æ¬ÔªËØ
+		// å›¾ç‰‡å…ƒç´ 
 		private ResoucePath resourcePath;
 
-		// Ä¬ÈÏ¹¹ÔìÆ÷ , Ä¬ÈÏ¼ÓÔØËùÓÐ ÀàÔªËØ,ºÍÍ¼Æ¬
+		// é»˜è®¤æž„é€ å™¨ , é»˜è®¤åŠ è½½æ‰€æœ‰ ç±»å…ƒç´ ,å’Œå›¾ç‰‡
 		public ResourceTreeModel() {
 			setUserObject(L.get("label.element_collections"));
 			setAllowsChildren(true);
 			setIcon(Icons.LAYER_FOLDER);
 
-			// ÎÄ¼þÀàÐÍ»º´æ
+			// æ–‡ä»¶ç±»åž‹ç¼“å­˜
 			Hashtable<String, ResourceTreeModel> fileTypes = new Hashtable<String, ResourceTreeModel>();
-			// Ìí¼Ó
+			// æ·»åŠ 
 			for (ResoucePath resoucePath : DataManage.getResourcePaths()) {
 				String fileType = resoucePath.getFileType();
 				//
@@ -166,14 +166,14 @@ public class ResourceTree extends JPanel {
 			}
 		}
 
-		// ÎÄ¼þÀàÐÍÎÄ¼þ¼Ð¹¹ÔìÆ÷
+		// æ–‡ä»¶ç±»åž‹æ–‡ä»¶å¤¹æž„é€ å™¨
 		public ResourceTreeModel(String fileType) {
 			setUserObject(fileType);
 			setAllowsChildren(true);
 			setIcon(Icons.LAYER_FOLDER);
 		}
 
-		// Í¼Æ¬ÎÄ¼þ¼Ð¹¹ÔìÆ÷
+		// å›¾ç‰‡æ–‡ä»¶å¤¹æž„é€ å™¨
 		public ResourceTreeModel(File folder) {
 			setUserObject(folder.getName());
 			setAllowsChildren(true);

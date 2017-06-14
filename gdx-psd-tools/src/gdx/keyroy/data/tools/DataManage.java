@@ -23,27 +23,27 @@ import library.psd.Layer;
 import library.psd.LayersContainer;
 import library.psd.Psd;
 
-// Êı¾İ
+// æ•°æ®
 public class DataManage {
 	@JsonAn(skip = true)
 	private static int hashCode;
-	// ÀàÊı¾İ
+	// ç±»æ•°æ®
 	@JsonAn(skip = true)
 	private static List<ClassPath> classPaths = new ArrayList<ClassPath>();
-	// ×ÊÔ´Êı¾İ
+	// èµ„æºæ•°æ®
 	private static List<ResoucePath> resourcePaths = new ArrayList<ResoucePath>();
 
-	// Ìí¼ÓĞÂµÄÀà
+	// æ·»åŠ æ–°çš„ç±»
 	public static final void edit(Class<?> clazz) {
 		addClass(clazz);
 	}
 
-	// Ìí¼ÓĞÂµÄÀà
+	// æ·»åŠ æ–°çš„ç±»
 	public static final void addClass(Class<?> clazz) {
 		addClass(clazz, false);
 	}
 
-	// Ìí¼ÓĞÂµÄÀà
+	// æ·»åŠ æ–°çš„ç±»
 	public static final void addClass(Class<?> clazz, boolean autoSave) {
 		for (ClassPath classPath : classPaths) {
 			if (classPath.getClassName().equals(clazz.getName())) {
@@ -78,7 +78,7 @@ public class DataManage {
 						_addResource(rootFolder, cFile);
 					}
 				}
-			} else { // ÎÄ¼ş
+			} else { // æ–‡ä»¶
 				resourcePaths.add(new ResoucePath(rootFolder, file));
 			}
 		}
@@ -99,7 +99,7 @@ public class DataManage {
 				inputStream.close();
 				//
 			}
-			// ¼ÓÔØ ClassPath
+			// åŠ è½½ ClassPath
 			for (ClassPath classPath : DataManage.classPaths) {
 				File folder = getFolder(classPath);
 				if (folder.exists()) {
@@ -154,16 +154,16 @@ public class DataManage {
 	public static final void delete(ClassElement classElement) {
 
 		ClassPath classPath = classElement.getParent();
-		// É¾³ıÔªËØ
+		// åˆ é™¤å…ƒç´ 
 		classPath.delElement(classElement);
-		// É¾³ıÎÄ¼ş
+		// åˆ é™¤æ–‡ä»¶
 		File folder = getFolder(classPath);
 		File file = new File(folder, classElement.getObjId());
 		file.delete();
 
 	}
 
-	// ±£´æÀàÎÄ¼ş
+	// ä¿å­˜ç±»æ–‡ä»¶
 	public static final void save(ClassElement classElement) {
 		try {
 			ClassPath classPath = classElement.getParent();
@@ -173,7 +173,7 @@ public class DataManage {
 		}
 	}
 
-	// ±£´æÀàÎÄ¼şµ½ Ö¸¶¨ÎÄ¼ş¼Ğ
+	// ä¿å­˜ç±»æ–‡ä»¶åˆ° æŒ‡å®šæ–‡ä»¶å¤¹
 	public static final void save(ClassElement classElement, File folder) {
 		try {
 			if (folder.exists() == false) {
@@ -214,15 +214,15 @@ public class DataManage {
 	}
 
 	public static final void export() {
-		// ´ò°ü¹æÔò , ´ò°üÊä³öÄ¬ÈÏ ±¾µØ assets ÎÄ¼ş¼Ğ
-		// ¸´ÖÆËùÓĞÀàµÄÎÄ¼ş
-		// ¸´ÖÆ×ÊÔ´µÄÎÄ¼ş¼Ğ , ÓĞ ÎÄ¼ş¼ĞµÄ ×ÊÔ´¸´ÖÆµ½ ×îºóÒ»¼¶ÎÄ¼ş¼ĞÄ¿Â¼ , Ã»ÓĞÄ¿Â¼µÄ¸´ÖÆµ½¸ùÄ¿Â¼
+		// æ‰“åŒ…è§„åˆ™ , æ‰“åŒ…è¾“å‡ºé»˜è®¤ æœ¬åœ° assets æ–‡ä»¶å¤¹
+		// å¤åˆ¶æ‰€æœ‰ç±»çš„æ–‡ä»¶
+		// å¤åˆ¶èµ„æºçš„æ–‡ä»¶å¤¹ , æœ‰ æ–‡ä»¶å¤¹çš„ èµ„æºå¤åˆ¶åˆ° æœ€åä¸€çº§æ–‡ä»¶å¤¹ç›®å½• , æ²¡æœ‰ç›®å½•çš„å¤åˆ¶åˆ°æ ¹ç›®å½•
 		Messager.send("Export", MessageKey.H1);
 		File asssets = new File("assests");
-		FileUtil.delete(asssets);// Çå¿ÕÊı¾İ
+		FileUtil.delete(asssets);// æ¸…ç©ºæ•°æ®
 		asssets.mkdirs();
 		Messager.send("clean cache", MessageKey.H2);
-		// ´ò°üÀà¶ÔÏó
+		// æ‰“åŒ…ç±»å¯¹è±¡
 		for (ClassPath classPath : classPaths) {
 			Messager.send("Saving " + classPath.getClassName(), MessageKey.H1);
 			File classFolder = getFolder(classPath);
@@ -233,11 +233,11 @@ public class DataManage {
 				save(element, classFolder);
 			}
 		}
-		// ´ò°ü×ÊÔ´¶ÔÏó
+		// æ‰“åŒ…èµ„æºå¯¹è±¡
 		Messager.send("Saving Images ", MessageKey.H1);
 		for (ResoucePath resourcePath : resourcePaths) {
 			File file = resourcePath.getFile();
-			if (resourcePath.isPSD()) { // ´ò°ü PSD
+			if (resourcePath.isPSD()) { // æ‰“åŒ… PSD
 				Psd psd = PsdCache.get(file);
 				List<Layer> layers = new ArrayList<Layer>();
 				filterImage(psd, layers);
@@ -252,7 +252,7 @@ public class DataManage {
 				String imagePath = resourcePath.getAssetsPath().replace(".psd", ".atlas");
 				Messager.send("saving image : " + imagePath);
 				packer.pack(asssets, imagePath);
-			} else { // ¿½±´ÎÄ¼ş
+			} else { // æ‹·è´æ–‡ä»¶
 				try {
 					File copyTo = new File(asssets, resourcePath.getAssetsPath());
 					FileUtil.copy(file, copyTo);

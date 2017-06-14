@@ -27,7 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
-// 类管理的面板
+// 绫荤鐞嗙殑闈㈡澘
 @SuppressWarnings("serial")
 public class PanelClassPathList extends JPanel {
 	private JList<ClassPath> list;
@@ -55,7 +55,7 @@ public class PanelClassPathList extends JPanel {
 
 		JMenuItem menuItem_delete = new JMenuItem(L.get("Menu.delete_class_path"));
 		menuItem_delete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // 删除
+			public void actionPerformed(ActionEvent e) { // 鍒犻櫎
 				if (list.getSelectedIndices() != null) {
 					int n = JOptionPane.showConfirmDialog(null, L.get("Dialog.delete_class_path"),
 							L.get("Menu.delete_class_path"), JOptionPane.YES_NO_OPTION);

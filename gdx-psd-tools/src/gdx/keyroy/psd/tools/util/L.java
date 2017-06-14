@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 
-//”Ô—‘ (Language)
+//ËØ≠Ë®Ä (Language)
 public class L {
 	private static final Properties PROPERTIES = new Properties();
 

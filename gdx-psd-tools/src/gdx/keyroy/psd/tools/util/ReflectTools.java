@@ -154,7 +154,7 @@ public class ReflectTools {
 			for (Field field : fields) {
 				modifiers = field.getModifiers();
 				if (Modifier.isFinal(modifiers) || Modifier.isStatic(modifiers)) {
-					// ²»ÄÜĞŞ¸Ä
+					// ä¸èƒ½ä¿®æ”¹
 				} else {
 					addField(field, list);
 				}

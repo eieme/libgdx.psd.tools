@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 
-// 类管理的面板
+// 绫荤鐞嗙殑闈㈡澘
 @SuppressWarnings("serial")
 public class PanelElementTable extends JPanel {
 	private JTabbedPane tabbedPane;
@@ -67,7 +67,7 @@ public class PanelElementTable extends JPanel {
 				} else if (t.isImage()) {
 					addTab(t, t.getAssetsPath(), Icons.RESOURCE_FILE, new TabImageDrawerPanel(t));
 				} else {
-					try {// 使用默认的程序打开
+					try {// 浣跨敤榛樿鐨勭▼搴忔墦寮�
 						FileUtil.openFile(t.getFile());
 					} catch (Exception e) {
 						e.printStackTrace();

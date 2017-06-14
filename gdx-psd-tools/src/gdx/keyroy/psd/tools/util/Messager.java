@@ -9,7 +9,7 @@ public class Messager {
 	private static final Hashtable<Class, List<MessageListener>> HASHTABLE = new Hashtable<Class, List<MessageListener>>();
 	private static final boolean debug = false;
 
-	// ×¢²áÏûÏ¢×é¼ş
+	// æ³¨å†Œæ¶ˆæ¯ç»„ä»¶
 	public static final <T> void register(Class<T> clazz, MessageListener<T> listener) {
 		List<MessageListener> listeners = getListeners(clazz);
 		if (listeners.contains(listener) == false) {
@@ -18,14 +18,14 @@ public class Messager {
 		}
 	}
 
-	// É¾³ı
+	// åˆ é™¤
 	public static final <T> void unregister(Class<T> clazz, MessageListener<T> listener) {
 		List<MessageListener> listeners = getListeners(clazz);
 		listeners.remove(listener);
 		log("unregister", clazz.getName());
 	}
 
-	// ·¢ËÍĞÅÏ¢
+	// å‘é€ä¿¡æ¯
 	@SuppressWarnings("unchecked")
 	public static synchronized final <T> void send(T t, Object... params) {
 		List<MessageListener> listeners = null;

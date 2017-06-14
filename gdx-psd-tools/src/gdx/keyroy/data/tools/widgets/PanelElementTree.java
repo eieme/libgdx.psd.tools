@@ -31,7 +31,7 @@ import gdx.keyroy.psd.tools.util.PopmenuListener;
 import gdx.keyroy.psd.tools.util.SwingUtil;
 import gdx.keyroy.psd.tools.util.SwingUtil.DropInAdapter;
 
-// Àà¹ÜÀíµÄÃæ°å
+// ç±»ç®¡ç†çš„é¢æ¿
 @SuppressWarnings("serial")
 public class PanelElementTree extends JPanel {
 	private JTree tree;
@@ -59,7 +59,7 @@ public class PanelElementTree extends JPanel {
 			}
 		});
 
-		// Õ¹¿ªÊ÷½á¹¹
+		// å±•å¼€æ ‘ç»“æ„
 		TreePath treePath = new TreePath(treeModel);
 		this.tree.expandPath(treePath);
 		for (int i = 0; i < treeModel.getChildCount(); i++) {
@@ -103,8 +103,8 @@ public class PanelElementTree extends JPanel {
 				if (tree.getSelectionPath() != null) {
 					final ElementTreeModel treeNode = (ElementTreeModel) tree.getSelectionPath()
 							.getLastPathComponent();
-					if (treeNode.classPath != null) { // Àà¶ÔÏó
-						// ĞÂ½¨¶ÔÏó
+					if (treeNode.classPath != null) { // ç±»å¯¹è±¡
+						// æ–°å»ºå¯¹è±¡
 						SwingUtil.addPopup(popupMenu, "menu.new_element", new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
@@ -123,7 +123,7 @@ public class PanelElementTree extends JPanel {
 							public void actionPerformed(ActionEvent e) {
 								ClassPath classPath = treeNode.classPath;
 								String count = (String) JOptionPane.showInputDialog(tree,
-										L.get("text.input_element_count") + " £º\n",
+										L.get("text.input_element_count") + " ï¼š\n",
 										L.get("dialog.new_element"), JOptionPane.PLAIN_MESSAGE,
 										Icons.CLASS_FILE, null, "" + (1));
 								try {
@@ -140,8 +140,8 @@ public class PanelElementTree extends JPanel {
 
 							}
 						});
-					} else if (treeNode.resourcePath != null) { // Í¼Æ¬¶ÔÏó
-						// É¾³ıÀà
+					} else if (treeNode.resourcePath != null) { // å›¾ç‰‡å¯¹è±¡
+						// åˆ é™¤ç±»
 						SwingUtil.addPopup(popupMenu, "menu.del_element", new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
@@ -155,7 +155,7 @@ public class PanelElementTree extends JPanel {
 								updateTree();
 							}
 						});
-					} else if (treeNode.folder != null) { // Í¼Æ¬ÎÄ¼ş¼Ğ
+					} else if (treeNode.folder != null) { // å›¾ç‰‡æ–‡ä»¶å¤¹
 						SwingUtil.addPopup(popupMenu, "menu.open_folder", new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
@@ -181,7 +181,7 @@ public class PanelElementTree extends JPanel {
 					}
 				}
 				String id = (String) JOptionPane.showInputDialog(tree,
-						L.get("text.input_element_id") + " £º\n", L.get("dialog.new_element"),
+						L.get("text.input_element_id") + " ï¼š\n", L.get("dialog.new_element"),
 						JOptionPane.PLAIN_MESSAGE, Icons.CLASS_FILE, null, "" + (objectId + 1));
 				if (id != null) {
 					try {
@@ -259,14 +259,14 @@ public class PanelElementTree extends JPanel {
 	private static final Hashtable<String, ElementTreeModel> folders = new Hashtable<String, PanelElementTree.ElementTreeModel>();
 
 	class ElementTreeModel extends DefaultTreeNode {
-		// Class ÔªËØ
+		// Class å…ƒç´ 
 		private ClassPath classPath;
-		// Í¼Æ¬ÔªËØ
+		// å›¾ç‰‡å…ƒç´ 
 		private ResoucePath resourcePath;
-		// ×ÊÔ´ÎÄ¼ş¼Ğ
+		// èµ„æºæ–‡ä»¶å¤¹
 		private File folder;
 
-		// Ä¬ÈÏ¹¹ÔìÆ÷ , Ä¬ÈÏ¼ÓÔØËùÓĞ ÀàÔªËØ,ºÍÍ¼Æ¬
+		// é»˜è®¤æ„é€ å™¨ , é»˜è®¤åŠ è½½æ‰€æœ‰ ç±»å…ƒç´ ,å’Œå›¾ç‰‡
 		public ElementTreeModel() {
 			setUserObject(L.get("label.element_collections"));
 			setAllowsChildren(true);
@@ -276,7 +276,7 @@ public class PanelElementTree extends JPanel {
 			add(new ElementTreeModel(DataManage.getResourcePaths(), ResoucePath.class));
 		}
 
-		// Í¼Æ¬ÎÄ¼ş¼Ğ¹¹ÔìÆ÷
+		// å›¾ç‰‡æ–‡ä»¶å¤¹æ„é€ å™¨
 		public ElementTreeModel(File imageFolder) {
 			this.folder = imageFolder;
 			setUserObject(imageFolder.getName());
@@ -284,7 +284,7 @@ public class PanelElementTree extends JPanel {
 			setIcon(Icons.LAYER_FOLDER);
 		}
 
-		// ÔªËØÊı×é
+		// å…ƒç´ æ•°ç»„
 		public ElementTreeModel(List<?> list, Class<?> clazz) {
 			setAllowsChildren(true);
 			setIcon(Icons.LAYER_FOLDER);

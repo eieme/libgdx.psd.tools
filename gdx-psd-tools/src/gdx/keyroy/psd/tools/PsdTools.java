@@ -51,13 +51,13 @@ public class PsdTools {
 	private static final void init() throws Exception {
 		// LOOK AND FEEL
 		SwingUtil.initWindowsLookAndFeel();
-		// ¼ÓÔØÓïÑÔ
+		// åŠ è½½è¯­è¨€
 		L.load("/zn");
 		// L.load(new File("zn"));
 		// L.print();
-		// ¼ÓÔØ±à¼­Æ÷ Êı¾İ
+		// åŠ è½½ç¼–è¾‘å™¨ æ•°æ®
 		EditorData.load();
-		// ¼ÓÔØÅäÖÃĞÅÏ¢
+		// åŠ è½½é…ç½®ä¿¡æ¯
 		EditorConfig.load();
 	}
 
@@ -103,7 +103,7 @@ public class PsdTools {
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SwingUtil.center(frame);
-		// ²Ëµ¥
+		// èœå•
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 
@@ -113,7 +113,7 @@ public class PsdTools {
 		JMenuItem menu_open_psd = new JMenuItem(l("menu.open_psd"));
 		menu_open_psd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// ¼ÓÔØµ¥¶ÀµÄPSD ÎÄ¼ş
+				// åŠ è½½å•ç‹¬çš„PSD æ–‡ä»¶
 				String path = lastFile != null ? lastFile.getPath() : null;
 				File file = FileUtil.selecFile(frame, path, new FileFilter() {
 					@Override
@@ -135,7 +135,7 @@ public class PsdTools {
 		JMenuItem menu_open_param = new JMenuItem(l("menu.open_param"));
 		menu_open_param.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// ¼ÓÔØµ¥¶ÀµÄ INI ÎÄ¼ş
+				// åŠ è½½å•ç‹¬çš„ INI æ–‡ä»¶
 				String path = lastFile != null ? lastFile.getPath() : null;
 				File file = FileUtil.selecFile(frame, path, new FileFilter() {
 					@Override
@@ -157,7 +157,7 @@ public class PsdTools {
 		JMenuItem menu_open_folder = new JMenuItem(l("menu.open_folder"));
 		menu_open_folder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ¼ÓÔØ ÎÄ¼ş¼Ğ
+				// åŠ è½½ æ–‡ä»¶å¤¹
 				String path = lastFile != null ? lastFile.getPath() : null;
 				File file = FileUtil.selecDirectories(frame, path, new FileFilter() {
 					@Override
@@ -190,7 +190,7 @@ public class PsdTools {
 		JMenuItem menu_pack = new JMenuItem(l("menu.pack"));
 		menu_pack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ´ò°ü
+				// æ‰“åŒ…
 				final DialogProgress dialogProgress = new DialogProgress();
 				SwingUtil.center(frame, dialogProgress);
 				dialogProgress.setVisible(true);
@@ -245,7 +245,7 @@ public class PsdTools {
 		});
 		mnMenuabout.add(menu_source_code);
 
-		// »ù±¾Ãæ°å
+		// åŸºæœ¬é¢æ¿
 
 		JPanel panel_left = new JPanel();
 		panel_left.setPreferredSize(new Dimension(320, 320));

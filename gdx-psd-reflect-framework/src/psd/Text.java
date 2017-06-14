@@ -1,15 +1,15 @@
 package psd;
 
 /***
- * PSD 的文字
+ * PSD 鐨勬枃瀛�
  * 
  * @author roy
  */
 public class Text extends Element {
-	// 显示文字
+	// 鏄剧ず鏂囧瓧
 	public String text;
-	// 文字颜色
+	// 鏂囧瓧棰滆壊
 	public float a, r, g, b;
-	// 文字大小
+	// 鏂囧瓧澶у皬
 	public int fontSize;
 }

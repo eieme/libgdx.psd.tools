@@ -7,19 +7,19 @@ import com.keyroy.util.json.Json;
 import com.keyroy.util.json.JsonAn;
 
 /**
- * PSD 的文件描述
+ * PSD 鐨勬枃浠舵弿杩�
  * 
  * @author roy
  */
 public class PsdFile extends Folder {
 
-	// 最大大小
+	// 鏈�澶уぇ灏�
 	public int maxWidth, maxHeight;
-	// 文件名
+	// 鏂囦欢鍚�
 	public String psdName;
-	// 图片集
+	// 鍥剧墖闆�
 	public String atlas;
-	// 文件句柄
+	// 鏂囦欢鍙ユ焺
 	@JsonAn(skip = true)
 	public FileHandle handle;
 
@@ -49,7 +49,7 @@ public class PsdFile extends Folder {
 		}
 	}
 
-	// 更新父类对象
+	// 鏇存柊鐖剁被瀵硅薄
 	@Override
 	protected void updateParent(Folder parent) {
 		for (Element element : childs) {

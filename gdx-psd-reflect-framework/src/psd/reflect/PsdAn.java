@@ -8,16 +8,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 映射对象
+ * 鏄犲皠瀵硅薄
  * 
  * @author roy
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { TYPE, METHOD, FIELD })
 public @interface PsdAn {
-	// 引用 PSD 元素
+	// 寮曠敤 PSD 鍏冪礌
 	public String[] value() default {};
 
-	// 引用 PSD 元素的下标
+	// 寮曠敤 PSD 鍏冪礌鐨勪笅鏍�
 	public int index() default 0;
 }

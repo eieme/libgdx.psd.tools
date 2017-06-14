@@ -1,11 +1,11 @@
 package gdx.keyroy.psd.tools.models;
 
 public class LayerParam {
-	// 图层id
+	// 鍥惧眰id
 	protected String layerId;
-	// 参数ID
+	// 鍙傛暟ID
 	protected String paramId;
-	// 参数内容
+	// 鍙傛暟鍐呭
 	protected String data;
 
 	public String getLayerId() {

@@ -151,7 +151,7 @@ public class PanelParamFileList extends JPanel {
 					//
 					JMenuItem menuItem_open = new JMenuItem(L.get("Menu.open_param_file"));
 					menuItem_open.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {// 更新文件信息
+						public void actionPerformed(ActionEvent e) {// 鏇存柊鏂囦欢淇℃伅
 							Desktop desktop = Desktop.getDesktop();
 							try {
 								desktop.open(new File(paramData.getFilePath()));
@@ -164,7 +164,7 @@ public class PanelParamFileList extends JPanel {
 					//
 					JMenuItem menuItem_update = new JMenuItem(L.get("Menu.update_param_file"));
 					menuItem_update.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {// 更新文件信息
+						public void actionPerformed(ActionEvent e) {// 鏇存柊鏂囦欢淇℃伅
 							paramData.cleanCache();
 							updateList();
 						}
@@ -173,7 +173,7 @@ public class PanelParamFileList extends JPanel {
 					//
 					JMenuItem menuItem_delete = new JMenuItem(L.get("Menu.delete_param_file"));
 					menuItem_delete.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {// 删除
+						public void actionPerformed(ActionEvent e) {// 鍒犻櫎
 							int n = JOptionPane.showConfirmDialog(null, L.get("Dialog.delete_param_file"),
 									L.get("Menu.delete_param_file"), JOptionPane.YES_NO_OPTION);
 							if (n == JOptionPane.OK_OPTION) {
