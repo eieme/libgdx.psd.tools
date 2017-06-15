@@ -453,7 +453,7 @@ public class GdxPsdToolsForCocosStudio {
 		str += "\t<Content ctype=\"GameProjectContent\">\n";
 		str += "\t\t<Content>\n";
 		str += "\t\t<Animation Duration=\"0\" Speed=\"1.0000\" />\n";
-		str += "\t\t<ObjectData Name=\"Layer\" ctype=\"GameNodeObjectData\">\n";
+		str += "\t\t<ObjectData Name=\"Layer\" ctype=\"GameLayerObjectData\">\n";
 		str += "\t\t\t<Size X=\"" + docWidth + "\" Y=\"" + docHeight + "\" />\n";
 		str += "\t\t\t<Children>\n";
 		return str;
