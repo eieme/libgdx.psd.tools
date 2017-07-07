@@ -525,23 +525,62 @@ public class GdxPsdToolsForCocosStudio {
 		return json;
 	}
 	private static String Csd_Button(Element actor,int extendTabCount) {
-		
-		
-		return null;
+		String json = "";
+		String extendTab = getExtendTab(extendTabCount);
+	
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" TouchEnable=\"True\" FontSize=\"14\" ctype=\"ButtonObjectData\">\n";
+		tagIndex += 1;
+		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
+		json += extendTab+"\t\t\t\t\t<AnchorPoint ScaleX=\"0.5000\" ScaleY=\"0.5000\" />\n";
+		json += extendTab+"\t\t\t\t\t<Position X=\"" + (actor.x + actor.width/2) + "\" Y=\"" + (actor.y + actor.height/2) + "\" />\n";
+		json += extendTab+"\t\t\t\t\t<Scale ScaleX=\"1.0000\" ScaleY=\"1.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<CColor A=\"255\" R=\"255\" G=\"255\" B=\"255\" />\n";
+        json += extendTab+"\t\t\t\t\t<PrePosition X=\"0.0000\" Y=\"0.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<PreSize X=\"0.0000\" Y=\"0.0000\" />\n";
+        
+        json += extendTab+"\t\t\t\t\t<TextColor A=\"255\" R=\"65\" G=\"65\" B=\"70\" />\n";
+        
+        json += extendTab+"\t\t\t\t\t<NormalFileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureName + "\" Plist=\"\"/>\n";
+        json += extendTab+"\t\t\t\t\t<OutlineColor A=\"255\" R=\"255\" G=\"0\" B=\"0\" />\n";
+        json += extendTab+"\t\t\t\t\t<ShadowColor A=\"255\" R=\"110\" G=\"110\" B=\"110\" />\n";
+        json += extendTab+"\t\t\t\t</AbstractNodeData>\n";
+		return json;
 	}
 	private static String Csd_ImageView(Element actor,int extendTabCount) {
+		String json = "";
+		String extendTab = getExtendTab(extendTabCount);
+	
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" ctype=\"ImageViewObjectData\">\n";
+		tagIndex += 1;
+		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
+		json += extendTab+"\t\t\t\t\t<AnchorPoint ScaleX=\"0.5000\" ScaleY=\"0.5000\" />\n";
+		json += extendTab+"\t\t\t\t\t<Position X=\"" + (actor.x + actor.width/2) + "\" Y=\"" + (actor.y + actor.height/2) + "\" />\n";
+		json += extendTab+"\t\t\t\t\t<Scale ScaleX=\"1.0000\" ScaleY=\"1.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<CColor A=\"255\" R=\"255\" G=\"255\" B=\"255\" />\n";
+        json += extendTab+"\t\t\t\t\t<PrePosition X=\"0.0000\" Y=\"0.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<PreSize X=\"0.0000\" Y=\"0.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<FileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureName + "\" Plist=\"\"/>\n";
+		json += extendTab+"\t\t\t\t</AbstractNodeData>\n";
 		
-		
-		return null;
+		return json;
 	}
 	
 	private static String classification (Element actor,int extendTabCount) {
+		
+		if(actor.layerName.startsWith("btn")||actor.layerName.startsWith("Btn")){
+			return Csd_Button(actor, extendTabCount);
+		}
+		if(actor.layerName.startsWith("img")){
+			
+			return Csd_ImageView(actor, extendTabCount);
+		}
 		if(actor instanceof Pic){
 			return Csd_Sprite(actor,extendTabCount);
 		}
 		if(actor instanceof Folder){
 			return Csd_Layout(actor,extendTabCount);
 		}
+		
 		return null;
 	}
 		
