@@ -567,6 +567,11 @@ public class GdxPsdToolsForCocosStudio {
 	
 	private static String classification (Element actor,int extendTabCount) {
 		
+		
+
+		if(actor instanceof Folder){
+			return Csd_Layout(actor,extendTabCount);
+		}
 		if(actor.layerName.startsWith("btn")||actor.layerName.startsWith("Btn")){
 			return Csd_Button(actor, extendTabCount);
 		}
@@ -577,10 +582,6 @@ public class GdxPsdToolsForCocosStudio {
 		if(actor instanceof Pic){
 			return Csd_Sprite(actor,extendTabCount);
 		}
-		if(actor instanceof Folder){
-			return Csd_Layout(actor,extendTabCount);
-		}
-		
 		return null;
 	}
 		
