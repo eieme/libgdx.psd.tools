@@ -21,7 +21,7 @@ public class XlsxParser {
 
 	public static final List<JsonPack> parser(File file) throws Exception {
 		List<JsonPack> arrays = new ArrayList<JsonPack>();
-		if (file.getName().endsWith(".xlsx")) {
+		if (file.getName().endsWith(".xlsx")&& file.getName().startsWith("~$") == false) {
 			XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
 			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
@@ -31,17 +31,29 @@ public class XlsxParser {
 				if (row == null) {
 					continue;
 				} else {
+					JSONObject set = null;
+					String fieldName = null;
 					HashMap<Integer, ColumnData> cols = new HashMap<Integer, ColumnData>();
 					for (int col = 0; col < row.getLastCellNum(); col++) {
 						XSSFCell column = row.getCell(col);
 						if (column != null && column.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+							String columnSource = column.getStringCellValue();
+							String[] sp = columnSource.split("#");
+							if (sp.length == 2) {
+								if(sp[1].equals("id")){
+									fieldName = sp[0];
+									set = new JSONObject();
+								}
+								
+							}
+							
 							cols.put(col, new ColumnData(column.getStringCellValue()));
 						}
 					}
 
 					definingRow++;
 
-					JSONArray array = new JSONArray();
+					JSONArray array = null;
 					for (int r = definingRow; r < sheet.getPhysicalNumberOfRows(); r++) {
 						row = sheet.getRow(r);
 						if (row != null) {
@@ -61,11 +73,31 @@ public class XlsxParser {
 								}
 							}
 							if (json.length() > 0) {
-								array.put(json);
+								
+								if(set != null){
+									Object object = json.get(fieldName);
+									String id = null;
+									if(object instanceof Number){
+										id = JSONObject.numberToString((Number)object);
+									}else{
+										id = object.toString();
+									}
+									set.put(id, json);
+								}else{
+									if(array == null){
+										array = new JSONArray();
+									}
+									array.put(json);
+								}
 							}
 						}
 					}
-					arrays.add(new JsonPack(sheet.getSheetName(), array));
+
+					if(array != null){
+						arrays.add(new JsonPack(sheet.getSheetName(), array));	
+					}else if(set != null){
+						arrays.add(new JsonPack(sheet.getSheetName(), set));						
+					}
 				}
 			}
 			workbook.close();
@@ -176,7 +208,7 @@ public class XlsxParser {
 				} catch (Exception e2) {
 				}
 			}
-			return val;
+			return val.replace("\\n", "\n");
 		}
 
 	}

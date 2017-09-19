@@ -260,7 +260,7 @@ public class GdxPsdTools {
 
 	private static final File writeJson(File jsonFolder, JsonPack jsonPack) throws Exception {
 		File jsonFile = new File(jsonFolder, jsonPack.getName() + ".json");
-		String json = jsonPack.getJsonArray().toString();
+		String json = jsonPack.getJsonObject().toString();
 		//
 		FileWriter fileWriter = new FileWriter(jsonFile);
 		fileWriter.write(json);
