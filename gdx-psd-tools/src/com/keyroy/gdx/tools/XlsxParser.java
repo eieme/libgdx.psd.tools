@@ -21,7 +21,8 @@ public class XlsxParser {
 
 	public static final List<JsonPack> parser(File file) throws Exception {
 		List<JsonPack> arrays = new ArrayList<JsonPack>();
-		if (file.getName().endsWith(".xlsx")&& file.getName().startsWith("~$") == false) {
+		if (file.getName().endsWith(".xlsx")
+				&& file.getName().startsWith("~$") == false) {
 			XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
 			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
@@ -36,25 +37,28 @@ public class XlsxParser {
 					HashMap<Integer, ColumnData> cols = new HashMap<Integer, ColumnData>();
 					for (int col = 0; col < row.getLastCellNum(); col++) {
 						XSSFCell column = row.getCell(col);
-						if (column != null && column.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+						if (column != null
+								&& column.getCellType() == XSSFCell.CELL_TYPE_STRING) {
 							String columnSource = column.getStringCellValue();
 							String[] sp = columnSource.split("#");
 							if (sp.length == 2) {
-								if(sp[1].equals("id")){
+								if (sp[1].equals("id")) {
 									fieldName = sp[0];
 									set = new JSONObject();
 								}
-								
+
 							}
-							
-							cols.put(col, new ColumnData(column.getStringCellValue()));
+
+							cols.put(col,
+									new ColumnData(column.getStringCellValue()));
 						}
 					}
 
 					definingRow++;
 
 					JSONArray array = null;
-					for (int r = definingRow; r < sheet.getPhysicalNumberOfRows(); r++) {
+					for (int r = definingRow; r < sheet
+							.getPhysicalNumberOfRows(); r++) {
 						row = sheet.getRow(r);
 						if (row != null) {
 							JSONObject json = new JSONObject();
@@ -73,18 +77,19 @@ public class XlsxParser {
 								}
 							}
 							if (json.length() > 0) {
-								
-								if(set != null){
+
+								if (set != null) {
 									Object object = json.get(fieldName);
 									String id = null;
-									if(object instanceof Number){
-										id = JSONObject.numberToString((Number)object);
-									}else{
+									if (object instanceof Number) {
+										id = JSONObject
+												.numberToString((Number) object);
+									} else {
 										id = object.toString();
 									}
 									set.put(id, json);
-								}else{
-									if(array == null){
+								} else {
+									if (array == null) {
 										array = new JSONArray();
 									}
 									array.put(json);
@@ -93,10 +98,10 @@ public class XlsxParser {
 						}
 					}
 
-					if(array != null){
-						arrays.add(new JsonPack(sheet.getSheetName(), array));	
-					}else if(set != null){
-						arrays.add(new JsonPack(sheet.getSheetName(), set));						
+					if (array != null) {
+						arrays.add(new JsonPack(sheet.getSheetName(), array));
+					} else if (set != null) {
+						arrays.add(new JsonPack(sheet.getSheetName(), set));
 					}
 				}
 			}
@@ -105,15 +110,15 @@ public class XlsxParser {
 		return arrays;
 	}
 
-	// 鏁版嵁缁撴瀯
+	// 数据结构
 	private static class ColumnData {
-		// 鍙橀噺鍚?
+		// 变量
 		String fieldName;
-		// 瀵硅薄绫诲瀷
+		// 对象类型
 		boolean isObject;
-		// 鏁扮粍绫诲瀷
+		// 数组类型
 		boolean isArray;
-		// 瀵硅薄鏁扮粍绫诲瀷
+		// 对象数组类型
 		boolean isObjectArray;
 
 		public ColumnData(String columnSource) {
@@ -170,7 +175,8 @@ public class XlsxParser {
 				log("Error Blank", cell.getReference());
 			} else if (cell.getCellType() == XSSFCell.CELL_TYPE_FORMULA) {
 
-				FormulaEvaluator evaluator = sheet.getWorkbook().getCreationHelper().createFormulaEvaluator();
+				FormulaEvaluator evaluator = sheet.getWorkbook()
+						.getCreationHelper().createFormulaEvaluator();
 				CellValue cellValue = evaluator.evaluate(cell);
 				if (cellValue.getCellType() == Cell.CELL_TYPE_NUMERIC) {
 					source = "" + cellValue.getNumberValue();
