@@ -16,7 +16,7 @@ public class XlsxTools {
 
 	  public static String jsonZipFolder = "json zip";
 
-	  public static boolean format = false;
+	  public static boolean format = true;
 
 	  public static void main(String[] args) {
 	    HashMap<String, String> cmds = new HashMap<String, String>();
@@ -63,19 +63,23 @@ public class XlsxTools {
 	    File folder = new File(importFolder);
 	    if (folder.exists()) {
 	      File[] files = folder.listFiles();
-	      if (files != null)
-	        for (File file : files)
-	          try {
-	            List<JsonPack> arrays = XlsxParser.parser(file);
-	            for (JsonPack jsonPack : arrays)
-	            {
-	              File jsonFile = writeJson(new File(jsonFolder), jsonPack, false);
-	              jsonFile = writeJson(new File(jsonZipFolder), jsonPack, true);
-	              System.out.println("write json : " + jsonFile.getName());
-	            }
-	          } catch (Exception e) {
-	            e.printStackTrace();
-	          }
+	      if (files != null){
+		        for (File file : files){
+		        	  try {
+		  	            List<JsonPack> arrays = XlsxParser.parser(file);
+		  	            for (JsonPack jsonPack : arrays)
+		  	            {
+		  	              File jsonFile = writeJson(new File(jsonFolder), jsonPack, false);
+		  	              jsonFile = writeJson(new File(jsonZipFolder), jsonPack, true);
+		  	              System.out.println("write json : " + jsonFile.getName());
+		  	            }
+		  	          } catch (Exception e) {
+		  	        	  System.out.println("the catch msg "+e.getMessage());
+		  	            e.printStackTrace();
+		  	          }
+		        }	    	  
+	      }
+	        
 	    }
 	  }
 
