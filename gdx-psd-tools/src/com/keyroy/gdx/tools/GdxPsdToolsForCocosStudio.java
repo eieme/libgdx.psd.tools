@@ -564,7 +564,25 @@ public class GdxPsdToolsForCocosStudio {
 		
 		return json;
 	}
+	private static String Csd_Text(Text actor,int extendTabCount) {
+		String json = "";
+		String extendTab = getExtendTab(extendTabCount);
 	
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" FontSize=\""+actor.fontSize+"\" LabelText=\""+actor.text+"\" ShadowOffsetX=\"-2.0000\" ShadowOffsetY=\"-2.0000\" ctype=\"TextObjectData\">\n";
+		tagIndex += 1;
+		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
+		json += extendTab+"\t\t\t\t\t<AnchorPoint ScaleX=\"0.5000\" ScaleY=\"0.5000\" />\n";
+		json += extendTab+"\t\t\t\t\t<Position X=\"" + (actor.x + actor.width/2) + "\" Y=\"" + (actor.y + actor.height/2) + "\" />\n";
+		json += extendTab+"\t\t\t\t\t<Scale ScaleX=\"1.0000\" ScaleY=\"1.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<CColor A=\""+((int)(actor.a * 255))+"\" R=\""+((int)(actor.r * 255))+"\" G=\""+((int)(actor.g * 255))+"\" B=\""+((int)(actor.b * 255))+"\" />\n";
+        json += extendTab+"\t\t\t\t\t<PrePosition X=\"0.0000\" Y=\"0.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<PreSize X=\"0.0000\" Y=\"0.0000\" />\n";
+        json += extendTab+"\t\t\t\t\t<OutlineColor A=\"255\" R=\"255\" G=\"0\" B=\"0\" />\n";
+        json += extendTab+"\t\t\t\t\t<ShadowColor A=\"255\" R=\"110\" G=\"110\" B=\"110\" />\n";
+		json += extendTab+"\t\t\t\t</AbstractNodeData>\n";
+
+		return json;
+	}
 	private static String classification (Element actor,int extendTabCount) {
 		
 		
@@ -578,6 +596,9 @@ public class GdxPsdToolsForCocosStudio {
 		if(actor.layerName.startsWith("img")){
 			
 			return Csd_ImageView(actor, extendTabCount);
+		}
+		if(actor instanceof Text){
+			return Csd_Text((Text)actor, extendTabCount);
 		}
 		if(actor instanceof Pic){
 			return Csd_Sprite(actor,extendTabCount);
