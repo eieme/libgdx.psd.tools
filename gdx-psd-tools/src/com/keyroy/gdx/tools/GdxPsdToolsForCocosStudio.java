@@ -648,17 +648,34 @@ public class GdxPsdToolsForCocosStudio {
 				if (actor instanceof PsdFile) {
 				} else {
 					LayerBoundary boundary = LayerBoundary.getLayerBoundary(layer);
+					
 					if (boundary != null) {
-						actor.x = boundary.getX();
-						actor.y = boundary.getY();
-						actor.width = boundary.getWidth();
-						actor.height = boundary.getHeight();
+
+						if(actor.layerName.contains("#full")){//当图层为 文件夹时， 有参数为 #full 则使用画布尺寸
+							actor.layerName = actor.layerName.replace("#full", "");
+							
+							actor.offsetX = boundary.getX();
+							actor.offsetY = boundary.getY();
+							actor.x = 0;
+							actor.y = 0;
+							actor.width = psd.getWidth();
+							actor.height = psd.getHeight();
+						}else{
+							actor.x = boundary.getX() + folder.offsetX;
+							actor.y = boundary.getY() + folder.offsetY;
+							actor.width = boundary.getWidth();
+							actor.height = boundary.getHeight();
+						}						
 					} else {
-						actor.x = layer.getX();
-						actor.y = layer.getY();
+						actor.x = layer.getX() + folder.offsetX;
+						actor.y = layer.getY() + folder.offsetY;
 						actor.width = layer.getWidth();
 						actor.height = layer.getHeight();
+						
 					}
+					
+					
+					
 					// libgdx 坐标系 , Y 相反
 					actor.y = folder.height - actor.y - actor.height;
 				}

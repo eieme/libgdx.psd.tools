@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Fri Nov 03 16:30:23 GMT+08:00 2017
+#Tue Dec 26 11:34:47 GMT+08:00 2017
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=xlsx2json.jar
+jarname=psd-tools-for-Cocos-v2.jar
 manifest.mergeall=true
-manifest.mainclass=com.keyroy.gdx.tools.XlsxTools
+manifest.mainclass=com.keyroy.gdx.tools.GdxPsdToolsForCocosStudio
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=

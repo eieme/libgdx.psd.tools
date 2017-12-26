@@ -32,6 +32,10 @@ public class Element {
 	// 自定义对象
 	@JsonAn(skip = true)
 	protected Object userObject;
+	
+	//偏移
+	@JsonAn(skip = true)
+	public int offsetX,offsetY;
 	// 自定义对象
 	// @JsonAn(skip = true)
 	// protected Actor actor;
