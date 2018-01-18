@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.json.m.JSONObject;
+
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
@@ -41,6 +43,7 @@ import library.psd.Psd;
 import library.psd.parser.object.PsdText;
 import psd.Element;
 import psd.Folder;
+import psd.Param;
 import psd.Pic;
 import psd.PsdFile;
 import psd.Text;
@@ -50,6 +53,7 @@ public class GdxPsdToolsForCocosStudio {
 	private static JFrame frmGdxpsdtools;
 	private JCheckBox cleanFolder;
 	private JCheckBox saveImage;
+	private JCheckBox saveImageToImgFolder;
 	private JCheckBox saveAtlas;
 	private JCheckBox rotateImage;
 	private JCheckBox formatLayerName;
@@ -94,7 +98,7 @@ public class GdxPsdToolsForCocosStudio {
 	private void initialize() {
 		frmGdxpsdtools = new JFrame();
 		frmGdxpsdtools.setTitle("GdxPsdTools - For CocosStudio");
-		frmGdxpsdtools.setBounds(100, 100, 668, 320);
+		frmGdxpsdtools.setBounds(100, 100, 720, 320);
 		frmGdxpsdtools.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
@@ -119,6 +123,12 @@ public class GdxPsdToolsForCocosStudio {
 		configPanel.add(saveImage);
 
 		configPanel.add(new JLabel(" "));
+		saveImageToImgFolder = new JCheckBox("\u5230 img \u6587\u4ef6\u5939");
+		configPanel.add(saveImageToImgFolder);
+		//\u56fe\u7247\u6253\u5305\u5230 img \u6587\u4ef6\u5939
+		//\u5230 img \u6587\u4ef6\u5939
+		
+		configPanel.add(new JLabel(" "));
 
 		saveAtlas = new JCheckBox("\u6253\u5305\u6210 Atlas \u56FE\u7247\u96C6");
 		configPanel.add(saveAtlas);
@@ -135,6 +145,7 @@ public class GdxPsdToolsForCocosStudio {
 	private final void initCheckBox() {
 		cleanFolder.setSelected(Config.cleanFolder);
 		saveImage.setSelected(Config.saveImage);
+		saveImageToImgFolder.setSelected(Config.saveImageToImgFolder);
 		saveAtlas.setSelected(Config.saveAtlas);
 		formatLayerName.setSelected(Config.formatLayerName);
 		//
@@ -151,6 +162,13 @@ public class GdxPsdToolsForCocosStudio {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				Config.saveImage = saveImage.isSelected();
+				Config.save();
+			}
+		});
+		saveImageToImgFolder.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				Config.saveImageToImgFolder = saveImageToImgFolder.isSelected();
 				Config.save();
 			}
 		});
@@ -307,12 +325,16 @@ public class GdxPsdToolsForCocosStudio {
 				Messager.send("saving image : " + imagePath);
 				packer.pack(folder, imagePath);
 			} else {
-				File psdFolder = new File(folder, psd.getName().replace(".psd", ""));
+				File psdFolder = new File(folder,Config.saveImageToImgFolder ? "img" : psd.getName().replace(".psd", ""));
 				if (psdFolder.exists() == false) { // 创建文件夹
 					psdFolder.mkdirs();
 				}
 				for (Layer layer : layers) {
-					System.out.println("导出图片-》 "+psd.getName()+"    " +folder);
+					if(getImageName(layer,false).equalsIgnoreCase("ignore")){//忽略不导出
+						System.out.println("忽略图层");
+						continue;
+					}
+					System.out.println("导出图片-》 "+psd.getName()+"    " +psdFolder);
 					ImageIO.write(layer.getImage(), "png", new File(psdFolder, getImageName(layer,true)));
 				}
 			}
@@ -472,8 +494,7 @@ public class GdxPsdToolsForCocosStudio {
 	private static String Csd_Sprite(Element actor,int extendTabCount) {
 		String json = "";
 		String extendTab = getExtendTab(extendTabCount);
-	
-		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" ctype=\"SpriteObjectData\">\n";
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() +"\" VisibleForFrame=\""+(actor.isVisible ? "True" : "False")+ "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" ctype=\"SpriteObjectData\">\n";
 		tagIndex += 1;
 		// json += "\t\t\t\t\t<Position X=\"" + (x - Math.round(width) * 0.5000) + "\" Y=\"" + (y - Math.round(height) * 0.5000) + "\" />\n";
 		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
@@ -484,7 +505,7 @@ public class GdxPsdToolsForCocosStudio {
         json += extendTab+"\t\t\t\t\t<CColor A=\"255\" R=\"255\" G=\"255\" B=\"255\" />\n";
         json += extendTab+"\t\t\t\t\t<PrePosition X=\"0.0000\" Y=\"0.0000\" />\n";
         json += extendTab+"\t\t\t\t\t<PreSize X=\"0.0000\" Y=\"0.0000\" />\n";
-        json += extendTab+"\t\t\t\t\t<FileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureName + "\" Plist=\"\"/>\n";
+        json += extendTab+"\t\t\t\t\t<FileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureFullPath + "\" Plist=\"\"/>\n";
         json += extendTab+"\t\t\t\t\t<BlendFunc Src=\"1\" Dst=\"771\" />\n";
 		json += extendTab+"\t\t\t\t</AbstractNodeData>\n";
 		
@@ -494,7 +515,7 @@ public class GdxPsdToolsForCocosStudio {
 	private static String Csd_Layout(Element actor,int extendTabCount) {
 		String json = "";
 		String extendTab = getExtendTab(extendTabCount);
-		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" TouchEnable=\"True\" ClipAble=\"False\" BackColorAlpha=\"102\" ColorAngle=\"90.0000\" ctype=\"PanelObjectData\">\n";
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() +"\" VisibleForFrame=\""+(actor.isVisible ? "True" : "False")+ "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" TouchEnable=\"True\" ClipAble=\"False\" BackColorAlpha=\"102\" ColorAngle=\"90.0000\" ctype=\"PanelObjectData\">\n";
 		tagIndex += 1;	
 		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
 		json += extendTab+"\t\t\t\t\t<Children>\n";
@@ -528,7 +549,7 @@ public class GdxPsdToolsForCocosStudio {
 		String json = "";
 		String extendTab = getExtendTab(extendTabCount);
 	
-		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" TouchEnable=\"True\" FontSize=\"14\" ctype=\"ButtonObjectData\">\n";
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() +"\" VisibleForFrame=\""+(actor.isVisible ? "True" : "False")+ "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" TouchEnable=\"True\" FontSize=\"14\" ctype=\"ButtonObjectData\">\n";
 		tagIndex += 1;
 		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
 		json += extendTab+"\t\t\t\t\t<AnchorPoint ScaleX=\"0.5000\" ScaleY=\"0.5000\" />\n";
@@ -540,7 +561,7 @@ public class GdxPsdToolsForCocosStudio {
         
         json += extendTab+"\t\t\t\t\t<TextColor A=\"255\" R=\"65\" G=\"65\" B=\"70\" />\n";
         
-        json += extendTab+"\t\t\t\t\t<NormalFileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureName + "\" Plist=\"\"/>\n";
+        json += extendTab+"\t\t\t\t\t<NormalFileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureFullPath + "\" Plist=\"\"/>\n";
         json += extendTab+"\t\t\t\t\t<OutlineColor A=\"255\" R=\"255\" G=\"0\" B=\"0\" />\n";
         json += extendTab+"\t\t\t\t\t<ShadowColor A=\"255\" R=\"110\" G=\"110\" B=\"110\" />\n";
         json += extendTab+"\t\t\t\t</AbstractNodeData>\n";
@@ -550,7 +571,7 @@ public class GdxPsdToolsForCocosStudio {
 		String json = "";
 		String extendTab = getExtendTab(extendTabCount);
 	
-		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" ctype=\"ImageViewObjectData\">\n";
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() +"\" VisibleForFrame=\""+(actor.isVisible ? "True" : "False")+ "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" ctype=\"ImageViewObjectData\">\n";
 		tagIndex += 1;
 		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
 		json += extendTab+"\t\t\t\t\t<AnchorPoint ScaleX=\"0.5000\" ScaleY=\"0.5000\" />\n";
@@ -559,7 +580,7 @@ public class GdxPsdToolsForCocosStudio {
         json += extendTab+"\t\t\t\t\t<CColor A=\"255\" R=\"255\" G=\"255\" B=\"255\" />\n";
         json += extendTab+"\t\t\t\t\t<PrePosition X=\"0.0000\" Y=\"0.0000\" />\n";
         json += extendTab+"\t\t\t\t\t<PreSize X=\"0.0000\" Y=\"0.0000\" />\n";
-        json += extendTab+"\t\t\t\t\t<FileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureName + "\" Plist=\"\"/>\n";
+        json += extendTab+"\t\t\t\t\t<FileData Type=\"Normal\" Path=\"" + ((Pic) actor).textureFullPath + "\" Plist=\"\"/>\n";
 		json += extendTab+"\t\t\t\t</AbstractNodeData>\n";
 		
 		return json;
@@ -568,7 +589,7 @@ public class GdxPsdToolsForCocosStudio {
 		String json = "";
 		String extendTab = getExtendTab(extendTabCount);
 	
-		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() + "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" FontSize=\""+actor.fontSize+"\" LabelText=\""+actor.text+"\" ShadowOffsetX=\"-2.0000\" ShadowOffsetY=\"-2.0000\" ctype=\"TextObjectData\">\n";
+		json += extendTab+"\t\t\t\t<AbstractNodeData Name=\"" + actor.layerName + "\" ActionTag=\"" + tenNum() +"\" VisibleForFrame=\""+(actor.isVisible ? "True" : "False")+ "\" Tag=\"" + tagIndex + "\" IconVisible=\"False\" FontSize=\""+actor.fontSize+"\" LabelText=\""+actor.text+"\" ShadowOffsetX=\"-2.0000\" ShadowOffsetY=\"-2.0000\" ctype=\"TextObjectData\">\n";
 		tagIndex += 1;
 		json += extendTab+"\t\t\t\t\t<Size X=\"" + actor.width + "\" Y=\"" + actor.height+ "\" />\n";
 		json += extendTab+"\t\t\t\t\t<AnchorPoint ScaleX=\"0.5000\" ScaleY=\"0.5000\" />\n";
@@ -585,11 +606,32 @@ public class GdxPsdToolsForCocosStudio {
 	}
 	private static String classification (Element actor,int extendTabCount) {
 		
+
+		if(actor.layerName.equalsIgnoreCase("ignore")){
+			System.out.println("写入忽略");
+			return "";
+		}
 		
+		if (actor.getParams() != null) {
+			Param param = actor.getParams().get(0);
+			JSONObject json = param.getJson();
+			
+			String type = json.getString("type");
+			if(type != null){
+				if(type.equalsIgnoreCase("img")){
+					return Csd_ImageView(actor, extendTabCount);
+				}
+				if(type.equalsIgnoreCase("btn")){
+					return Csd_Button(actor, extendTabCount);
+				}
+			}
+		}
 
 		if(actor instanceof Folder){
 			return Csd_Layout(actor,extendTabCount);
 		}
+		
+		
 		if(actor.layerName.startsWith("btn")||actor.layerName.startsWith("Btn")){
 			return Csd_Button(actor, extendTabCount);
 		}
@@ -656,11 +698,18 @@ public class GdxPsdToolsForCocosStudio {
 				text.r = psdText.r;
 				text.g = psdText.g;
 				text.b = psdText.b;
+				System.out.println(" a "+text.a+" r "+text.r+" g "+text.g+" b "+text.b);
 				text.fontSize = psdText.fontSize;
 				actor = text;
 			} else if (layer.getImage() != null) { // 这是一个图片
 				actor = new Pic();
-				((Pic) actor).textureName = psd.getName().replace(".psd", "")+"/"+getImageName(layer,true);
+				
+				((Pic) actor).textureName = getImageName(layer,true);
+				if(Config.saveImageToImgFolder){
+					((Pic) actor).textureFullPath = "img/"+getImageName(layer,true);	
+				}else{
+					((Pic) actor).textureFullPath = psd.getName().replace(".psd", "")+"/"+getImageName(layer,true);	
+				}
 			}
 
 			if (actor != null) { // 坐标
@@ -671,7 +720,7 @@ public class GdxPsdToolsForCocosStudio {
 					LayerBoundary boundary = LayerBoundary.getLayerBoundary(layer);
 					
 					if (boundary != null) {
-
+						
 						if(actor.layerName.contains("#full")){//当图层为 文件夹时， 有参数为 #full 则使用画布尺寸
 							actor.layerName = actor.layerName.replace("#full", "");
 							
@@ -709,7 +758,11 @@ public class GdxPsdToolsForCocosStudio {
 			}
 		}
 		
-	
+		//更新参数，只执行一次
+		if(folder instanceof PsdFile){
+			folder.updateParam();	
+		}
+		
 	}
 	
 }

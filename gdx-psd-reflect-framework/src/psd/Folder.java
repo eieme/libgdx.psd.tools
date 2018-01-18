@@ -18,7 +18,7 @@ public class Folder extends Element {
 
 	// 更新参数对象
 	@Override
-	protected void updateParam() {
+	public void updateParam() {
 		super.updateParam();
 		for (Element element : childs) {
 			element.updateParam();

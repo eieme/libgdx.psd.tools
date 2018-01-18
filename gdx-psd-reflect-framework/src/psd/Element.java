@@ -41,7 +41,7 @@ public class Element {
 	// protected Actor actor;
 
 	// 更新参数
-	protected void updateParam() {
+	public void updateParam() {
 		if (layerName != null) {
 			int idx = layerName.indexOf("@");
 			if (idx != -1) {
@@ -131,9 +131,14 @@ public class Element {
 
 	public static void main(String[] args) {
 		Element element = new Element();
-		element.layerName = "test@p{\"firstName\":\"John\" , \"lastName\":\"Doe\"}@p2{\"first\":\"1\" , \"last\":\"2\"}";
+		//element.layerName = "test@p{\"firstName\":\"John\" , \"lastName\":\"Doe\"}@p2{\"first\":\"1\" , \"last\":\"2\"}";
+		element.layerName = "test@{\"firstName\":\"John\" , \"lastName\":\"Doe\"}";
 		element.updateParam();
 		System.out.println(element.params);
+		//{类型：按钮}
+		for (Param param : element.getParams()) {
+			System.out.println(param.json.get("firstName"));
+		}
 	}
 
 }

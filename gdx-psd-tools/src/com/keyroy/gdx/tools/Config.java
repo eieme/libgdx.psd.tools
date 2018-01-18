@@ -12,6 +12,8 @@ public class Config {
 	public static boolean cleanFolder;
 	// 保存图片
 	public static boolean saveImage;
+	
+	public static boolean saveImageToImgFolder;
 	// 使用 TexturePacker 打包图片
 	public static boolean saveAtlas;
 	// 支持旋转图片
