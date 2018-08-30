@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Tue Dec 26 13:56:53 GMT+08:00 2017
+#Mon May 21 18:04:39 GMT+08:00 2018
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=psd-tools-for-Cocos-v3.jar
+jarname=kit.jar
 manifest.mergeall=true
-manifest.mainclass=com.keyroy.gdx.tools.GdxPsdToolsForCocosStudio
+manifest.mainclass=com.keyroy.gdx.tools.Launcher
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=

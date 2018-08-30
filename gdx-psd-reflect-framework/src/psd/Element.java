@@ -14,6 +14,7 @@ import com.keyroy.util.json.JsonAn;
 public class Element {
 	// 图层名称
 	public String layerName;
+
 	// 坐标 , 大小
 	public int x, y, width, height;
 	// // 去掉参数以后 , 剩余的名称
@@ -36,6 +37,10 @@ public class Element {
 	//偏移
 	@JsonAn(skip = true)
 	public int offsetX,offsetY;
+	
+	//节点名字
+	@JsonAn(skip = true)
+	public String nodeName;
 	// 自定义对象
 	// @JsonAn(skip = true)
 	// protected Actor actor;
@@ -50,6 +55,7 @@ public class Element {
 				} else {
 					layerName = src.substring(0, idx);
 					src = src.substring(idx + 1);
+					nodeName = layerName;
 				}
 				String[] ps = src.split("@");
 				params = new ArrayList<Param>(ps.length);

@@ -25,14 +25,14 @@ goto :eof
 :sc_ip0
 cls
 echo 稍候导出,格式化json
-java -jar xlsx2json.jar format=true
+java -jar xlsx2json.jar format=true xlsx2json=true
 echo 格式化Json导出完成，任意键退出
 PAUSE >nul
 Goto sc_maina
 :sc_ip1
 cls
 echo 稍候导出,未格式化json
-java -jar xlsx2json.jar
+java -jar xlsx2json.jar xlsx2json=true
 echo 未格式化Json导出完成，任意键退出
 PAUSE >nul
 Goto sc_maina

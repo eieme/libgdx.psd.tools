@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.text.html.HTMLEditorKit.Parser;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -272,6 +270,7 @@ public class XlsxParser {
 			JSONObject json = new JSONObject();
 			String[] sp = source.split(";");
 			for (String pair : sp) {
+//				System.out.println(pair);
 				String[] keyVal = pair.split(":");
 				json.put(keyVal[0].trim(), formatVal(keyVal[1]));
 			}
@@ -279,7 +278,7 @@ public class XlsxParser {
 		}
 
 		private final Object formatVal(String val) {
-			val = val.trim();
+			//val = val.trim();
 			try {
 				return Integer.parseInt(val);
 			} catch (Exception e) {
@@ -290,7 +289,6 @@ public class XlsxParser {
 			}
 			return val.replace("\\n", "\n");
 		}
-
 	}
 
 	private static final void log(String msg) {

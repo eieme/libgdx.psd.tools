@@ -16,7 +16,7 @@ public class XlsxTools {
 
 	  public static String jsonZipFolder = "json zip";
 
-	  public static boolean format = true;
+	  public static boolean format = false;
 
 	  public static void main(String[] args) {
 	    HashMap<String, String> cmds = new HashMap<String, String>();
@@ -47,9 +47,11 @@ public class XlsxTools {
 	    }
 
 	    if (cmds.containsKey("format")) {
-	      format = true;
+	    	format = true;
+	    }else {
+	    	format = false;	    	
 	    }
-
+	    
     	System.out.println("format:"+format);
 	    execute();
 	    System.out.println("ok");
