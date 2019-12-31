@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
@@ -49,7 +50,7 @@ public class XlsxParser {
 	
 	public static final List<JsonPack> parser(File file) throws Exception {
 		List<JsonPack> arrays = new ArrayList<JsonPack>();
-		if (file.getName().endsWith(".xlsx")
+		if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".xlsm"))
 				&& file.getName().startsWith("~$") == false) {
 			log("parser file ", file.getName());
 			XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
@@ -93,6 +94,11 @@ public class XlsxParser {
 		for (int r = definingRow; r < sheet
 				.getPhysicalNumberOfRows(); r++) {
 			row = sheet.getRow(r);
+			if(row == null){
+				System.out.println("row is null   "+ r);
+			}else{
+				
+			}
 			XSSFCell columnKey = row.getCell(config.Key);
 			XSSFCell columnValue = row.getCell(config.Value);
 			if (columnKey != null
@@ -208,7 +214,7 @@ public class XlsxParser {
 			String source = getCellData(sheet, cell);
 			if (source != null && source.length() > 0) {
 				if (isObject) {
-					JSONObject object = formatObject(source);
+					JSONObject object = formatObject(fieldName,source);
 					json.put(fieldName, object);
 				} else if (isArray) {
 					JSONArray array = new JSONArray();
@@ -221,7 +227,7 @@ public class XlsxParser {
 					JSONArray array = new JSONArray();
 					String[] sp = source.split(",");
 					for (String jsonStr : sp) {//
-						JSONObject object = formatObject(jsonStr);
+						JSONObject object = formatObject(fieldName,jsonStr);
 						array.put(object);
 					}
 					json.put(fieldName, array);
@@ -237,7 +243,7 @@ public class XlsxParser {
 
 			} else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
 				source = "" + cell.getNumericCellValue();
-			} else if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+			} else if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {				
 				source = cell.getStringCellValue();
 			} else if (cell.getCellType() == XSSFCell.CELL_TYPE_BOOLEAN) {
 				source = "" + cell.getBooleanCellValue();
@@ -266,28 +272,58 @@ public class XlsxParser {
 			return source;
 		}
 
-		private final JSONObject formatObject(String source) {
+		private final JSONObject formatObject(String file,String source) {
 			JSONObject json = new JSONObject();
 			String[] sp = source.split(";");
+
 			for (String pair : sp) {
-//				System.out.println(pair);
+				if("\n".endsWith(pair)){
+					System.out.println("跳过");
+					continue;
+				}
 				String[] keyVal = pair.split(":");
+				
+				if(keyVal.length < 2){
+					System.out.println(fieldName+ "   " +keyVal.length);	
+				}
 				json.put(keyVal[0].trim(), formatVal(keyVal[1]));
 			}
 			return json;
 		}
-
+		public static boolean isInt(String str) {
+	        boolean isInt = Pattern.compile("^-?[1-9]\\d*$").matcher(str).find();
+	        return isInt;
+		}
+		
+		public static boolean isDouble(String str) {			
+	        boolean isDouble = Pattern.compile("^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$").matcher(str).find();
+	        return isDouble;
+		}
+		
 		private final Object formatVal(String val) {
 			//val = val.trim();
-			try {
-				return Integer.parseInt(val);
-			} catch (Exception e) {
-				try {
-					return Float.parseFloat(val);
-				} catch (Exception e2) {
-				}
+			boolean isint = isInt(val);
+			if(isint){
+				return  Integer.parseInt(val);
+			}
+			boolean isdouble = isDouble(val);
+			if(isdouble){
+				return  Float.parseFloat(val);
 			}
 			return val.replace("\\n", "\n");
+			
+//			try {
+//				
+//				return Integer.parseInt(val);
+//			} catch (Exception e) {
+//				try {
+//					float fval = Float.parseFloat(val);
+//					
+//					return fval;
+//				} catch (Exception e2) {
+//				}
+//			}
+//			return val.replace("\\n", "\n");
 		}
 	}
 

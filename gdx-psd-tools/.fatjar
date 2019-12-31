@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Mon May 21 18:04:39 GMT+08:00 2018
+#Tue Dec 31 14:09:28 GMT+08:00 2019
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=kit.jar
+jarname=psd-tools-for-json-v3.jar
 manifest.mergeall=true
-manifest.mainclass=com.keyroy.gdx.tools.Launcher
+manifest.mainclass=com.keyroy.gdx.tools.XlsxTools
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
