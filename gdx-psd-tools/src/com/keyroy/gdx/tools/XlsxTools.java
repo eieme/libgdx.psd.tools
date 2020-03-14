@@ -67,6 +67,11 @@ public class XlsxTools {
 	      File[] files = folder.listFiles();
 	      if (files != null){
 		        for (File file : files){
+		        	String fileName = file.getName();
+		        	if(fileName!= null && fileName.startsWith("!")){
+		        		System.out.println("跳过文件："+fileName);
+		    			continue;
+		    		}
 		        	  try {
 		  	            List<JsonPack> arrays = XlsxParser.parser(file);
 		  	            for (JsonPack jsonPack : arrays)

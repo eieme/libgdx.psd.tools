@@ -250,6 +250,12 @@ public class GdxPsdTools {
 	}
 
 	public static final void exportXlsx(File folder, File file) throws Exception {
+
+    	String fileName = file.getName();
+    	if(fileName!= null && fileName.startsWith("!")){
+    		System.out.println("跳过文件："+fileName);
+			return;
+		}
 		List<JsonPack> arrays = XlsxParser.parser(file);
 		for (JsonPack jsonPack : arrays) {
 			File jsonFile = writeJson(folder, jsonPack);

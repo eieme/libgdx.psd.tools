@@ -7,9 +7,7 @@ import java.io.PrintStream;
 import java.util.HashMap;
 
 public class Launcher {
-	
-	public static boolean xlsx2json = false;
-	
+		
 	public static void main(String[] args) {
 
 //		File f=new File("log.txt");  
@@ -40,18 +38,15 @@ public class Launcher {
 			{
 			} 
 	    }
-	    System.out.println();
-	    if (cmds.containsKey("xlsx2json")) {
-	    	xlsx2json = true;
-	    }
-
 	    
-		if(xlsx2json){
-			I18nXlsxTools.main(args);
+	    if (cmds.containsKey("xlsx2json")) {
 	    	XlsxTools.main(args);
-		}else{
-			GdxPsdToolsForCocosStudio.main(args);
-		}
+	    }
+	    if (cmds.containsKey("i18n")) {
+	    	I18nXlsxTools.main(args);
+	    }
+	    
+    	XlsxTools.main(args);
     	
 	}
 }

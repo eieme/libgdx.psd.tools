@@ -46,7 +46,9 @@ public class I18nXlsxTools{
 	    }
 
 	    if (cmds.containsKey("format")) {
-	      format = true;
+	    	format = true;
+	    }else {
+	    	format = false;	    	
 	    }
 
     	System.out.println("format:"+format);

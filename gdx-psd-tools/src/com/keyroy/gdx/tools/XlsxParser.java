@@ -43,13 +43,15 @@ public class XlsxParser {
 					}
 				}
 			}
-			
 		}
 	}
 	private static boolean debug = false;
+	// 最大行数 这里通过  key 所在的行数去获取
+	private static int maxColoumNum = 0;
 	
 	public static final List<JsonPack> parser(File file) throws Exception {
 		List<JsonPack> arrays = new ArrayList<JsonPack>();
+	
 		if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".xlsm"))
 				&& file.getName().startsWith("~$") == false) {
 			log("parser file ", file.getName());
@@ -57,7 +59,12 @@ public class XlsxParser {
 			log( "the sheet num :"+workbook.getNumberOfSheets());
 			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
-				log("parser sheet:"+sheet.getSheetName());
+				String sheetName = sheet.getSheetName();
+				if(sheetName != null && sheetName.startsWith("!")){
+					System.out.println("跳过 表格： "+sheetName);
+					continue;
+				}
+				log("parser sheet:"+sheetName);
 				Config config = new Config();
 				{//是不是解析 行
 					XSSFRow headRow = sheet.getRow(0);
@@ -77,11 +84,11 @@ public class XlsxParser {
 					continue;
 				} else {
 					if(!config.isConfig){
+						maxColoumNum = row.getLastCellNum();
 						arrays.add(parserData(sheet,row,definingRow));	
 					}else{
 						arrays.add(parserConfig(sheet,row,definingRow,config));	
 					}
-					
 				}
 			}
 			workbook.close();
@@ -91,8 +98,9 @@ public class XlsxParser {
 	public static JsonPack parserConfig(XSSFSheet sheet,XSSFRow row,int definingRow,Config config) {
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
-		for (int r = definingRow; r < sheet
-				.getPhysicalNumberOfRows(); r++) {
+
+		int rowNum = sheet.getLastRowNum() + 1;
+		for (int r = definingRow; r < rowNum; r++) {
 			row = sheet.getRow(r);
 			if(row == null){
 				System.out.println("row is null   "+ r);
@@ -118,10 +126,10 @@ public class XlsxParser {
 		JSONObject set = null;
 		String fieldName = null;
 		HashMap<Integer, ColumnData> cols = new HashMap<Integer, ColumnData>();
-		for (int col = 0; col < row.getLastCellNum(); col++) {
+		for (int col = 0; col < maxColoumNum; col++) {
 			XSSFCell column = row.getCell(col);
-			if (column != null
-					&& column.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+			
+			if (column != null && column.getCellType() == XSSFCell.CELL_TYPE_STRING) {
 				String columnSource = column.getStringCellValue();
 				String[] sp = columnSource.split("#");
 				if (sp.length == 2) {
@@ -129,26 +137,22 @@ public class XlsxParser {
 						fieldName = sp[0];
 						set = new JSONObject();
 					}
-
 				}
-
-				cols.put(col,
-						new ColumnData(column.getStringCellValue()));
+				cols.put(col, new ColumnData(column.getStringCellValue()));
 			}
 		}
 
 		definingRow++;
-
 		JSONArray array = null;
-		for (int r = definingRow; r < sheet
-				.getPhysicalNumberOfRows(); r++) {
+		int rowNum = sheet.getLastRowNum() + 1;
+		for (int r = definingRow; r < rowNum; r++) {
 			row = sheet.getRow(r);
 			if (row != null) {
 				JSONObject json = new JSONObject();
-				for (int col = 0; col < row.getLastCellNum(); col++) {
+				for (int col = 0; col < maxColoumNum; col++) {
 					ColumnData columnData = cols.get(col);
 					XSSFCell column = row.getCell(col);
-					if (column != null && columnData != null) {
+					if (columnData != null) {
 						try {
 							columnData.format(sheet, column, json);
 						} catch (Exception e) {
@@ -198,6 +202,10 @@ public class XlsxParser {
 		boolean isArray;
 		// 对象数组类型
 		boolean isObjectArray;
+		//字符串类型
+		boolean isString;
+		//数字类型
+		boolean isNumber;
 
 		public ColumnData(String columnSource) {
 			String[] sp = columnSource.split("#");
@@ -207,10 +215,16 @@ public class XlsxParser {
 				isObject = symbol.equals("{}");
 				isArray = symbol.equals("[]");
 				isObjectArray = symbol.equals("[{}]");
+				isString = symbol.equals("string");
+				isNumber = symbol.equals("number");
 			}
 		}
 
 		public final void format(XSSFSheet sheet, XSSFCell cell, JSONObject json) {
+			if(cell == null) {// 不能丢失数据
+				json.put(fieldName, "");
+				return;
+			}
 			String source = getCellData(sheet, cell);
 			if (source != null && source.length() > 0) {
 				if (isObject) {
@@ -231,9 +245,15 @@ public class XlsxParser {
 						array.put(object);
 					}
 					json.put(fieldName, array);
+				} else if(isString){
+					json.put(fieldName, formatString(source));
+				} else if(isNumber){
+					json.put(fieldName, formatNumber(source));
 				} else {
 					json.put(fieldName, formatVal(source));
 				}
+			}else {// 不能丢失数据
+				json.put(fieldName, "");
 			}
 		}
 
@@ -299,31 +319,50 @@ public class XlsxParser {
 	        boolean isDouble = Pattern.compile("^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$").matcher(str).find();
 	        return isDouble;
 		}
+		private final Object formatString(String val) {
+			return val.replace("\\n", "\n");
+		}
 		
-		private final Object formatVal(String val) {
-			//val = val.trim();
+		private final Object formatNumber(String val) {
 			boolean isint = isInt(val);
 			if(isint){
-				return  Integer.parseInt(val);
+				return Integer.parseInt(val);
 			}
 			boolean isdouble = isDouble(val);
 			if(isdouble){
-				return  Float.parseFloat(val);
+				return Float.parseFloat(val);
 			}
-			return val.replace("\\n", "\n");
 			
-//			try {
-//				
+			try {
+				throw new Exception("不能解析成 数值类型： "+val);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return val;
+		}
+		
+		private final Object formatVal(String val) {
+			//val = val.trim();
+//			boolean isint = isInt(val);
+//			if(isint){
 //				return Integer.parseInt(val);
-//			} catch (Exception e) {
-//				try {
-//					float fval = Float.parseFloat(val);
-//					
-//					return fval;
-//				} catch (Exception e2) {
-//				}
+//			}
+//			boolean isdouble = isDouble(val);
+//			if(isdouble){
+//				return  Float.parseFloat(val);
 //			}
 //			return val.replace("\\n", "\n");
+//			
+			try {
+				return Integer.parseInt(val);
+			} catch (Exception e) {
+				try {
+					float fval = Float.parseFloat(val);					
+					return fval;
+				} catch (Exception e2) {
+				}
+			}
+			return val.replace("\\n", "\n");
 		}
 	}
 
