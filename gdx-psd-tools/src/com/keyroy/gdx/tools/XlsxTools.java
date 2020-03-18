@@ -9,131 +9,155 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
+import org.json.m.JSONObject;
+
 public class XlsxTools {
-	  public static String importFolder = "excel";
+	public static String importFolder = "excel";
 
-	  public static String jsonFolder = "json";
+	public static String jsonFolder = "json";
 
-	  public static String jsonZipFolder = "json zip";
+	public static String jsonZipFolder = "json zip";
 
-	  public static boolean format = false;
+	public static boolean format = false;
+	// 合并json
+	public static boolean merge = true;
 
-	  public static void main(String[] args) {
-	    HashMap<String, String> cmds = new HashMap<String, String>();
-	    String[] arrayOfString1 = args;
-	    int j = args.length;
-	    for (int i = 0; i < j; i++) {
+	public static void main(String[] args) {
+		HashMap<String, String> cmds = new HashMap<String, String>();
+		String[] arrayOfString1 = args;
+		int j = args.length;
+		for (int i = 0; i < j; i++) {
 			String cmd = arrayOfString1[i];
 			try {
-			   String[] sp = cmd.split("=");
-			   String key = sp[0].trim();
-			   String val = sp[1].trim();
-			   cmds.put(key, val);
+				String[] sp = cmd.split("=");
+				String key = sp[0].trim();
+				String val = sp[1].trim();
+				cmds.put(key, val);
+			} catch (Exception localException) {
 			}
-			catch (Exception localException)
-			{
-			} 
-	    }
-	    if (cmds.containsKey("importFolder")) {
-	      importFolder = (String)cmds.get(importFolder);
-	    }
+		}
+		if (cmds.containsKey("importFolder")) {
+			importFolder = (String) cmds.get(importFolder);
+		}
 
-	    if (cmds.containsKey("jsonFolder")) {
-	      jsonFolder = (String)cmds.get(jsonFolder);
-	    }
+		if (cmds.containsKey("jsonFolder")) {
+			jsonFolder = (String) cmds.get(jsonFolder);
+		}
 
-	    if (cmds.containsKey("jsonZipFolder")) {
-	      jsonZipFolder = (String)cmds.get(jsonZipFolder);
-	    }
+		if (cmds.containsKey("jsonZipFolder")) {
+			jsonZipFolder = (String) cmds.get(jsonZipFolder);
+		}
 
-	    if (cmds.containsKey("format")) {
-	    	format = true;
-	    }else {
-	    	format = false;	    	
-	    }
-	    
-    	System.out.println("format:"+format);
-	    execute();
-	    System.out.println("ok");
-	  }
+		if (cmds.containsKey("format")) {
+			format = true;
+		} else {
+			format = false;
+		}
 
-	  public static final void execute()
-	  {
-	    createFolder(jsonFolder);
-	    createFolder(jsonZipFolder);
+		if (cmds.containsKey("merge")) {
+			merge = true;
+		} else {
+			merge = false;
+		}
 
-	    File folder = new File(importFolder);
-	    if (folder.exists()) {
-	      File[] files = folder.listFiles();
-	      if (files != null){
-		        for (File file : files){
-		        	String fileName = file.getName();
-		        	if(fileName!= null && fileName.startsWith("!")){
-		        		System.out.println("跳过文件："+fileName);
-		    			continue;
-		    		}
-		        	  try {
-		  	            List<JsonPack> arrays = XlsxParser.parser(file);
-		  	            for (JsonPack jsonPack : arrays)
-		  	            {
-		  	              File jsonFile = writeJson(new File(jsonFolder), jsonPack, false);
-		  	              jsonFile = writeJson(new File(jsonZipFolder), jsonPack, true);
-		  	              System.out.println("write json : " + jsonFile.getName());
-		  	            }
-		  	          } catch (Exception e) {
-		  	        	  System.out.println("the catch msg "+e.getMessage());
-		  	            e.printStackTrace();
-		  	          }
-		        }	    	  
-	      }
-	        
-	    }
-	  }
+		System.out.println("format:" + format);
+		execute();
+		System.out.println("ok");
+	}
 
-	  private static final File writeJson(File jsonFolder, JsonPack jsonPack, boolean zip)
-	    throws Exception
-	  {
-	    File jsonFile = new File(jsonFolder, jsonPack.getName() + ".json");
-	    String json = null;
-	    if (format)
-	      json = jsonPack.getJsonObject().toString(2);
-	    else {
-	      json = jsonPack.getJsonObject().toString();
-	    }
-	    FileOutputStream fileOutputStream = new FileOutputStream(jsonFile);
-	    if (zip) {
-	      GZIPOutputStream outputStream = new GZIPOutputStream(fileOutputStream);
-	      outputStream.write(json.getBytes(Charset.forName("UTF-8")));
-	      outputStream.close();
-	    } else {
+	public static final void execute() {
+		createFolder(jsonFolder);
+		createFolder(jsonZipFolder);
+
+		File folder = new File(importFolder);
+		if (folder.exists()) {
+			File[] files = folder.listFiles();
+			if (files != null) {
+				for (File file : files) {
+					String fileName = file.getName();
+
+					if (fileName != null && fileName.startsWith("!")) {
+						System.out.println("跳过文件：" + fileName);
+						continue;
+					}
+					try {
+						List<JsonPack> arrays = XlsxParser.parser(file);
+						// 合并数据
+						if (merge) {
+							if(arrays.size() == 0) {
+								continue;
+							}
+							String baseName = fileName.split("\\.")[0];
+							JSONObject object = new JSONObject();
+							for (JsonPack jsonPack : arrays) {
+								object.put(jsonPack.getName(), jsonPack.getJsonObject());
+							}
+							JsonPack mergeJsonPack = new JsonPack(baseName + "_config", object);
+							File jsonFile = writeJson(new File(jsonFolder), mergeJsonPack, false);
+							jsonFile = writeJson(new File(jsonZipFolder), mergeJsonPack, true);
+							System.out.println("write json : " + jsonFile.getName());
+						} else {
+							// 不合并数据
+							for (JsonPack jsonPack : arrays) {
+								File jsonFile = writeJson(new File(jsonFolder), jsonPack, false);
+								jsonFile = writeJson(new File(jsonZipFolder), jsonPack, true);
+								System.out.println("write json : " + jsonFile.getName());
+							}
+						}
+
+					} catch (Exception e) {
+						System.out.println("the catch msg " + e.getMessage());
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}
+	}
+
+	private static final File writeJson(File jsonFolder, JsonPack jsonPack, boolean zip) throws Exception {
+		File jsonFile = new File(jsonFolder, jsonPack.getName() + ".json");
+		String json = null;
+		if (format)
+			json = jsonPack.getJsonObject().toString(2);
+		else {
+			json = jsonPack.getJsonObject().toString();
+		}
+		FileOutputStream fileOutputStream = new FileOutputStream(jsonFile);
+		if (zip) {
+			GZIPOutputStream outputStream = new GZIPOutputStream(fileOutputStream);
+			outputStream.write(json.getBytes(Charset.forName("UTF-8")));
+			outputStream.close();
+		} else {
 //	      FileWriter fileWriter = new FileWriter(jsonFile);
 //	      fileWriter.write(json);
 //	      fileWriter.flush();
 //	      fileWriter.close();
-	      
-	      OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(jsonFile),"UTF-8");
-	      out.write(json);
-	      out.flush();
-	      out.close();
-	    }
-	    return jsonFile;
-	  }
 
-	  private static final File createFolder(String path) {
-	    File file = new File(path);
-	    delete(file);
-	    file.mkdirs();
-	    return file;
-	  }
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(jsonFile), "UTF-8");
+			out.write(json);
+			out.flush();
+			out.close();
+		}
+		return jsonFile;
+	}
 
-	  public static final void delete(File file) {
-	    if (file.isDirectory()) {
-	      File[] files = file.listFiles();
-	      if (files != null) {
-	        for (int i = 0; i < files.length; i++) {
-	          delete(files[i]);
-	        }
-	      }
-	    }
-	    file.delete();
-	  }}
+	private static final File createFolder(String path) {
+		File file = new File(path);
+		delete(file);
+		file.mkdirs();
+		return file;
+	}
+
+	public static final void delete(File file) {
+		if (file.isDirectory()) {
+			File[] files = file.listFiles();
+			if (files != null) {
+				for (int i = 0; i < files.length; i++) {
+					delete(files[i]);
+				}
+			}
+		}
+		file.delete();
+	}
+}

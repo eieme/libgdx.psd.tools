@@ -51,7 +51,7 @@ public class XlsxParser {
 	
 	public static final List<JsonPack> parser(File file) throws Exception {
 		List<JsonPack> arrays = new ArrayList<JsonPack>();
-	
+		
 		if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".xlsm"))
 				&& file.getName().startsWith("~$") == false) {
 			log("parser file ", file.getName());
@@ -99,7 +99,7 @@ public class XlsxParser {
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
 
-		int rowNum = sheet.getLastRowNum() + 1;
+		int rowNum = getNumberOfRows(sheet);
 		for (int r = definingRow; r < rowNum; r++) {
 			row = sheet.getRow(r);
 			if(row == null){
@@ -144,7 +144,7 @@ public class XlsxParser {
 
 		definingRow++;
 		JSONArray array = null;
-		int rowNum = sheet.getLastRowNum() + 1;
+		int rowNum = getNumberOfRows(sheet);
 		for (int r = definingRow; r < rowNum; r++) {
 			row = sheet.getRow(r);
 			if (row != null) {
@@ -190,7 +190,16 @@ public class XlsxParser {
 		
 		return jsonPack;
 	}
-	
+	private static int getNumberOfRows(XSSFSheet sheet) {
+		int rowNum = sheet.getPhysicalNumberOfRows();
+		for (int r = 0; r < 2; r++) {
+			XSSFRow row = sheet.getRow(r);
+			if(row  == null) {
+				rowNum++;
+			}
+		}
+		return rowNum;
+	}
 	
 	// 数据结构
 	private static class ColumnData {
