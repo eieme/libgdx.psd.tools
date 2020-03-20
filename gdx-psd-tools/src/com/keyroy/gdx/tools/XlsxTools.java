@@ -2,7 +2,6 @@ package com.keyroy.gdx.tools;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -12,6 +11,8 @@ import java.util.zip.GZIPOutputStream;
 import org.json.m.JSONObject;
 
 public class XlsxTools {
+	public static String version = "v1.0.0";
+	
 	public static String importFolder = "excel";
 
 	public static String jsonFolder = "json";
@@ -59,10 +60,13 @@ public class XlsxTools {
 		} else {
 			merge = false;
 		}
-
-		System.out.println("format:" + format);
+//		Logcat logcat = new Logcat("E:\\test.txt");
+		System.out.println("工具版本: "+version);
+		System.out.println("格式化: " + format);
+		System.out.println("合并 json: " + merge);
+		System.out.println("--------------开始执行程序--------------");
 		execute();
-		System.out.println("ok");
+		System.out.println("--------------程序执行完毕--------------工具版本: "+version);
 	}
 
 	public static final void execute() {

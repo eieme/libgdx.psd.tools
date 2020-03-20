@@ -2,9 +2,12 @@ package com.keyroy.gdx.tools;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -54,6 +57,7 @@ public class XlsxParser {
 		
 		if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".xlsm"))
 				&& file.getName().startsWith("~$") == false) {
+			System.out.println("处理文件："+file.getName());
 			log("parser file ", file.getName());
 			XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
 			log( "the sheet num :"+workbook.getNumberOfSheets());
@@ -161,7 +165,22 @@ public class XlsxParser {
 					}
 				}
 				if (json.length() > 0) {
-
+					
+					// 检测非法数据
+					boolean illegal = true; //非法的
+					for (Iterator<String> iter = json.keys(); iter.hasNext();) {
+					     String key = (String)iter.next();
+					     Object val = json.get(key);
+					     if(!"".equals(val)){
+					    	 illegal = false; //有一项不是空值
+					     }					     
+					 }
+					if(illegal) {//非法的
+						System.out.println("非法行-> 行号: "+ (r+1));
+						continue; // 不写入数据
+					}
+					// 检测非法数据结束
+					
 					if (set != null) {
 						Object object = json.get(fieldName);
 						String id = null;
@@ -179,6 +198,8 @@ public class XlsxParser {
 						array.put(json);
 					}
 				}
+			}else {
+				System.out.println("空行-> 行号: "+ (r+1));
 			}
 		}
 
@@ -191,11 +212,16 @@ public class XlsxParser {
 		return jsonPack;
 	}
 	private static int getNumberOfRows(XSSFSheet sheet) {
-		int rowNum = sheet.getPhysicalNumberOfRows();
+		int physicalRowNum = sheet.getPhysicalNumberOfRows();
+		int lastRowNum = sheet.getLastRowNum();
+		int rowNum = Math.max(physicalRowNum, lastRowNum);
+		
+		System.out.println("表: "+sheet.getSheetName()+" 最大总行数: "+rowNum);
 		for (int r = 0; r < 2; r++) {
 			XSSFRow row = sheet.getRow(r);
 			if(row  == null) {
-				rowNum++;
+				System.out.println("预留行没有填写表格信息-> 行号: "+(r+1));
+//				rowNum++;
 			}
 		}
 		return rowNum;
