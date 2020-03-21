@@ -11,7 +11,7 @@ import java.util.zip.GZIPOutputStream;
 import org.json.m.JSONObject;
 
 public class XlsxTools {
-	public static String version = "v1.0.0";
+	public static String version = "v1.0.1";
 	
 	public static String importFolder = "excel";
 
@@ -66,7 +66,8 @@ public class XlsxTools {
 		System.out.println("合并 json: " + merge);
 		System.out.println("--------------开始执行程序--------------");
 		execute();
-		System.out.println("--------------程序执行完毕--------------工具版本: "+version);
+		System.out.println("--------------程序执行完毕--------------");
+		System.out.println("------------- 工具版本: "+version+" --------------");
 	}
 
 	public static final void execute() {

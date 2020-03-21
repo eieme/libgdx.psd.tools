@@ -103,14 +103,15 @@ public class XlsxParser {
 		JSONObject json = new JSONObject();
 		JSONArray array = new JSONArray();
 
-		int rowNum = getNumberOfRows(sheet);
-		for (int r = definingRow; r < rowNum; r++) {
+		//获取最后一行 的行号
+		int rowNum = getLastRowNum(sheet);
+		// 行号 +1
+		for (int r = definingRow; r < rowNum + 1; r++) {
 			row = sheet.getRow(r);
 			if(row == null){
-				System.out.println("row is null   "+ r);
-			}else{
-				
+				System.out.println("行错误-> 行号："+ r);
 			}
+			
 			XSSFCell columnKey = row.getCell(config.Key);
 			XSSFCell columnValue = row.getCell(config.Value);
 			if (columnKey != null
@@ -148,8 +149,8 @@ public class XlsxParser {
 
 		definingRow++;
 		JSONArray array = null;
-		int rowNum = getNumberOfRows(sheet);
-		for (int r = definingRow; r < rowNum; r++) {
+		int rowNum = getLastRowNum(sheet);
+		for (int r = definingRow; r < rowNum+1; r++) {
 			row = sheet.getRow(r);
 			if (row != null) {
 				JSONObject json = new JSONObject();
@@ -171,6 +172,12 @@ public class XlsxParser {
 					for (Iterator<String> iter = json.keys(); iter.hasNext();) {
 					     String key = (String)iter.next();
 					     Object val = json.get(key);
+					 	String string = "    ";
+					 	if(val instanceof String) {
+					 		val = ((String) val).replaceAll(" ", "");	
+					 	}
+					 	
+						
 					     if(!"".equals(val)){
 					    	 illegal = false; //有一项不是空值
 					     }					     
@@ -211,11 +218,14 @@ public class XlsxParser {
 		
 		return jsonPack;
 	}
-	private static int getNumberOfRows(XSSFSheet sheet) {
-		int physicalRowNum = sheet.getPhysicalNumberOfRows();
-		int lastRowNum = sheet.getLastRowNum();
-		int rowNum = Math.max(physicalRowNum, lastRowNum);
+	// 获取最后一行的 索引值
+	private static int getLastRowNum(XSSFSheet sheet) {
+		int physicalRowNum = sheet.getPhysicalNumberOfRows();// 有数据的行数
+		int lastRowNum = sheet.getLastRowNum(); // 最后一行的  行号-1
+		int rowNum = lastRowNum;
 		
+		System.out.println("表: "+sheet.getSheetName()+" physicalRowNum: "+physicalRowNum);	
+		System.out.println("表: "+sheet.getSheetName()+" lastRowNum: "+lastRowNum);			
 		System.out.println("表: "+sheet.getSheetName()+" 最大总行数: "+rowNum);
 		for (int r = 0; r < 2; r++) {
 			XSSFRow row = sheet.getRow(r);
