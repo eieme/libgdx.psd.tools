@@ -1,0 +1,100 @@
+{
+  "unlockLv": {
+    "share_id": -1,
+    "bi_id": 1,
+    "name": "解锁关卡",
+    "adunit": "",
+    "event": "unlockLv"
+  },
+  "unlockSkin": {
+    "share_id": -1,
+    "bi_id": 2,
+    "name": "解锁皮肤",
+    "adunit": "",
+    "event": "unlockSkin"
+  },
+  "SettlementShare": {
+    "share_id": -1,
+    "bi_id": 8,
+    "name": "结算炫耀一下",
+    "adunit": "",
+    "event": "SettlementShare"
+  },
+  "TimeLimitGift": {
+    "share_id": -1,
+    "bi_id": 14,
+    "name": "限时礼包",
+    "adunit": "",
+    "event": "TimeLimitGift"
+  },
+  "SigninOneMore": {
+    "share_id": -1,
+    "bi_id": 13,
+    "name": "签到金币再来一份",
+    "adunit": "",
+    "event": "SigninOneMore"
+  },
+  "SigninDouble": {
+    "share_id": -1,
+    "bi_id": 9,
+    "name": "签到双倍领取",
+    "adunit": "",
+    "event": "SigninDouble"
+  },
+  "InviteShare": {
+    "share_id": -1,
+    "bi_id": 10,
+    "name": "邀请好友分享",
+    "adunit": "",
+    "event": "InviteShare"
+  },
+  "lackGold": {
+    "share_id": -1,
+    "bi_id": 4,
+    "name": "金币不足",
+    "adunit": "",
+    "event": "lackGold"
+  },
+  "RollOneMore": {
+    "share_id": -1,
+    "bi_id": 12,
+    "name": "转盘金币再来一份",
+    "adunit": "",
+    "event": "RollOneMore"
+  },
+  "unlockNextpage": {
+    "share_id": -1,
+    "bi_id": 3,
+    "name": "解锁下一页",
+    "adunit": "",
+    "event": "unlockNextpage"
+  },
+  "moreGold": {
+    "share_id": -1,
+    "bi_id": 5,
+    "name": "更多金币",
+    "adunit": "",
+    "event": "moreGold"
+  },
+  "maxSell": {
+    "share_id": -1,
+    "bi_id": 6,
+    "name": "最高价出售",
+    "adunit": "",
+    "event": "maxSell"
+  },
+  "Roll": {
+    "share_id": -1,
+    "bi_id": 11,
+    "name": "转盘",
+    "adunit": "",
+    "event": "Roll"
+  },
+  "settleDouble": {
+    "share_id": -1,
+    "bi_id": 7,
+    "name": "结算双倍领取",
+    "adunit": "",
+    "event": "settleDouble"
+  }
+}

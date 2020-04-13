@@ -32,23 +32,22 @@ public class XlsxTools {
 			try {
 				String[] sp = cmd.split("=");
 				String key = sp[0].trim();
-				String val = sp[1].trim();
+				String val = sp[1].trim();				
 				cmds.put(key, val);
 			} catch (Exception localException) {
 			}
 		}
 		if (cmds.containsKey("importFolder")) {
-			importFolder = (String) cmds.get(importFolder);
+			importFolder = (String) cmds.get("importFolder");
 		}
 
 		if (cmds.containsKey("jsonFolder")) {
-			jsonFolder = (String) cmds.get(jsonFolder);
+			jsonFolder = (String) cmds.get("jsonFolder");
 		}
 
 		if (cmds.containsKey("jsonZipFolder")) {
-			jsonZipFolder = (String) cmds.get(jsonZipFolder);
+			jsonZipFolder = (String) cmds.get("jsonZipFolder");
 		}
-
 		if (cmds.containsKey("format")) {
 			format = true;
 		} else {
@@ -64,6 +63,10 @@ public class XlsxTools {
 		System.out.println("工具版本: "+version);
 		System.out.println("格式化: " + format);
 		System.out.println("合并 json: " + merge);
+		System.out.println("文档输入目录: " + importFolder);
+		System.out.println("json 输出目录: " + jsonFolder);
+		System.out.println("json zip 输出目录: " + jsonFolder);
+		System.out.println("当前目录："+System.getProperty("user.dir"));
 		System.out.println("--------------开始执行程序--------------");
 		execute();
 		System.out.println("--------------程序执行完毕--------------");
@@ -73,7 +76,7 @@ public class XlsxTools {
 	public static final void execute() {
 		createFolder(jsonFolder);
 		createFolder(jsonZipFolder);
-
+		
 		File folder = new File(importFolder);
 		if (folder.exists()) {
 			File[] files = folder.listFiles();

@@ -54,8 +54,9 @@ public class XlsxParser {
 	
 	public static final List<JsonPack> parser(File file) throws Exception {
 		List<JsonPack> arrays = new ArrayList<JsonPack>();
+		String filenameString = file.getName();
 		
-		if ((file.getName().endsWith(".xlsx") || file.getName().endsWith(".xlsm"))
+		if ((filenameString.endsWith(".xlsx") || filenameString.endsWith(".xlsm"))
 				&& file.getName().startsWith("~$") == false) {
 			System.out.println("处理文件："+file.getName());
 			log("parser file ", file.getName());
@@ -96,6 +97,8 @@ public class XlsxParser {
 				}
 			}
 			workbook.close();
+		}else {
+			System.out.println(" 文件 【"+filenameString + "】 无法导出，请修改格式为 xlsx");
 		}
 		return arrays;
 	}
