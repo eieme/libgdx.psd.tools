@@ -307,6 +307,8 @@ public class XlsxParser {
 
 		private final String getCellData(XSSFSheet sheet, XSSFCell cell) {
 			String source = null;
+			int ty = cell.getCellType();
+			
 			if (cell == null) {
 
 			} else if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
@@ -352,7 +354,8 @@ public class XlsxParser {
 				String[] keyVal = pair.split(":");
 				
 				if(keyVal.length < 2){
-					System.out.println(fieldName+ "   " +keyVal.length);	
+					System.out.println(fieldName+ "  格式化错误 " +keyVal.length);	
+					continue;
 				}
 				json.put(keyVal[0].trim(), formatVal(keyVal[1]));
 			}

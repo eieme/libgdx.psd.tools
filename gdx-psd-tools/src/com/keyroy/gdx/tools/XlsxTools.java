@@ -11,7 +11,7 @@ import java.util.zip.GZIPOutputStream;
 import org.json.m.JSONObject;
 
 public class XlsxTools {
-	public static String version = "v1.0.1";
+	public static String version = "v1.0.3";
 	
 	public static String importFolder = "excel";
 
@@ -22,6 +22,9 @@ public class XlsxTools {
 	public static boolean format = false;
 	// 合并json
 	public static boolean merge = true;
+	
+	public static final String CHANGELOG_STRING = "更新日志：\n"
+			+ "v1.0.3 \n修改 使用 zip 的 json 文件名后缀为 bin";
 
 	public static void main(String[] args) {
 		HashMap<String, String> cmds = new HashMap<String, String>();
@@ -59,6 +62,12 @@ public class XlsxTools {
 		} else {
 			merge = false;
 		}
+		
+//		if(cmds.containsKey("changelog")) {
+//			
+//		}
+		System.out.println(CHANGELOG_STRING);
+		System.out.println();
 //		Logcat logcat = new Logcat("E:\\test.txt");
 		System.out.println("工具版本: "+version);
 		System.out.println("格式化: " + format);
@@ -124,7 +133,7 @@ public class XlsxTools {
 	}
 
 	private static final File writeJson(File jsonFolder, JsonPack jsonPack, boolean zip) throws Exception {
-		File jsonFile = new File(jsonFolder, jsonPack.getName() + ".json");
+		File jsonFile = new File(jsonFolder, jsonPack.getName() + (zip? ".bin":".json"));
 		String json = null;
 		if (format)
 			json = jsonPack.getJsonObject().toString(2);
