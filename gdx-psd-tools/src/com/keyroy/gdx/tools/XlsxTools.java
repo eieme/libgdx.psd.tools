@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
@@ -23,8 +24,11 @@ public class XlsxTools {
 	// 合并json
 	public static boolean merge = true;
 	
+	public static boolean md5 = false;
+	
 	public static final String CHANGELOG_STRING = "更新日志：\n"
-			+ "v1.0.3 \n修改 使用 zip 的 json 文件名后缀为 bin";
+			+ "v1.0.4 \n修改 使用 zip 的 json 文件名后缀为 bin"
+			+ "\n文件名打 MD5";
 
 	public static void main(String[] args) {
 		HashMap<String, String> cmds = new HashMap<String, String>();
@@ -62,10 +66,12 @@ public class XlsxTools {
 		} else {
 			merge = false;
 		}
-		
-//		if(cmds.containsKey("changelog")) {
-//			
-//		}
+
+		if (cmds.containsKey("md5")) {
+			md5 = true;
+		} else {
+			md5 = false;
+		}
 		System.out.println(CHANGELOG_STRING);
 		System.out.println();
 //		Logcat logcat = new Logcat("E:\\test.txt");
@@ -133,13 +139,24 @@ public class XlsxTools {
 	}
 
 	private static final File writeJson(File jsonFolder, JsonPack jsonPack, boolean zip) throws Exception {
-		File jsonFile = new File(jsonFolder, jsonPack.getName() + (zip? ".bin":".json"));
+		
 		String json = null;
 		if (format)
 			json = jsonPack.getJsonObject().toString(2);
 		else {
 			json = jsonPack.getJsonObject().toString();
 		}
+		
+		String fileNameString =  jsonPack.getName();
+		if(md5) {
+			String _md5 = "";
+			_md5 = MD5(json);
+			_md5 = _md5.toLowerCase();
+			_md5 = _md5.substring(0,5);
+			fileNameString += ("."+_md5.toLowerCase());
+		}
+		
+		File jsonFile = new File(jsonFolder, fileNameString + (zip? ".bin":".json"));
 		FileOutputStream fileOutputStream = new FileOutputStream(jsonFile);
 		if (zip) {
 			GZIPOutputStream outputStream = new GZIPOutputStream(fileOutputStream);
@@ -166,6 +183,32 @@ public class XlsxTools {
 		return file;
 	}
 
+	public static String MD5(String key) {
+	    char hexDigits[] = {
+	            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+	    };
+	    try {
+	        byte[] btInput = key.getBytes();
+	        // 获得MD5摘要算法的 MessageDigest 对象
+	        MessageDigest mdInst = MessageDigest.getInstance("MD5");
+	        // 使用指定的字节更新摘要
+	        mdInst.update(btInput);
+	        // 获得密文
+	        byte[] md = mdInst.digest();
+	        // 把密文转换成十六进制的字符串形式
+	        int j = md.length;
+	        char str[] = new char[j * 2];
+	        int k = 0;
+	        for (int i = 0; i < j; i++) {
+	            byte byte0 = md[i];
+	            str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+	            str[k++] = hexDigits[byte0 & 0xf];
+	        }
+	        return new String(str);
+	    } catch (Exception e) {
+	        return null;
+	    }
+	}
 	public static final void delete(File file) {
 		if (file.isDirectory()) {
 			File[] files = file.listFiles();
