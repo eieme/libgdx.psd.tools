@@ -27,8 +27,9 @@ public class XlsxTools {
 	public static boolean md5 = false;
 	
 	public static final String CHANGELOG_STRING = "更新日志：\n"
-			+ "v1.0.4 \n修改 使用 zip 的 json 文件名后缀为 bin"
-			+ "\n文件名打 MD5";
+			+ "v1.0.5 \n修改 使用 zip 的 json 文件名后缀为 bin"
+			+ "\n文件名打 MD5"
+			+ "\nMD5以 下划线区分";
 
 	public static void main(String[] args) {
 		HashMap<String, String> cmds = new HashMap<String, String>();
@@ -153,7 +154,7 @@ public class XlsxTools {
 			_md5 = MD5(json);
 			_md5 = _md5.toLowerCase();
 			_md5 = _md5.substring(0,5);
-			fileNameString += ("."+_md5.toLowerCase());
+			fileNameString += ("_"+_md5.toLowerCase());
 		}
 		
 		File jsonFile = new File(jsonFolder, fileNameString + (zip? ".bin":".json"));
