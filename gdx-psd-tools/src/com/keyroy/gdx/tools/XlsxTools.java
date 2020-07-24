@@ -11,23 +11,13 @@ import java.util.zip.GZIPOutputStream;
 
 import org.json.m.JSONObject;
 
+import com.keyroy.gdx.tools.config.XlsxToolsConfig;
+
 public class XlsxTools {
 	public static String version = "v1.0.3";
 	
-	public static String importFolder = "excel";
-
-	public static String jsonFolder = "json";
-
-	public static String jsonZipFolder = "json zip";
-
-	public static boolean format = false;
-	// 合并json
-	public static boolean merge = true;
-	
-	public static boolean md5 = false;
-	
 	public static final String CHANGELOG_STRING = "更新日志：\n"
-			+ "v1.0.5 \n修改 使用 zip 的 json 文件名后缀为 bin"
+			+ "v1.0.6 \n修改 使用 zip 的 json 文件名后缀为 bin"
 			+ "\n文件名打 MD5"
 			+ "\nMD5以 下划线区分";
 
@@ -45,43 +35,45 @@ public class XlsxTools {
 			} catch (Exception localException) {
 			}
 		}
+//		XlsxToolsConfig.load();
+		
 		if (cmds.containsKey("importFolder")) {
-			importFolder = (String) cmds.get("importFolder");
+			XlsxToolsConfig.importFolder = cmds.get("importFolder");
 		}
 
 		if (cmds.containsKey("jsonFolder")) {
-			jsonFolder = (String) cmds.get("jsonFolder");
+			XlsxToolsConfig.jsonFolder = cmds.get("jsonFolder");
 		}
 
 		if (cmds.containsKey("jsonZipFolder")) {
-			jsonZipFolder = (String) cmds.get("jsonZipFolder");
+			XlsxToolsConfig.jsonZipFolder = cmds.get("jsonZipFolder");
 		}
 		if (cmds.containsKey("format")) {
-			format = true;
+			XlsxToolsConfig.format = "true".equals(cmds.get("format"));
 		} else {
-			format = false;
+			XlsxToolsConfig.format = false;
 		}
 
 		if (cmds.containsKey("merge")) {
-			merge = true;
+			XlsxToolsConfig.merge = "true".equals(cmds.get("merge"));
 		} else {
-			merge = false;
+			XlsxToolsConfig.merge = false;
 		}
 
 		if (cmds.containsKey("md5")) {
-			md5 = true;
+			XlsxToolsConfig.md5 = "true".equals(cmds.get("md5"));
 		} else {
-			md5 = false;
+			XlsxToolsConfig.md5 = false;
 		}
 		System.out.println(CHANGELOG_STRING);
 		System.out.println();
 //		Logcat logcat = new Logcat("E:\\test.txt");
 		System.out.println("工具版本: "+version);
-		System.out.println("格式化: " + format);
-		System.out.println("合并 json: " + merge);
-		System.out.println("文档输入目录: " + importFolder);
-		System.out.println("json 输出目录: " + jsonFolder);
-		System.out.println("json zip 输出目录: " + jsonFolder);
+		System.out.println("格式化: " + XlsxToolsConfig.format);
+		System.out.println("合并 json: " + XlsxToolsConfig.merge);
+		System.out.println("文档输入目录: " + XlsxToolsConfig.importFolder);
+		System.out.println("json 输出目录: " + XlsxToolsConfig.jsonFolder);
+		System.out.println("json zip 输出目录: " + XlsxToolsConfig.jsonFolder);
 		System.out.println("当前目录："+System.getProperty("user.dir"));
 		System.out.println("--------------开始执行程序--------------");
 		execute();
@@ -90,10 +82,10 @@ public class XlsxTools {
 	}
 
 	public static final void execute() {
-		createFolder(jsonFolder);
-		createFolder(jsonZipFolder);
+		createFolder(XlsxToolsConfig.jsonFolder);
+		createFolder(XlsxToolsConfig.jsonZipFolder);
 		
-		File folder = new File(importFolder);
+		File folder = new File(XlsxToolsConfig.importFolder);
 		if (folder.exists()) {
 			File[] files = folder.listFiles();
 			if (files != null) {
@@ -107,7 +99,7 @@ public class XlsxTools {
 					try {
 						List<JsonPack> arrays = XlsxParser.parser(file);
 						// 合并数据
-						if (merge) {
+						if (XlsxToolsConfig.merge) {
 							if(arrays.size() == 0) {
 								continue;
 							}
@@ -117,14 +109,14 @@ public class XlsxTools {
 								object.put(jsonPack.getName(), jsonPack.getJsonObject());
 							}
 							JsonPack mergeJsonPack = new JsonPack(baseName + "_config", object);
-							File jsonFile = writeJson(new File(jsonFolder), mergeJsonPack, false);
-							jsonFile = writeJson(new File(jsonZipFolder), mergeJsonPack, true);
+							File jsonFile = writeJson(new File(XlsxToolsConfig.jsonFolder), mergeJsonPack, false);
+							jsonFile = writeJson(new File(XlsxToolsConfig.jsonZipFolder), mergeJsonPack, true);
 							System.out.println("write json : " + jsonFile.getName());
 						} else {
 							// 不合并数据
 							for (JsonPack jsonPack : arrays) {
-								File jsonFile = writeJson(new File(jsonFolder), jsonPack, false);
-								jsonFile = writeJson(new File(jsonZipFolder), jsonPack, true);
+								File jsonFile = writeJson(new File(XlsxToolsConfig.jsonFolder), jsonPack, false);
+								jsonFile = writeJson(new File(XlsxToolsConfig.jsonZipFolder), jsonPack, true);
 								System.out.println("write json : " + jsonFile.getName());
 							}
 						}
@@ -142,14 +134,14 @@ public class XlsxTools {
 	private static final File writeJson(File jsonFolder, JsonPack jsonPack, boolean zip) throws Exception {
 		
 		String json = null;
-		if (format)
+		if (XlsxToolsConfig.format)
 			json = jsonPack.getJsonObject().toString(2);
 		else {
 			json = jsonPack.getJsonObject().toString();
 		}
 		
 		String fileNameString =  jsonPack.getName();
-		if(md5) {
+		if(XlsxToolsConfig.md5) {
 			String _md5 = "";
 			_md5 = MD5(json);
 			_md5 = _md5.toLowerCase();
