@@ -14,7 +14,7 @@ import org.json.m.JSONObject;
 import com.keyroy.gdx.tools.config.XlsxToolsConfig;
 
 public class XlsxTools {
-	public static String version = "v1.0.3";
+	public static String version = "v1.0.6";
 	
 	public static final String CHANGELOG_STRING = "更新日志：\n"
 			+ "v1.0.6 \n修改 使用 zip 的 json 文件名后缀为 bin"
