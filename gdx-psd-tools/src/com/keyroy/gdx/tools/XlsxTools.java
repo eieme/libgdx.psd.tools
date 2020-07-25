@@ -14,12 +14,13 @@ import org.json.m.JSONObject;
 import com.keyroy.gdx.tools.config.XlsxToolsConfig;
 
 public class XlsxTools {
-	public static String version = "v1.0.6";
+	public static String version = "v1.0.7";
 	
 	public static final String CHANGELOG_STRING = "更新日志：\n"
-			+ "v1.0.6 \n修改 使用 zip 的 json 文件名后缀为 bin"
+			+ "v1.0.7 \n修改 使用 zip 的 json 文件名后缀为 bin"
 			+ "\n文件名打 MD5"
-			+ "\nMD5以 下划线区分";
+			+ "\nMD5以 下划线区分"
+			+ "\n添加是否丢弃空数据的选项";
 
 	public static void main(String[] args) {
 		HashMap<String, String> cmds = new HashMap<String, String>();
@@ -65,6 +66,14 @@ public class XlsxTools {
 		} else {
 			XlsxToolsConfig.md5 = false;
 		}
+
+
+		if (cmds.containsKey("throwEmptyData")) {
+			XlsxToolsConfig.throwEmptyData = "true".equals(cmds.get("throwEmptyData"));
+		} else {
+			XlsxToolsConfig.throwEmptyData = false;
+		}
+		
 		System.out.println(CHANGELOG_STRING);
 		System.out.println();
 //		Logcat logcat = new Logcat("E:\\test.txt");

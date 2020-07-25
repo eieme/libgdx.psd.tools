@@ -20,6 +20,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.m.JSONArray;
 import org.json.m.JSONObject;
 
+import com.keyroy.gdx.tools.config.XlsxToolsConfig;
+
 public class XlsxParser {
 	static class Config{
 		final String CONFIG = "Config";
@@ -270,7 +272,9 @@ public class XlsxParser {
 
 		public final void format(XSSFSheet sheet, XSSFCell cell, JSONObject json) {
 			if(cell == null) {// 不能丢失数据
-				json.put(fieldName, "");
+				if(!XlsxToolsConfig.throwEmptyData) {
+					json.put(fieldName, "");	
+				}
 				return;
 			}
 			String source = getCellData(sheet, cell);
@@ -301,7 +305,9 @@ public class XlsxParser {
 					json.put(fieldName, formatVal(source));
 				}
 			}else {// 不能丢失数据
-				json.put(fieldName, "");
+				if(!XlsxToolsConfig.throwEmptyData) {
+					json.put(fieldName, "");	
+				}				
 			}
 		}
 

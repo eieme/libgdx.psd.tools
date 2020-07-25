@@ -23,7 +23,9 @@ public class XlsxToolsConfig {
 	// 打 MD5	
 	public static boolean md5 = false;
 	
-
+	//	丢弃空数据
+	public static boolean throwEmptyData = false;
+	
 	public static final void load() {
 		try {
 			File file = getFile();
